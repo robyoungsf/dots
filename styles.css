@@ -159,9 +159,8 @@ body {
   display: block;
   font-family: "IBM Plex Mono", "SF Mono", Consolas, monospace;
   font-size: .75rem;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.05em;
   color: var(--text);
-  text-transform: uppercase;
   margin-bottom: 0.75rem;
 }
 
