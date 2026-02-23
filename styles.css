@@ -1,8 +1,9 @@
 /* Dots cafe — minimal single-page site */
 
 :root {
-  --bg: #000;
-  --bg-dark: #151a11;
+  --bg: #0d100a;
+  --bg-dark: #020202;
+  --bg-dark: #;
   --strip: #EADFC9;
   --text: #cab272;
   --accent: #cab272;
