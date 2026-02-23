@@ -1,7 +1,7 @@
 /* Dots cafe — minimal single-page site */
 
 :root {
-  --bg: #1e2618;
+  --bg: #000;
   --bg-dark: #151a11;
   --strip: #EADFC9;
   --text: #cab272;
@@ -108,6 +108,21 @@ body {
 
 .contact .tagline a:hover {
   text-decoration: underline;
+}
+
+.ig-link {
+  display: inline-flex;
+  color: inherit;
+  text-decoration: none;
+  margin-top: 0.25rem;
+}
+
+.ig-link:hover {
+  opacity: 0.85;
+}
+
+.ig-icon {
+  display: block;
 }
 
 /* Footer — address + newsletter, pinned to viewport bottom */
