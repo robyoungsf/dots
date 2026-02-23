@@ -1,0 +1,7 @@
+{
+  "name": "dots-website",
+  "private": true,
+  "scripts": {
+    "dev": "npx --yes http-server . -p 3000 -o"
+  }
+}
