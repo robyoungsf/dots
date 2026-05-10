@@ -84,17 +84,19 @@ body {
 .logo {
   height: auto;
   width: 100%;
-  max-width: 203px;
+  max-width: 162px;
   color: var(--accent);
   display: inline-block;
 }
 
 .tagline {
   margin: 0;
-  font-size: 0.95rem;
+  font-size: 0.75rem;
+  font-weight: 400;
   letter-spacing: 0.02em;
   color: var(--accent);
   text-align: left;
+  opacity: 0.75;
 }
 
 .contact {
@@ -114,9 +116,6 @@ body {
 }
 
 .address {
-  font-size: 0.75rem;
-  font-weight: 400;
-  opacity: 0.75;
   display: inline-block;
   margin-top: 1rem;
 }
@@ -275,6 +274,22 @@ font-size: 0.9rem;
     grid-template-columns: 1fr;
     gap: 3rem;
     padding: 2.5rem 1.5rem;
+  }
+
+  .logo-wrap {
+    align-items: center;
+  }
+
+  .logo {
+    max-width: 122px;
+  }
+
+  .tagline {
+    text-align: center;
+  }
+
+  .ig-link {
+    justify-content: center;
   }
 
   .flower {
