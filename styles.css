@@ -65,12 +65,15 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  position: sticky;
+  top: 4rem;
+  align-self: flex-start;
 }
 
 .col-menu {
   display: flex;
   flex-direction: column;
-  margin-top: 140px;
+  margin-top: 110px;
 }
 
 .logo-wrap {
@@ -274,6 +277,10 @@ font-size: 0.9rem;
     grid-template-columns: 1fr;
     gap: 3rem;
     padding: 2.5rem 1.5rem;
+  }
+
+  .col-info {
+    position: static;
   }
 
   .logo-wrap {
