@@ -98,6 +98,14 @@ body {
   display: inline-block;
 }
 
+.logo-wrap .logo {
+  position: fixed;
+  top: 174px;
+  left: max(2rem, calc(50vw - 32rem + 2rem));
+  width: 162px;
+  z-index: 5;
+}
+
 .tagline {
   margin: 0;
   font-size: 0.75rem;
@@ -266,6 +274,12 @@ a {
   }
 
   .logo {
+    max-width: 122px;
+  }
+
+  .logo-wrap .logo {
+    position: static;
+    width: 100%;
     max-width: 122px;
   }
 

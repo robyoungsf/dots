@@ -30,20 +30,7 @@
     }
 
     .press-header .logo {
-      position: fixed;
-      top: 174px;
-      left: max(2rem, calc(50vw - 32rem + 2rem));
-      width: 162px;
-      height: auto;
-      color: var(--accent);
-      z-index: 0;
-    }
-
-    .press-back,
-    .press-header > div + div,
-    .press-section {
-      position: relative;
-      z-index: 1;
+      max-width: 162px;
     }
 
     .press-eyebrow {
@@ -246,11 +233,6 @@
         gap: 2rem;
         margin-top: 0;
         margin-bottom: 3rem;
-      }
-      .press-header .logo {
-        position: static;
-        width: auto;
-        max-width: 162px;
       }
       .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
       .press-contact-grid { grid-template-columns: 1fr; }
