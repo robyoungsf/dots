@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
@@ -31,7 +30,20 @@
     }
 
     .press-header .logo {
-      max-width: 162px;
+      position: fixed;
+      top: 174px;
+      left: max(2rem, calc(50vw - 32rem + 2rem));
+      width: 162px;
+      height: auto;
+      color: var(--accent);
+      z-index: 0;
+    }
+
+    .press-back,
+    .press-header > div + div,
+    .press-section {
+      position: relative;
+      z-index: 1;
     }
 
     .press-eyebrow {
@@ -215,6 +227,7 @@
       text-transform: uppercase;
       margin-bottom: 2rem;
       opacity: 0.7;
+      text-decoration: none;
     }
 
     .press-back:hover { opacity: 1; }
@@ -234,6 +247,11 @@
         margin-top: 0;
         margin-bottom: 3rem;
       }
+      .press-header .logo {
+        position: static;
+        width: auto;
+        max-width: 162px;
+      }
       .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
       .press-contact-grid { grid-template-columns: 1fr; }
       .press-section-title {
@@ -246,7 +264,7 @@
 </head>
 <body>
   <main class="press-page">
-    <a href="/" class="press-back">← Dots Cafe</a>
+    <a href="/" class="press-back">← Home</a>
 
     <header class="press-header">
       <div>
@@ -318,9 +336,6 @@
           7a–7p every day
         </div>
       </div>
-      <p class="press-fineprint">
-        Photos credited to Kristen Mendiola. Logo © Dots. Free for use in editorial coverage of Dots; please credit the photographer where shown.
-      </p>
     </section>
   </main>
 
