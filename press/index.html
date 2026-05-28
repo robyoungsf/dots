@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Press — Dots</title>
+  <meta name="description" content="Press assets and photography for Dots, a cafe in Roscoe Village, Chicago.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/android-chrome-192x192.png">
+  <style>
+    .press-page {
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+      width: 100%;
+    }
+
+    .press-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+      margin-top: 110px;
+      margin-bottom: 5rem;
+    }
+
+    .press-header .logo {
+      max-width: 162px;
+    }
+
+    .press-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 400;
+      opacity: 0.6;
+      margin: 0 0 1rem;
+    }
+
+    .press-intro {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin: 0 0 1.5rem;
+      max-width: 32rem;
+    }
+
+    .press-section {
+      margin-bottom: 4rem;
+    }
+
+    .press-section-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 400;
+      margin: 0 0 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(36, 45, 29, 0.2);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+    }
+
+    .press-section-meta {
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      text-transform: none;
+      opacity: 0.6;
+    }
+
+    .download-all {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: inherit;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 400;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      padding: 0.9rem 1.4rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .download-all:hover { opacity: 0.85; }
+    .download-all:disabled { opacity: 0.5; cursor: progress; }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .photo-item {
+      display: block;
+      position: relative;
+      background: rgba(36, 45, 29, 0.05);
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .photo-item:hover img {
+      transform: scale(1.03);
+    }
+
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      padding: 0.75rem;
+      background: linear-gradient(to top, rgba(36, 45, 29, 0.6), transparent 50%);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .photo-item:hover .photo-overlay,
+    .photo-item:focus .photo-overlay {
+      opacity: 1;
+    }
+
+    .photo-overlay-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--bg);
+    }
+
+    .asset-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1.5rem;
+      align-items: center;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid rgba(36, 45, 29, 0.12);
+    }
+
+    .asset-preview {
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg);
+    }
+
+    .asset-preview svg {
+      width: 100%;
+      height: auto;
+      max-height: 48px;
+      color: var(--accent);
+    }
+
+    .asset-name {
+      font-size: 0.85rem;
+    }
+
+    .asset-meta {
+      font-size: 0.7rem;
+      opacity: 0.6;
+      letter-spacing: 0.05em;
+      margin-top: 0.25rem;
+    }
+
+    .asset-download {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: underline;
+      text-decoration-style: dashed;
+      text-underline-offset: 3px;
+    }
+
+    .press-contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
+
+    .press-contact-grid h3 {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 400;
+      opacity: 0.6;
+      margin: 0 0 0.5rem;
+    }
+
+    .press-back {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0.7;
+    }
+
+    .press-back:hover { opacity: 1; }
+
+    .press-fineprint {
+      font-size: 0.7rem;
+      opacity: 0.55;
+      line-height: 1.7;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 720px) {
+      .press-page { padding: 2rem 1.5rem 4rem; }
+      .press-header {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-top: 0;
+        margin-bottom: 3rem;
+      }
+      .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+      .press-contact-grid { grid-template-columns: 1fr; }
+      .press-section-title {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="press-page">
+    <a href="/" class="press-back">← Dots Cafe</a>
+
+    <header class="press-header">
+      <div>
+        <svg class="logo" width="203" height="114" viewBox="0 0 203 114" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12.2668 100.041L12.058 100.069C10.7719 100.182 9.77852 99.7692 9.11386 98.8435C7.13068 96.0748 8.34002 89.6758 9.97528 86.1189C10.6807 84.5876 12.196 83.6406 13.8613 83.6406C14.0544 83.6406 14.25 83.6548 14.4455 83.6809C18.136 84.168 21.5133 85.5381 24.1983 87.6265C24.6602 88.0319 24.8126 88.3791 24.7382 88.7122C22.6302 92.6424 17.3693 98.7511 12.2668 100.041ZM74.1654 98.3351L73.8919 98.4216C62.8518 102.2 52.6239 95.2321 43.5982 89.0879C42.3493 88.2381 41.1207 87.4013 39.9246 86.6155C38.5233 85.5998 38.5221 84.9846 39.0536 83.9191C39.3931 83.33 39.7866 82.5751 40.2185 81.7466C41.2635 79.7376 42.5652 77.2356 43.7926 75.8003C44.0181 75.6166 44.2521 75.5265 44.5292 75.5265C44.7188 75.5265 44.9299 75.5692 45.1723 75.6509C45.7986 75.8915 46.4164 76.1902 47.0715 76.5043C47.9557 76.931 48.8711 77.3719 49.8177 77.6646C55.2862 79.3773 62.2459 79.689 70.523 78.5903C70.9933 78.5014 71.4804 78.4149 71.9771 78.3284C74.9069 77.814 78.2278 77.232 80.6369 75.4163C82.1569 73.9181 82.4677 71.9589 81.4923 70.0424C80.2961 67.6921 77.5211 66.1881 75.022 66.5638C73.1588 66.8826 71.3052 67.3602 69.5128 67.8225C65.1565 68.9461 61.0426 70.0045 56.6107 69.0646L56.24 68.9947C53.4889 68.4744 49.3318 67.6874 49.7145 64.652C50.414 62.7426 51.4206 60.9707 52.4872 59.0944C53.255 57.7433 54.0492 56.3471 54.7331 54.8798C55.4541 53.6507 55.9016 52.3303 56.3336 51.055C56.6755 50.0476 57.0282 49.0058 57.5069 48.041C57.7912 47.5041 58.1344 46.9494 58.4979 46.3627C59.8524 44.1736 61.3893 41.6941 60.1571 39.2039C59.2273 37.4877 58.1152 36.6545 56.8338 36.6485C53.7577 36.6995 50.8879 41.9773 50.0925 43.5739C48.2952 46.646 46.6552 50.0002 45.0679 53.2441C44.3265 54.7624 43.585 56.2783 42.8196 57.7836C42.4117 58.7021 41.9438 59.1964 41.4267 59.2497C40.1801 59.3742 38.5809 57.1519 37.5107 55.6798C37.1688 55.2093 36.8568 54.7814 36.6145 54.4946C29.596 43.5857 27.8467 33.612 31.1148 23.0895C32.5581 17.4087 36.5485 12.8207 41.7986 10.8153C47.717 8.37962 55.129 8.46732 61.1337 11.0357C61.5968 11.2491 62.0899 11.4695 62.6094 11.7018C69.2308 14.6578 80.3129 19.6073 88.5012 36.1555C93.2042 45.6599 94.8179 56.6327 93.0483 67.0545C92.9451 67.4776 92.8227 68.0275 92.6763 68.6818C91.0147 76.1393 86.6008 95.9492 74.1654 98.3351ZM101.692 48.8742L101.446 47.7731C99.4237 33.5729 95.083 23.854 87.7922 17.193C74.3958 4.30124 57.7157 -1.79559 42.0278 0.461091C40.4681 0.666136 39.2011 1.32631 37.8598 2.0256L37.7734 2.07182C36.864 2.55658 35.861 2.99985 34.8905 3.42891C32.8797 4.31664 30.8005 5.23519 29.2576 6.64562C22.8954 12.9333 18.3363 25.9317 19.0958 35.6375C20.5043 47.3298 25.1521 57.7374 32.155 64.9092C32.6025 65.5042 33.2384 66.0387 33.8527 66.5555C35.2204 67.7052 36.5125 68.7908 35.9222 70.4833C35.4171 71.761 34.5965 73.1596 33.8719 74.3946C33.6007 74.858 33.3392 75.3049 33.0992 75.7327C32.425 76.9914 31.6559 78.1909 30.599 78.4599C29.9151 78.6377 29.1233 78.4208 28.1563 77.7974C22.4515 74.5747 14.1252 70.8223 7.71255 75.4352C1.27231 80.0647 -0.697681 90.1309 0.208129 98.066C0.953173 102.917 4.06052 107.125 8.15526 108.797C13.5469 110.455 21.5936 105.807 25.6836 102.283C27.1017 101.133 28.2426 99.6199 29.3452 98.1549C29.9391 97.3679 30.4994 96.6236 31.0885 95.9456C31.6835 95.3198 32.2786 95.0615 32.8929 95.1136C35.314 95.7951 37.4351 97.2826 39.4879 98.7215C40.6684 99.5499 41.8898 100.407 43.1399 101.093C48.9467 104.776 55.9364 108.619 63.7576 109.211C64.4594 109.258 65.1637 109.282 65.8692 109.282C79.5703 109.281 93.4346 100.471 98.0788 88.5071C100.441 82.2385 102.198 74.8355 103.299 66.4998C104.186 59.8186 103.03 54.747 101.692 48.8742Z" fill="currentColor"/>
+          <path d="M126.007 89.2626L125.895 89.4523C124.483 92.1404 120.575 94.3864 117.867 91.9045C116.845 89.8541 115.286 88.9486 114.711 86.974C113.508 82.8577 113.896 78.7331 114.254 74.2612C114.329 72.5236 115.112 72.2724 116.248 73.5654C118.527 76.3057 121.57 79.1467 124.918 79.9538C126.077 80.313 128.099 80.2608 128.369 81.6985C128.495 83.5131 127.058 87.326 126.007 89.2626ZM121.895 62.0723L122.121 61.981C124.197 61.1585 125.098 63.536 125.639 65.4514C126.163 67.2683 127.767 70.1389 128.103 71.9239C128.216 72.9574 126.87 72.7334 126.065 72.5983C121.598 71.7343 116.655 64.9097 121.895 62.0723ZM193.826 36.7071C187.604 34.1885 179.975 35.3026 173.362 35.5361C168.022 36.1821 162.381 36.4025 158.89 35.8289C158.173 35.7104 157.709 35.0229 157.82 34.3094C159.211 25.31 159.094 17.8632 157.855 9.95885C155.922 -2.3877 144.575 -0.141682 145.184 10.875C145.184 10.8893 145.185 10.9059 145.186 10.9201C145.154 12.2701 145.185 13.9045 145.315 15.9336C145.862 24.5052 147.745 35.0158 143.955 35.612C138.207 36.5151 117.574 37.7952 105.291 38.2373C102.95 38.6106 102.66 40.5129 104.456 42.0952C105.645 43.0647 107.293 43.585 108.872 43.6834C118.823 44.3068 128.842 44.455 138.819 44.3294C142.406 44.1954 145.756 44.327 145.069 47.955C144.381 51.5842 137.683 68.162 134.429 67.6547C133.419 67.4651 132.974 65.6031 132.205 64.0646C130.651 61.0186 128.844 56.5633 126.195 55.2003C124.284 54.3374 121.016 53.631 118.599 53.9416C99.7853 60.8941 102.793 107.892 128.069 99.0669C132.88 96.5222 135.883 88.5894 136.118 83.2239C136.186 82.0387 136.255 80.7788 136.807 79.718C137.227 78.8824 137.905 78.2092 138.602 77.5656C141.119 75.3954 143.016 72.5936 144.823 69.9114C146.441 67.4354 147.107 68.1276 147.315 70.7707C148.1 79.5023 149.916 88.3038 153.91 96.1488C161.611 112.272 170.803 113.591 176.09 113.67C181.377 113.748 184.664 105.539 177.888 105.192C176.152 105.102 175.369 104.838 174.104 104.763C172.079 104.667 164.874 103.899 161.215 96.4096C155.502 85.2743 155.46 72.379 154.515 60.1522C154.194 57.1642 153.439 54.1478 154.007 51.1966C154.167 50.6289 154.313 50.0837 154.464 49.529C155.085 47.6172 155.43 44.9978 156.701 43.9169C157.635 43.073 159.284 43.073 160.611 43.0232C176.053 42.7234 189.67 43.0778 193.75 42.7957C193.897 42.7672 195.634 42.4022 196.185 41.0072C196.753 39.5695 195.86 37.5392 193.826 36.7071Z" fill="currentColor"/>
+          <path d="M164.145 49.8264C162.901 50.9937 161.713 56.5158 163.374 57.5547C165.298 58.1819 172.912 54.0912 171.583 50.9789C170.472 48.4068 166.275 47.8121 164.296 49.6744L164.145 49.8264Z" fill="currentColor"/>
+          <path d="M181.965 92.3052C181.07 92.4356 179.846 91.8975 179.3 91.0797C178.07 89.5649 179.984 87.7717 181.145 86.8721C182.432 85.9571 184.069 86.0341 185.377 85.1002C186.368 84.6356 187.697 83.8391 188.804 84.3393C190.168 87.0487 184.48 91.7932 182.148 92.2779L181.965 92.3052ZM200.236 78.521C199.239 77.9947 198.182 77.7968 197.229 77.1129C195.832 76.0972 194.874 74.5291 193.463 73.5086C190.384 71.2579 186.534 69.5369 182.803 68.84C174.437 67.5268 186.118 61.4133 188.789 60.5884C190.485 60.093 192.382 60.336 194.009 59.6059C195.583 58.9066 196.221 57.1595 194.904 55.9672C193.152 54.6125 190.55 54.3636 188.36 54.3328C182.705 54.5651 175.475 58.5866 172.449 63.2777C168.705 69.8486 174.714 74.0289 180.56 75.6397C182.179 76.2963 184.819 76.8356 184.291 77.939C182.532 79.0828 179.825 79.0839 177.771 80.0831C170.976 82.5294 168.077 85.8824 171.33 92.7662C179.313 104.492 195.669 99.2186 199.401 86.5651C200.058 85.2981 201.606 85.1002 202.474 84.0643C203.829 82.2722 202.355 79.564 200.433 78.6276L200.236 78.521Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <p class="press-eyebrow">Press kit</p>
+        <p class="press-intro">
+          Dots is a cafe in Roscoe Village, Chicago, serving coffee and light fare. 7a–7p every day at 2000 Addison St.
+        </p>
+        <p class="press-intro">
+          Coffee by Metric, Four Letter Word, and Hexe. Baked goods by Publican Quality Breads. Art by Brian Lotti, Michael Kempen, and Nancy Kalebich.
+        </p>
+        <p class="press-intro">
+          For interviews, additional photos, or anything else you can email us at <a href="mailto:hello@dots-cafe.com">hello@dots-cafe.com</a>.
+        </p>
+      </div>
+    </header>
+
+    <section class="press-section">
+      <h2 class="press-section-title">
+        <span>Photography</span>
+        <button class="download-all" id="download-all" type="button">Download all (.zip)</button>
+      </h2>
+      <p class="press-section-meta" style="margin: -0.75rem 0 1.5rem;">
+        Photos by Kristen Mendiola. Free to use for editorial coverage of Dots with credit: <em>Photo: Kristen Mendiola</em>.
+      </p>
+      <div class="photo-grid" id="photo-grid">
+        <!-- populated by JS so we have one source of truth -->
+      </div>
+    </section>
+
+    <section class="press-section">
+      <h2 class="press-section-title"><span>Logo</span></h2>
+      <div class="asset-row">
+        <div class="asset-preview">
+          <svg width="60" height="34" viewBox="0 0 203 114" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12.2668 100.041L12.058 100.069C10.7719 100.182 9.77852 99.7692 9.11386 98.8435C7.13068 96.0748 8.34002 89.6758 9.97528 86.1189C10.6807 84.5876 12.196 83.6406 13.8613 83.6406C14.0544 83.6406 14.25 83.6548 14.4455 83.6809C18.136 84.168 21.5133 85.5381 24.1983 87.6265C24.6602 88.0319 24.8126 88.3791 24.7382 88.7122C22.6302 92.6424 17.3693 98.7511 12.2668 100.041ZM74.1654 98.3351L73.8919 98.4216C62.8518 102.2 52.6239 95.2321 43.5982 89.0879C42.3493 88.2381 41.1207 87.4013 39.9246 86.6155C38.5233 85.5998 38.5221 84.9846 39.0536 83.9191C39.3931 83.33 39.7866 82.5751 40.2185 81.7466C41.2635 79.7376 42.5652 77.2356 43.7926 75.8003C44.0181 75.6166 44.2521 75.5265 44.5292 75.5265C44.7188 75.5265 44.9299 75.5692 45.1723 75.6509C45.7986 75.8915 46.4164 76.1902 47.0715 76.5043C47.9557 76.931 48.8711 77.3719 49.8177 77.6646C55.2862 79.3773 62.2459 79.689 70.523 78.5903C70.9933 78.5014 71.4804 78.4149 71.9771 78.3284C74.9069 77.814 78.2278 77.232 80.6369 75.4163C82.1569 73.9181 82.4677 71.9589 81.4923 70.0424C80.2961 67.6921 77.5211 66.1881 75.022 66.5638C73.1588 66.8826 71.3052 67.3602 69.5128 67.8225C65.1565 68.9461 61.0426 70.0045 56.6107 69.0646L56.24 68.9947C53.4889 68.4744 49.3318 67.6874 49.7145 64.652C50.414 62.7426 51.4206 60.9707 52.4872 59.0944C53.255 57.7433 54.0492 56.3471 54.7331 54.8798C55.4541 53.6507 55.9016 52.3303 56.3336 51.055C56.6755 50.0476 57.0282 49.0058 57.5069 48.041C57.7912 47.5041 58.1344 46.9494 58.4979 46.3627C59.8524 44.1736 61.3893 41.6941 60.1571 39.2039C59.2273 37.4877 58.1152 36.6545 56.8338 36.6485C53.7577 36.6995 50.8879 41.9773 50.0925 43.5739C48.2952 46.646 46.6552 50.0002 45.0679 53.2441C44.3265 54.7624 43.585 56.2783 42.8196 57.7836C42.4117 58.7021 41.9438 59.1964 41.4267 59.2497C40.1801 59.3742 38.5809 57.1519 37.5107 55.6798C37.1688 55.2093 36.8568 54.7814 36.6145 54.4946C29.596 43.5857 27.8467 33.612 31.1148 23.0895C32.5581 17.4087 36.5485 12.8207 41.7986 10.8153C47.717 8.37962 55.129 8.46732 61.1337 11.0357C61.5968 11.2491 62.0899 11.4695 62.6094 11.7018C69.2308 14.6578 80.3129 19.6073 88.5012 36.1555C93.2042 45.6599 94.8179 56.6327 93.0483 67.0545C92.9451 67.4776 92.8227 68.0275 92.6763 68.6818C91.0147 76.1393 86.6008 95.9492 74.1654 98.3351ZM101.692 48.8742L101.446 47.7731C99.4237 33.5729 95.083 23.854 87.7922 17.193C74.3958 4.30124 57.7157 -1.79559 42.0278 0.461091C40.4681 0.666136 39.2011 1.32631 37.8598 2.0256L37.7734 2.07182C36.864 2.55658 35.861 2.99985 34.8905 3.42891C32.8797 4.31664 30.8005 5.23519 29.2576 6.64562C22.8954 12.9333 18.3363 25.9317 19.0958 35.6375C20.5043 47.3298 25.1521 57.7374 32.155 64.9092C32.6025 65.5042 33.2384 66.0387 33.8527 66.5555C35.2204 67.7052 36.5125 68.7908 35.9222 70.4833C35.4171 71.761 34.5965 73.1596 33.8719 74.3946C33.6007 74.858 33.3392 75.3049 33.0992 75.7327C32.425 76.9914 31.6559 78.1909 30.599 78.4599C29.9151 78.6377 29.1233 78.4208 28.1563 77.7974C22.4515 74.5747 14.1252 70.8223 7.71255 75.4352C1.27231 80.0647 -0.697681 90.1309 0.208129 98.066C0.953173 102.917 4.06052 107.125 8.15526 108.797C13.5469 110.455 21.5936 105.807 25.6836 102.283C27.1017 101.133 28.2426 99.6199 29.3452 98.1549C29.9391 97.3679 30.4994 96.6236 31.0885 95.9456C31.6835 95.3198 32.2786 95.0615 32.8929 95.1136C35.314 95.7951 37.4351 97.2826 39.4879 98.7215C40.6684 99.5499 41.8898 100.407 43.1399 101.093C48.9467 104.776 55.9364 108.619 63.7576 109.211C64.4594 109.258 65.1637 109.282 65.8692 109.282C79.5703 109.281 93.4346 100.471 98.0788 88.5071C100.441 82.2385 102.198 74.8355 103.299 66.4998C104.186 59.8186 103.03 54.747 101.692 48.8742Z" fill="currentColor"/>
+            <path d="M126.007 89.2626L125.895 89.4523C124.483 92.1404 120.575 94.3864 117.867 91.9045C116.845 89.8541 115.286 88.9486 114.711 86.974C113.508 82.8577 113.896 78.7331 114.254 74.2612C114.329 72.5236 115.112 72.2724 116.248 73.5654C118.527 76.3057 121.57 79.1467 124.918 79.9538C126.077 80.313 128.099 80.2608 128.369 81.6985C128.495 83.5131 127.058 87.326 126.007 89.2626ZM121.895 62.0723L122.121 61.981C124.197 61.1585 125.098 63.536 125.639 65.4514C126.163 67.2683 127.767 70.1389 128.103 71.9239C128.216 72.9574 126.87 72.7334 126.065 72.5983C121.598 71.7343 116.655 64.9097 121.895 62.0723ZM193.826 36.7071C187.604 34.1885 179.975 35.3026 173.362 35.5361C168.022 36.1821 162.381 36.4025 158.89 35.8289C158.173 35.7104 157.709 35.0229 157.82 34.3094C159.211 25.31 159.094 17.8632 157.855 9.95885C155.922 -2.3877 144.575 -0.141682 145.184 10.875C145.184 10.8893 145.185 10.9059 145.186 10.9201C145.154 12.2701 145.185 13.9045 145.315 15.9336C145.862 24.5052 147.745 35.0158 143.955 35.612C138.207 36.5151 117.574 37.7952 105.291 38.2373C102.95 38.6106 102.66 40.5129 104.456 42.0952C105.645 43.0647 107.293 43.585 108.872 43.6834C118.823 44.3068 128.842 44.455 138.819 44.3294C142.406 44.1954 145.756 44.327 145.069 47.955C144.381 51.5842 137.683 68.162 134.429 67.6547C133.419 67.4651 132.974 65.6031 132.205 64.0646C130.651 61.0186 128.844 56.5633 126.195 55.2003C124.284 54.3374 121.016 53.631 118.599 53.9416C99.7853 60.8941 102.793 107.892 128.069 99.0669C132.88 96.5222 135.883 88.5894 136.118 83.2239C136.186 82.0387 136.255 80.7788 136.807 79.718C137.227 78.8824 137.905 78.2092 138.602 77.5656C141.119 75.3954 143.016 72.5936 144.823 69.9114C146.441 67.4354 147.107 68.1276 147.315 70.7707C148.1 79.5023 149.916 88.3038 153.91 96.1488C161.611 112.272 170.803 113.591 176.09 113.67C181.377 113.748 184.664 105.539 177.888 105.192C176.152 105.102 175.369 104.838 174.104 104.763C172.079 104.667 164.874 103.899 161.215 96.4096C155.502 85.2743 155.46 72.379 154.515 60.1522C154.194 57.1642 153.439 54.1478 154.007 51.1966C154.167 50.6289 154.313 50.0837 154.464 49.529C155.085 47.6172 155.43 44.9978 156.701 43.9169C157.635 43.073 159.284 43.073 160.611 43.0232C176.053 42.7234 189.67 43.0778 193.75 42.7957C193.897 42.7672 195.634 42.4022 196.185 41.0072C196.753 39.5695 195.86 37.5392 193.826 36.7071Z" fill="currentColor"/>
+            <path d="M164.145 49.8264C162.901 50.9937 161.713 56.5158 163.374 57.5547C165.298 58.1819 172.912 54.0912 171.583 50.9789C170.472 48.4068 166.275 47.8121 164.296 49.6744L164.145 49.8264Z" fill="currentColor"/>
+            <path d="M181.965 92.3052C181.07 92.4356 179.846 91.8975 179.3 91.0797C178.07 89.5649 179.984 87.7717 181.145 86.8721C182.432 85.9571 184.069 86.0341 185.377 85.1002C186.368 84.6356 187.697 83.8391 188.804 84.3393C190.168 87.0487 184.48 91.7932 182.148 92.2779L181.965 92.3052ZM200.236 78.521C199.239 77.9947 198.182 77.7968 197.229 77.1129C195.832 76.0972 194.874 74.5291 193.463 73.5086C190.384 71.2579 186.534 69.5369 182.803 68.84C174.437 67.5268 186.118 61.4133 188.789 60.5884C190.485 60.093 192.382 60.336 194.009 59.6059C195.583 58.9066 196.221 57.1595 194.904 55.9672C193.152 54.6125 190.55 54.3636 188.36 54.3328C182.705 54.5651 175.475 58.5866 172.449 63.2777C168.705 69.8486 174.714 74.0289 180.56 75.6397C182.179 76.2963 184.819 76.8356 184.291 77.939C182.532 79.0828 179.825 79.0839 177.771 80.0831C170.976 82.5294 168.077 85.8824 171.33 92.7662C179.313 104.492 195.669 99.2186 199.401 86.5651C200.058 85.2981 201.606 85.1002 202.474 84.0643C203.829 82.2722 202.355 79.564 200.433 78.6276L200.236 78.521Z" fill="currentColor"/>
+          </svg>
+        </div>
+        <div>
+          <div class="asset-name">Dots wordmark</div>
+          <div class="asset-meta">SVG · vector · scales infinitely</div>
+        </div>
+        <a class="asset-download" href="../assets/dots-logo.svg" download>Download ↓</a>
+      </div>
+    </section>
+
+    <section class="press-section">
+      <h2 class="press-section-title"><span>Contact</span></h2>
+      <div class="press-contact-grid">
+        <div>
+          <h3>Press inquiries</h3>
+          <a href="mailto:hello@dots-cafe.com">hello@dots-cafe.com</a><br>
+          <a href="http://www.instagram.com/_dotscafe" target="_blank" rel="noopener noreferrer">@_dotscafe</a>
+        </div>
+        <div>
+          <h3>Visit</h3>
+          2000 Addison St<br>
+          Chicago, IL 60618<br>
+          7a–7p every day
+        </div>
+      </div>
+      <p class="press-fineprint">
+        Photos credited to Kristen Mendiola. Logo © Dots. Free for use in editorial coverage of Dots; please credit the photographer where shown.
+      </p>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script>
+    const PHOTOS = [
+      { file: "Dots_interior_KristenMendiolaMedia-1.jpg",                         label: "Interior 01" },
+      { file: "Dots_interior_KristenMendiolaMedia-60.jpg",                        label: "Interior 02" },
+      { file: "Dots_interior_KristenMendiolaMedia-63.jpg",                        label: "Interior 03" },
+      { file: "Dots_interior_KristenMendiolaMedia-64.jpg",                        label: "Interior 04" },
+      { file: "Dots_interior_KristenMendiolaMedia-65.jpg",                        label: "Interior 05" },
+      { file: "Dots_interior_KristenMendiolaMedia-66.jpg",                        label: "Interior 06" },
+      { file: "Dots_interior_KristenMendiolaMedia-67.jpg",                        label: "Interior 07" },
+      { file: "Dots_interior_KristenMendiolaMedia-70.jpg",                        label: "Interior 08" },
+      { file: "Dots_SmokyRoseCardamomLatte_KristenMendiolaMedia-44.jpg",          label: "Smoky Rose Cardamom Latte 1" },
+      { file: "Dots_SmokyRoseCardamomLatte_KristenMendiolaMedia-45.jpg",          label: "Smoky Rose Cardamom Latte 2" },
+      { file: "Dots_IcedLatteRaspberryColdFoam_KristenMendiolaMedia-58.jpg",      label: "Iced Latte w/ Raspberry Cold Foam 1" },
+      { file: "Dots_IcedLatteRaspberryColdFoam_KristenMendiolaMedia-60.jpg",      label: "Iced Latte w/ Raspberry Cold Foam 2" },
+      { file: "Dots_CrunchyPeanutButterColdBrew2_KristenMendiolaMedia-61.jpg",    label: "Crunchy Peanut Butter Cold Brew 1" },
+      { file: "Dots_CrunchyPeanutButterColdBrew_KristenMendiolaMedia-62.jpg",     label: "Crunchy Peanut Butter Cold Brew 2" },
+      { file: "Dots_croissant_KristenMendiolaMedia-28.jpg",                       label: "Croissant 1" },
+      { file: "Dots_croissant_KristenMendiolaMedia-35.jpg",                       label: "Croissant 2" },
+      { file: "Dots_painauchocolate_KristenMendiolaMedia-32.jpg",                 label: "Pain au Chocolat 1" },
+      { file: "Dota_painauchocolate_KristenMendiolaMedia-33.jpg",                 label: "Pain au Chocolat 2" },
+      { file: "Dots_giardinierasnail_KristenMendiolaMedia-30.jpg",                label: "Giardiniera Snail 1" },
+      { file: "Dots_giardnierasnail_KristenMendiolaMedia-31.jpg",                 label: "Giardiniera Snail 2" },
+      { file: "Dots_kouign-amann_KristenMendiolaMedia-23.jpg",                    label: "Kouign-Amann 1" },
+      { file: "Dots_kouign-amann_KristenMendiolaMedia-24.jpg",                    label: "Kouign-Amann 2" },
+      { file: "Dots_kouign-amann_KristenMendiolaMedia-25.jpg",                    label: "Kouign-Amann 3" },
+      { file: "Dots_sweetseasonalscone_KristenMendiolaMedia-21.jpg",              label: "Sweet Seasonal Scone 1" },
+      { file: "Dots_sweetseasonalscone_KristenMendiolaMedia-22.jpg",              label: "Sweet Seasonal Scone 2" },
+      { file: "Dot's_publicanqualitybreadpastries-KristenMendiolaMedia-38.jpg",   label: "Publican Quality Bread Pastries" },
+    ];
+
+    const grid = document.getElementById('photo-grid');
+    PHOTOS.forEach(p => {
+      const a = document.createElement('a');
+      a.className = 'photo-item';
+      a.href = `../assets/gallery/${encodeURIComponent(p.file)}`;
+      a.setAttribute('download', p.file);
+      a.setAttribute('aria-label', `Download ${p.label}`);
+      a.innerHTML = `
+        <img src="../assets/gallery/${p.file.replace(/'/g, "%27")}" alt="${p.label}" loading="lazy">
+        <span class="photo-overlay"><span class="photo-overlay-label">${p.label} ↓</span></span>
+      `;
+      grid.appendChild(a);
+    });
+
+    const btn = document.getElementById('download-all');
+    btn.addEventListener('click', async () => {
+      btn.disabled = true;
+      const originalText = btn.textContent;
+      try {
+        const zip = new JSZip();
+        const folder = zip.folder('dots-press-photos');
+        for (let i = 0; i < PHOTOS.length; i++) {
+          const p = PHOTOS[i];
+          btn.textContent = `Packing ${i + 1}/${PHOTOS.length}…`;
+          const res = await fetch(`../assets/gallery/${encodeURIComponent(p.file)}`);
+          if (!res.ok) throw new Error(`Failed to fetch ${p.file}`);
+          const blob = await res.blob();
+          folder.file(p.file, blob);
+        }
+        btn.textContent = 'Zipping…';
+        const content = await zip.generateAsync({ type: 'blob' });
+        const url = URL.createObjectURL(content);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'dots-press-photos.zip';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      } catch (err) {
+        console.error(err);
+        alert('Download failed: ' + err.message);
+      } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
