@@ -28,7 +28,7 @@ body {
   flex-direction: column;
   background: var(--bg);
   color: var(--text);
-  font-family: "IBM Plex Mono", "SF Mono", Consolas, monospace;
+  font-family: "Courier New", Courier, monospace;
   font-weight: 300;
   line-height: 1.5;
 }
