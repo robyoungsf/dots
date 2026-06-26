@@ -153,6 +153,26 @@ a {
 }
 
 
+.gift-card-btn {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 0.6rem 1.4rem;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--bg);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.gift-card-btn:hover {
+  color: #fff;
+}
+
 .menu {
   width: 100%;
   text-align: left;
@@ -286,6 +306,10 @@ a {
 
   .ig-link {
     justify-content: center;
+  }
+
+  .gift-card-btn {
+    align-self: center;
   }
 
   .flower {
