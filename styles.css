@@ -1,4 +1,4 @@
-/* Dots cafe — minimal single-page site */
+/* Dots coffee bar — minimal single-page site */
 
 :root {
   --bg: #EADFC9;
@@ -48,7 +48,6 @@ body {
   margin: 0;
   font-size: 0.7rem;
   letter-spacing: 0.2em;
-  text-transform: uppercase;
   font-weight: 400;
 }
 
@@ -98,9 +97,20 @@ body {
   display: inline-block;
 }
 
+.location-title {
+  margin: 0 0 0rem;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  color: var(--accent);
+  text-align: left;
+}
+
 .tagline {
   margin: 0;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   font-weight: 400;
   letter-spacing: 0.02em;
   color: var(--accent);
@@ -108,18 +118,29 @@ body {
   opacity: 0.75;
 }
 
+.link-list {
+  line-height: 2.2;
+}
+
 .contact {
   font-style: normal;
-  font-size: 12px;
+  font-size: 0.9rem;
   letter-spacing: 0.02em;
   line-height: 1.6;
 }
 
 a {
   color: inherit;
-  text-decoration: underline;
-  text-decoration-style: dashed;
-  text-underline-offset: 3px;
+  text-decoration: none;
+  background-image: repeating-linear-gradient(
+    to right,
+    color-mix(in srgb, currentColor 40%, transparent) 0 3px,
+    transparent 3px 5px
+  );
+  background-repeat: repeat-x;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  padding-bottom: 3px;
 }
 
 .contact .tagline a:hover {
@@ -132,9 +153,8 @@ a {
 
 .address a {
   color: inherit;
-  text-decoration: underline;
-  text-decoration-style: dashed;
-  text-underline-offset: 3px;
+  background-image: none;
+  padding-bottom: 0;
 }
 
 .address a:hover {
@@ -143,9 +163,6 @@ a {
 
 .ig-link {
   color: inherit;
-  text-decoration: underline;
-  text-decoration-style: dashed;
-  text-underline-offset: 3px;
 }
 
 .ig-link:hover {
@@ -160,11 +177,11 @@ a {
   border: 1px solid var(--accent);
   border-radius: 999px;
   background: var(--accent);
+  background-image: none;
   color: var(--bg);
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   text-decoration: none;
   transition: color 0.2s ease;
 }
@@ -172,6 +189,86 @@ a {
 .gift-card-btn:hover {
   color: #fff;
 }
+
+/* Location picker */
+.locations {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  width: 100%;
+}
+
+.location-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.75rem 1.5rem;
+  border-radius: 0.75rem;
+  text-decoration: none;
+  background-image: none;
+  background-color: transparent;
+  color: var(--accent);
+  text-align: left;
+  transition: background-color 0.2s ease;
+}
+
+.location-card:hover,
+.location-card:focus {
+  background-color: #E0D2B6;
+}
+
+.location-neighborhood {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Homepage: match location + link + tagline text to menu size */
+.home .location-neighborhood,
+.home .location-address,
+.home .location-status,
+.home .location-go,
+.home .logo-wrap .tagline,
+.home .logo-wrap .tagline a {
+  font-size: 0.9rem;
+}
+
+.location-address {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  opacity: 0.8;
+}
+
+.location-status {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  opacity: 0.7;
+}
+
+.location-go {
+  margin-top: 0.75rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+}
+
+/* Back-to-locations link on location pages */
+.location-back {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 2;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  background-image: none;
+  padding-bottom: 0;
+  opacity: 0.7;
+}
+
+.location-back:hover { opacity: 1; }
 
 .menu {
   width: 100%;
@@ -261,8 +358,8 @@ a {
 
 .flower {
   position: fixed;
-  bottom: 3rem;
-  right: 3rem;
+  bottom: 7.32421875rem;
+  right: 7.32421875rem;
   width: 88px;
   height: auto;
   pointer-events: none;
@@ -316,5 +413,9 @@ a {
     position: static;
     display: block;
     margin: 2rem auto 3rem;
+  }
+
+  .locations {
+    grid-template-columns: 1fr;
   }
 }
