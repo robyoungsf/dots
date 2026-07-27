@@ -1,11 +1,14 @@
 /* Dots coffee bar — minimal single-page site */
 
 :root {
-  --bg: #EADFC9;
+  --bg: #f8ecd4;
   --bg-dark: #EADFC9;
   --strip: #F7BCE2;
   --text: #242D1D;
   --accent: #242D1D;
+  /* Inset used to float the flower off the bottom-right corner; the logo
+     mirrors it off the top-left so the two balance diagonally. */
+  --edge-inset: 7.32421875rem;
 }
 
 *,
@@ -28,9 +31,9 @@ body {
   flex-direction: column;
   background: var(--bg);
   color: var(--text);
-  font-family: "Courier New", Courier, monospace;
-  font-weight: 300;
-  line-height: 1.5;
+  font-family: "Courier Prime", "Courier New", Courier, monospace;
+  font-weight: 400;
+  line-height: 1.3;
 }
 
 /* Top accent strip */
@@ -54,12 +57,14 @@ body {
 .page {
   flex: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 22fr 68fr 10fr;
+  grid-template-rows: 1fr;
   align-items: start;
-  gap: 4rem;
-  max-width: 64rem;
-  margin: 0 auto;
-  padding: 4rem 2rem 2rem;
+  align-content: start;
+  gap: 2rem;
+  max-width: none;
+  margin: 0;
+  padding: var(--edge-inset) var(--edge-inset) 2rem;
   width: 100%;
   min-height: 100vh;
 }
@@ -68,16 +73,21 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  position: sticky;
-  top: 4rem;
-  height: fit-content;
-  align-self: start;
+  align-self: stretch;
 }
 
 .col-menu {
   display: flex;
   flex-direction: column;
-  margin-top: 110px;
+  width:50%;
+  justify-self: center;
+}
+
+/* When the menu is just a "coming soon" placeholder, stretch the column to
+   the full page height and center the message vertically. */
+.col-menu:has(.menu-coming-soon) {
+  align-self: stretch;
+  justify-content: center;
 }
 
 .logo-wrap {
@@ -86,7 +96,18 @@ body {
   align-items: flex-start;
   gap: 1.5rem;
   margin-bottom: 0;
-  margin-top: 110px;
+  position: sticky;
+  top: var(--edge-inset);
+}
+
+.logo-link {
+  display: block;
+  width: 100%;
+  max-width: 162px;
+  line-height: 0;
+  text-decoration: none;
+  background-image: none;
+  padding-bottom: 0;
 }
 
 .logo {
@@ -97,15 +118,43 @@ body {
   display: inline-block;
 }
 
+/* Left-column detail (location title, tagline, badge, etc.) fades out in step
+   with the mini logo fading in, so the pinned column doesn't leave stale info
+   hanging at the top of the viewport as you scroll. The logo link itself is
+   excluded — it's the big logo scrolling away that triggers this. */
+.logo-wrap > :not(.logo-link) {
+  transition: opacity 0.3s ease, visibility 0.3s;
+}
+
+body.logo-hidden .logo-wrap > :not(.logo-link) {
+  opacity: 0;
+  visibility: hidden;
+}
+
 .location-title {
   margin: 0 0 0rem;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 1.4rem;
-  font-weight: 700;
+  font-family: "Courier Prime", "Courier New", Courier, monospace;
+  font-size: 1.2rem;
+  font-weight: 400;
   line-height: 1.1;
   letter-spacing: 0.01em;
   color: var(--accent);
   text-align: left;
+}
+
+.badge {
+  display: inline-block;
+  vertical-align: middle;
+  /* margin-left: 0.4rem; */
+  padding: 0.2rem 0.6rem;
+  padding-top:0.3rem;
+  border-radius: 4px;
+  background: #EC9EC0;
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .tagline {
@@ -115,11 +164,17 @@ body {
   letter-spacing: 0.02em;
   color: var(--accent);
   text-align: left;
-  opacity: 0.75;
 }
 
 .link-list {
   line-height: 2.2;
+}
+
+.nav-link {
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--accent);
 }
 
 .contact {
@@ -140,7 +195,7 @@ a {
   background-repeat: repeat-x;
   background-position: 0 100%;
   background-size: 100% 1px;
-  padding-bottom: 3px;
+  padding-bottom: 1px;
 }
 
 .contact .tagline a:hover {
@@ -161,39 +216,29 @@ a {
   opacity: 0.7;
 }
 
-.ig-link {
-  color: inherit;
-}
-
-.ig-link:hover {
-  opacity: 0.7;
-}
-
-
-.gift-card-btn {
-  display: inline-block;
-  align-self: flex-start;
-  padding: 0.6rem 1.4rem;
-  border: 1px solid var(--accent);
-  border-radius: 999px;
-  background: var(--accent);
+/* Links that wrap non-text content (icons, images) never get the dotted
+   underline — that treatment is for text links only. */
+a:has(> svg),
+a:has(> img) {
   background-image: none;
-  color: var(--bg);
-  font-size: 0.9rem;
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  text-decoration: none;
-  transition: color 0.2s ease;
+  padding-bottom: 0;
 }
 
-.gift-card-btn:hover {
-  color: #fff;
+
+
+/* When the menu column holds the location picker, let the stacked cards use
+   the full width of the grid column rather than the default half-width band. */
+.col-menu:has(.locations) {
+  width: 100%;
 }
 
-/* Location picker */
+/* Location picker — cards stacked full width, each with the text on a parchment
+   panel on the left and the photo filling the right half. (The artist-series
+   reuses .location-card via .installment-card for the mirror image layout, so
+   the home rules below are scoped away from those with :not(.installment-card).) */
 .locations {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 1rem;
   width: 100%;
 }
@@ -202,63 +247,342 @@ a {
   position: relative;
   overflow: hidden;
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 1.75rem 1.5rem;
-  border-radius: 0.75rem;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 2rem;
+  min-height: 16rem;
+  padding: 2.25rem 2rem;
+  border-radius: 0.375rem;
   text-decoration: none;
   background-image: none;
-  background-color: transparent;
+  background-color: #fff3de;
   color: var(--accent);
   text-align: left;
-  transition: background-color 0.2s ease;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .location-card:hover,
 .location-card:focus {
-  background-color: #E0D2B6;
+  transform: translateY(-3px);
+  box-shadow: 0 18px 28px rgba(0, 0, 0, 0.09);
 }
+
+/* Non-interactive card (no link) — keep it flat, no lift on hover/focus */
+.location-card--static:hover,
+.location-card--static:focus {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Photo fills the right side of the card, flush to the top/bottom/right edges */
+.location-image {
+  display: block;
+  object-fit: cover;
+}
+
+.location-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.location-text .badge,
+.installment-text .badge {
+  align-self: flex-start;
+}
+
+/* ---- Home location picker: photo beside text, image on the right ----
+   Mirrors the artist-series installment card (photo + parchment text panel),
+   flipped so the photo takes the right half. The card's HTML puts .location-text
+   before .location-image, so in a row the photo naturally lands on the right. */
+.location-card:not(.installment-card) {
+  align-items: stretch;
+  /* Match the rendered height of the (content-driven, taller) artist-series
+     installment cards rather than the shared 22rem floor. */
+  min-height: 30.3rem;
+  padding: 0;
+  gap: 0;
+  color: var(--accent);
+}
+
+/* Text sits on the parchment panel, vertically centered. */
+.location-card:not(.installment-card) .location-text {
+  justify-content: center;
+  padding: 2.25rem;
+}
+
+/* Photo occupies the right half as a normal (non-absolute) image. */
+.location-card:not(.installment-card) .location-image {
+  width: 50%;
+  height: auto;
+  align-self: stretch;
+  object-fit: cover;
+}
+
+/* ---- shared card text ---- */
 
 .location-neighborhood {
-  font-size: 1.1rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
-/* Homepage: match location + link + tagline text to menu size */
-.home .location-neighborhood,
-.home .location-address,
-.home .location-status,
-.home .location-go,
-.home .logo-wrap .tagline,
-.home .logo-wrap .tagline a {
-  font-size: 0.9rem;
+  font-family: "Courier Prime", "Courier New", Courier, monospace;
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
 }
 
 .location-address {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   line-height: 1.5;
-  opacity: 0.8;
+  margin: 0.75rem 0 0;
 }
 
 .location-status {
-  font-size: 0.65rem;
-  letter-spacing: 0.2em;
-  opacity: 0.7;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
 }
 
 .location-go {
-  margin-top: 0.75rem;
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.go-arrow {
+  width: 18px;
+  height: 16px;
+  flex-shrink: 0;
+  overflow: visible;
+  transform: scaleX(-1);
+}
+
+.location-card:hover .go-arrow {
+  transform: scaleX(-1) translateX(-2px);
+  transition: transform 0.15s ease;
+}
+
+/* Global nav — fixed to the top-right, mirroring the top-left back link */
+.site-nav {
+  position: fixed;
+  top: 1.5rem;
+  right: var(--edge-inset);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+}
+
+/* Links live in their own row so they can collapse into a mobile panel while
+   the burger stays put. On desktop this is just an inline flex row. */
+.site-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+/* Hamburger — hidden on desktop, revealed at the mobile breakpoint. */
+.site-nav-burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  cursor: pointer;
+  transition: color 0.3s ease, opacity 0.2s ease;
+}
+
+.site-nav-burger:hover { opacity: 0.7; }
+
+.burger-box {
+  display: block;
+  position: relative;
+  width: 24px;
+  height: 16px;
+}
+
+.burger-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease;
+}
+
+.burger-line:nth-child(1) { top: 0; }
+.burger-line:nth-child(2) { top: 7px; }
+.burger-line:nth-child(3) { top: 14px; }
+
+/* Burger morphs into an X while the panel is open. */
+.site-nav.open .burger-line:nth-child(1) { top: 7px; transform: rotate(45deg); }
+.site-nav.open .burger-line:nth-child(2) { opacity: 0; }
+.site-nav.open .burger-line:nth-child(3) { top: 7px; transform: rotate(-45deg); }
+
+/* Mini home logo — fades into the top-left once the big logo scrolls away */
+.site-nav-home {
+  position: fixed;
+  top: 1.5rem;
+  left: var(--edge-inset);
+  z-index: 3;
+  display: block;
+  line-height: 0;
+  background-image: none;
+  padding-bottom: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+}
+
+body.logo-hidden .site-nav-home {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.site-nav-home:hover { opacity: 0.7; }
+
+.site-nav-home-logo {
+  display: block;
+  width: 52px;
+  height: auto;
+  color: var(--accent);
+}
+
+.site-nav-link {
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  background-image: none;
+  padding-bottom: 0;
+  color: var(--accent);
+  opacity: 1;
+  transition: color 0.3s ease, opacity 0.2s ease;
+}
+
+.site-nav-link:hover { opacity: 0.7; }
+
+.site-nav-ig {
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+}
+
+/* Locations dropdown */
+.site-nav-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* The toggle is a <button>; strip native chrome so it matches the links. */
+.site-nav-toggle {
+  font-family: inherit;
+  color: inherit;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.site-nav-menu {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  right: 0;
+  min-width: 12rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 0;
+  background: var(--bg);
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 24px rgba(36, 45, 29, 0.18);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+  z-index: 4;
+}
+
+.site-nav-item:hover .site-nav-menu,
+.site-nav-item.open .site-nav-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.site-nav-menu-link {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  background-image: none;
+  color: var(--text);
+  opacity: 0.75;
+  transition: opacity 0.2s ease;
+}
+
+.site-nav-menu-link:hover { opacity: 1; }
+
+/* Inactive location — struck through, dimmed, not clickable */
+.site-nav-menu-link--inactive {
+  text-decoration: line-through;
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+}
+
+.site-nav-menu-link--inactive:hover { opacity: 0.45; }
+
+/* Gradient scrim + white text while the nav sits over full-bleed photos */
+.top-scrim {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 9rem;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+body.over-photos .top-scrim {
+  opacity: 1;
+}
+
+body.over-photos .site-nav-link,
+body.over-photos .site-nav-burger,
+body.over-photos .location-back,
+body.over-photos .site-nav-home-logo {
+  color: #fff;
+  opacity: 0.9;
+}
+
+body.over-photos .site-nav-link:hover,
+body.over-photos .location-back:hover,
+body.over-photos .site-nav-home:hover {
+  opacity: 1;
 }
 
 /* Back-to-locations link on location pages */
 .location-back {
-  position: absolute;
+  position: fixed;
   top: 1.5rem;
   left: 1.5rem;
   z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 0.02em;
@@ -266,9 +590,22 @@ a {
   background-image: none;
   padding-bottom: 0;
   opacity: 0.7;
+  transition: color 0.3s ease, opacity 0.2s ease;
 }
 
 .location-back:hover { opacity: 1; }
+
+.back-arrow {
+  width: 18px;
+  height: 16px;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.location-back:hover .back-arrow {
+  transform: translateX(-2px);
+  transition: transform 0.15s ease;
+}
 
 .menu {
   width: 100%;
@@ -276,6 +613,13 @@ a {
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+}
+
+/* Drop the menu's first line onto the same baseline as the location title,
+   which sits below the logo in the left column. Offset by the logo's rendered
+   height (162px wide at the SVG's 203:114 ratio) plus the logo-wrap gap. */
+.menu:has(.menu-section) {
+  margin-top: calc(162px * 114 / 203 + 1.5rem);
 }
 
 
@@ -297,9 +641,8 @@ a {
 }
 
 .menu-desc {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 400;
-  opacity: 0.65;
   letter-spacing: 0.02em;
   line-height: 1.4;
 }
@@ -307,6 +650,128 @@ a {
 .menu-price {
   font-weight: 700;
   flex-shrink: 0;
+}
+
+/* Artist Series — installments reuse the homepage card grid (.locations /
+   .location-card). These rules only reset the <ol> list chrome and tune the
+   card's inner text. */
+.artist-intro {
+  max-width: 20rem;
+}
+
+/* Give installments the full center column rather than the homepage's
+   half-width paired-card band. */
+.col-menu:has(.artist-series-list) {
+  width: 100%;
+}
+
+/* Here the info column (logo + intro) is the tallest element, so it sits at
+   its own content height and the sticky logo-wrap has no room to travel.
+   Stretch the grid row to the full page height so the logo + intro stay
+   pinned while the installments scroll past. */
+.page:has(.artist-series-list) {
+  align-content: stretch;
+}
+
+.artist-series-intro {
+  /* Span half the card/column width, matching the card stack below. */
+  max-width: 50%;
+  margin-bottom: 1rem;
+}
+
+.artist-series-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Installments override the homepage's full-bleed photo-overlay card: here the
+   photo takes the left half and the bio sits on a parchment panel on the right,
+   so the long-form text stays readable off the photo. */
+.installment-card {
+  cursor: default;
+  flex-direction: row;
+  align-items: stretch;
+  aspect-ratio: auto;
+  min-height: 22rem;
+  padding: 0;
+  gap: 0;
+  color: var(--accent);
+}
+
+/* No dark scrim — the text lives on its own panel, not over the photo. */
+.installment-card::after {
+  display: none;
+}
+
+/* Photo occupies the left half as a normal (non-absolute) image. */
+.installment-card .location-image {
+  position: relative;
+  inset: auto;
+  width: 50%;
+  height: auto;
+  align-self: stretch;
+  object-fit: cover;
+}
+
+.installment-text {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 2.25rem;
+}
+
+.installment-card:hover,
+.installment-card:focus {
+  transform: none;
+  box-shadow: none;
+}
+
+.installment-card .location-neighborhood {
+  margin: 0;
+}
+
+/* Name + button sit on one row, button to the right of the name. */
+.installment-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.installment-button {
+  flex: none;
+  width: 96px;
+  height: auto;
+}
+
+.installment-index {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.installment-bio {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
+
+.installment-link {
+  align-self: flex-start;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
 }
 
 .gallery {
@@ -322,13 +787,78 @@ a {
 }
 
 .site-footer {
+  position: relative;
+  overflow: hidden;
   width: 100%;
   height: 100vh;
   display: flex;
   align-items: stretch;
 }
 
+/* Blurred copy of the location photo behind the footer. The image itself is
+   set by footer.js (--footer-bg), mirroring the page's backdrop, so the footer
+   keeps a frosted photo even after the hero backdrop has scrolled away. */
+.site-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image: var(--footer-bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(28px);
+  transform: scale(1.06);
+}
+
+/* Parchment tint over the blurred photo keeps the footer text readable. */
+.site-footer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
+}
+
+/* Last gallery slide, pinned via sticky so it stays put through the footer.
+   Sharp as it scrolls in, then blurs (tint fading in) as the footer info
+   scrolls up over it — bg-blur.js drives --footer-blur from 0 to 1. */
+.footer-slide {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /* Sharp and unscaled as it scrolls in (matching the gallery slides), zooming
+     a touch only as it blurs so the blur's soft edge never shows a gap. */
+  transform: scale(calc(1 + var(--footer-blur, 0) * 0.06));
+  filter: blur(calc(var(--footer-blur, 0) * 28px));
+}
+
+.footer-slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  opacity: calc(var(--footer-blur, 0) * 0.55);
+}
+
+/* On pages backed by a pinned .footer-slide the footer is just a transparent
+   panel whose info scrolls up over that slide; the slide supplies the photo
+   and tint, so the footer's own image/tint layers are dropped. */
+.site-footer.has-footer-slide {
+  overflow: visible;
+}
+
+.site-footer.has-footer-slide::before,
+.site-footer.has-footer-slide::after {
+  content: none;
+}
+
 .footer-inner {
+  position: relative;
+  z-index: 2;
   display: flex;
   align-items: center;
   max-width: 64rem;
@@ -343,26 +873,96 @@ a {
   gap: 1rem;
 }
 
-.footer-credits {
+.footer-cols {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+  width: 100%;
+}
+
+.footer-col {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.footer-credits .tagline {
-  font-weight: 300;
-  opacity: 1;
+/* A little breathing room between each column's title and its info. */
+.footer-col-title {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.footer-credits {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-top:1px solid #bfba94; 
+  padding-top:1.5rem;
+}
+
+.credits-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.credits-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.credit-bullet {
+  flex: 0 0 auto;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-top: 0.42em;
 }
 
 
 
+/* The flower is the third column of the page grid. */
 .flower {
-  position: fixed;
-  bottom: 7.32421875rem;
-  right: 7.32421875rem;
+  grid-column: 3;
+  align-self: end;
+  justify-self: end;
   width: 88px;
   height: auto;
   pointer-events: none;
+  /* Mirror the logo off the opposite corner and lock it to the viewport so it
+     never moves: same --edge-inset from the bottom-right as the logo from the
+     top-left. */
+  position: fixed;
+  right: var(--edge-inset);
+  bottom: var(--edge-inset);
+}
+
+/* Tablet / small laptop — the generous desktop edge inset (used for page
+   padding, the pinned logo, the corner flower and the nav) eats too much room
+   at narrower widths, so ease it down before the layout stacks. */
+@media (max-width: 1024px) {
+  :root {
+    --edge-inset: 3.5rem;
+  }
+}
+
+@media (max-width: 820px) {
+  :root {
+    --edge-inset: 2.5rem;
+  }
+
+  .page {
+    gap: 1.5rem;
+  }
+
+  /* The menu column's half-width band gets cramped on tablets; let paired
+     content breathe by using more of the column. */
+  .col-menu {
+    width: 70%;
+  }
 }
 
 @media (max-width: 640px) {
@@ -372,13 +972,25 @@ a {
     padding: 3rem 1.5rem;
   }
 
+  .footer-inner {
+    justify-content: center;
+  }
+
   .footer-info {
     align-items: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  .footer-cols {
+    grid-template-columns: 1fr;
+    gap: 3rem;
     text-align: center;
   }
 
   .page {
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
     gap: 3rem;
     padding: 2.5rem 1.5rem;
     min-height: unset;
@@ -391,31 +1003,202 @@ a {
   .logo-wrap {
     align-items: center;
     margin-top: 0;
+    position: static;
+  }
+
+  /* The link box is wider than the shrunken logo; center the SVG inside it
+     so the mark lines up with the page title beneath it. */
+  .logo-link {
+    text-align: center;
   }
 
   .logo {
     max-width: 122px;
   }
 
+  .location-title {
+    text-align: center;
+  }
+
+  /* Columns stack — drop the desktop baseline offset. */
+  .menu:has(.menu-section) {
+    margin-top: 0;
+  }
+
+  /* Intro text spans the full column width on mobile. */
+  .artist-series-intro {
+    max-width: none;
+  }
+
   .tagline {
     text-align: center;
   }
 
-  .ig-link {
-    justify-content: center;
+  /* Keep the credit bullets left-aligned even though the tagline centers. */
+  .credits-list.tagline {
+    text-align: left;
   }
 
-  .gift-card-btn {
-    align-self: center;
+  .site-nav {
+    top: 1.25rem;
+    right: 1.25rem;
+  }
+
+  /* Menu column takes the full width once the layout stacks. */
+  .col-menu {
+    width: 100%;
+  }
+
+  /* Show the hamburger, hide the inline links row. */
+  .site-nav-burger {
+    display: inline-flex;
+  }
+
+  /* Links expand into a full-screen overlay — a big, left-aligned menu. */
+  .site-nav-links {
+    position: fixed;
+    inset: 0;
+    z-index: 5;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 1.75rem;
+    padding: 2rem 2.5rem;
+    background: var(--bg);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.04);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  }
+
+  .site-nav.open .site-nav-links {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+  }
+
+  /* Keep the burger (an X while open) tappable above the overlay, and dark on
+     the parchment fill even when the page is in over-photos white mode. */
+  .site-nav-burger {
+    position: relative;
+    z-index: 10;
+  }
+
+  .site-nav.open .site-nav-burger,
+  body.over-photos .site-nav.open .site-nav-burger {
+    color: var(--accent);
+  }
+
+  /* Big, unbold, left-aligned links (this also covers the Locations toggle,
+     which carries the .site-nav-link class). Over-photos white text would be
+     invisible on the parchment overlay, so force the dark text back. */
+  .site-nav-links .site-nav-link,
+  body.over-photos .site-nav-links .site-nav-link {
+    display: block;
+    width: auto;
+    padding: 0.25rem 0.5rem;
+    font-size: 2.25rem;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    text-align: left;
+    color: var(--accent);
+    opacity: 1;
+  }
+
+  /* Scale the Instagram glyph up to sit alongside the oversized text. */
+  .site-nav-links .site-nav-ig svg {
+    width: 34px;
+    height: 34px;
+  }
+
+  /* The Locations group stacks within the overlay, children shown by default. */
+  .site-nav-item {
+    flex-direction: column;
+    align-items: flex-start;
+    width: auto;
+    gap: 1rem;
+  }
+
+  .site-nav-menu {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    gap: 1rem;
+    padding: 0;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .site-nav-menu-link {
+    padding: 0.4rem 0.5rem;
+    font-size: 1.35rem;
+    font-weight: 400;
+    text-align: left;
+    opacity: 0.75;
   }
 
   .flower {
     position: static;
+    grid-column: auto;
+    justify-self: center;
     display: block;
     margin: 2rem auto 3rem;
   }
 
-  .locations {
-    grid-template-columns: 1fr;
+  /* Stack to photo-on-top on small screens, mirroring the installment card. */
+  .location-card:not(.installment-card) {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .location-card:not(.installment-card) .location-image {
+    order: -1;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    align-self: auto;
+  }
+
+  .location-card:not(.installment-card) .location-text {
+    padding: 1.5rem 2.25rem 2.25rem;
+  }
+
+  .location-card:not(.installment-card) .location-neighborhood {
+    font-size: 1.3rem;
+  }
+
+  /* Keep the card description left-aligned like the address/status below it. */
+  .location-card .tagline {
+    text-align: left;
+  }
+
+  .artist-intro {
+    max-width: none;
+    text-align: center;
+  }
+
+  /* Stack the installment card back to photo-on-top on small screens */
+  .installment-card {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .installment-card .location-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    align-self: auto;
+  }
+
+  .installment-text {
+    padding: 1.5rem 2.25rem 2.25rem;
   }
 }
