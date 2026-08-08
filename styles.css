@@ -216,6 +216,13 @@ a {
   opacity: 0.7;
 }
 
+/* Hours sit on their own line under the address, with a little air between the
+   two so they don't read as one block of text. */
+.hours {
+  display: block;
+  margin-top: 0.6rem;
+}
+
 /* Links that wrap non-text content (icons, images) never get the dotted
    underline — that treatment is for text links only. */
 a:has(> svg),
@@ -836,12 +843,16 @@ body.over-photos .site-nav-home:hover {
   filter: blur(calc(var(--footer-blur, 0) * 28px));
 }
 
+/* Beige wash over the blurring slide. Squared so it stays light while the photo
+   is still legible, then closes to fully opaque as the blur maxes out — by the
+   bottom of the scroll the footer sits on the flat page background with no
+   photo showing through. */
 .footer-slide::after {
   content: "";
   position: absolute;
   inset: 0;
   background: var(--bg);
-  opacity: calc(var(--footer-blur, 0) * 0.55);
+  opacity: calc(var(--footer-blur, 0) * var(--footer-blur, 0));
 }
 
 /* On pages backed by a pinned .footer-slide the footer is just a transparent

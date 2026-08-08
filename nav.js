@@ -22,7 +22,7 @@
   /* One source of truth for the locations listed in the dropdown. */
   var LOCATIONS = [
     { name: "Roscoe Village", href: root + "/addison/index.html" },
-    { name: "Fulton Market", href: root + "/fulton/index.html", inactive: true },
+    { name: "Fulton Market at Estereo", href: root + "/fulton/index.html" },
   ];
 
   var locationItems = LOCATIONS.map(function (loc) {
