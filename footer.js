@@ -23,8 +23,7 @@
     "</div>" +
     '<div class="footer-col">' +
     '<p class="tagline"><b class="footer-col-title">Dot\'s Fulton Market at Estereo</b>' +
-    '1001 W Fulton Market<br>Chicago, IL 60607<br>7a&ndash;1p Mon&ndash;Fri<br>' +
-    '<span class="badge">We open Monday, Aug 10</span></p>' +
+    '1001 W Fulton Market<br>Chicago, IL 60607<br>7a&ndash;1p Mon&ndash;Fri</p>' +
     "</div>" +
     "</div>" +
     "</div>" +
