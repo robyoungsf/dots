@@ -13,6 +13,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/android-chrome-192x192.png">
   <link rel="manifest" href="assets/favicon/site.webmanifest">
+  <!-- Holds the page until the webfont settles, then fades it in. -->
+  <script src="page-load.js"></script>
 </head>
 <body>
   <div data-site-nav></div>
@@ -47,7 +49,7 @@
                 <path d="M10.5 2.5C8.2 4.3 5.5 6.2 3 8.3c2.4 1.7 4.9 3.2 7.2 5.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg></span>
           </div>
-          <img class="location-image" src="assets/slides/01.jpg" alt="Inside the Roscoe Village coffee bar" loading="lazy">
+          <img class="location-image" src="assets/slides/01.jpg" alt="Inside the Roscoe Village coffee bar" loading="lazy" decoding="async">
         </a>
         <a class="location-card" href="fulton/index.html">
           <div class="location-text">
@@ -61,7 +63,7 @@
                 <path d="M10.5 2.5C8.2 4.3 5.5 6.2 3 8.3c2.4 1.7 4.9 3.2 7.2 5.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg></span>
           </div>
-          <img class="location-image" src="fulton/assets/dots-fm-1.jpg" alt="The espresso bar inside Estereo in Fulton Market" loading="lazy">
+          <img class="location-image" src="fulton/assets/dots-fm-1.jpg" alt="The espresso bar inside Estereo in Fulton Market" loading="lazy" decoding="async">
         </a>
       </nav>
     </div>

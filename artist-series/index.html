@@ -13,6 +13,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/android-chrome-192x192.png">
   <link rel="manifest" href="../assets/favicon/site.webmanifest">
+  <!-- Holds the page until the webfont settles, then fades it in. -->
+  <script src="../page-load.js"></script>
 </head>
 <body>
   <div data-site-nav></div>
@@ -41,12 +43,12 @@
       </div>
       <ol class="locations artist-series-list" aria-label="Artist Series installments">
         <li class="location-card installment-card">
-          <img class="location-image" src="../assets/artist-series/michaelkempen.jpg" alt="Michael Kempen seated in front of one of his paintings" loading="lazy">
+          <img class="location-image" src="../assets/artist-series/michaelkempen.jpg" alt="Michael Kempen seated in front of one of his paintings" loading="lazy" decoding="async">
           <div class="installment-text">
             <span class="installment-index">Installment 01</span>
             <div class="installment-head">
               <h2 class="location-neighborhood">Michael Kempen</h2>
-              <img class="installment-button" src="assets/01-kempen.png" alt="Michael Kempen limited edition button" loading="lazy">
+              <img class="installment-button" src="assets/01-kempen.png" alt="Michael Kempen limited edition button" loading="lazy" decoding="async">
             </div>
             <span class="badge">Coming soon</span>
             <p class="installment-bio">

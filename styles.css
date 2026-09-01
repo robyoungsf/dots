@@ -36,6 +36,39 @@ body {
   line-height: 1.3;
 }
 
+/* ---- Page load choreography ----------------------------------------------
+   page-load.js adds .js-fade to <html> before first paint and .is-ready once
+   the webfont has settled, so the page arrives as one gentle fade instead of
+   painting in Courier New, jumping when Courier Prime swaps in, and then
+   popping the injected nav and footer on top. The script caps the wait, so a
+   slow font delays the reveal but never blocks it. Neither class is set when
+   JS is off or under prefers-reduced-motion — the page just renders. */
+html.js-fade body {
+  opacity: 0;
+}
+
+html.js-fade.is-ready body {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+/* Photos fade in as they decode instead of slamming into place. Slower than
+   the page fade so a big JPEG landing late reads as arriving, not blinking. */
+html.js-fade .location-image,
+html.js-fade .installment-button,
+html.js-fade .gallery-slide img,
+html.js-fade .footer-slide img {
+  opacity: 0;
+}
+
+html.js-fade .location-image.is-loaded,
+html.js-fade .installment-button.is-loaded,
+html.js-fade .gallery-slide img.is-loaded,
+html.js-fade .footer-slide img.is-loaded {
+  opacity: 1;
+  transition: opacity 0.7s ease;
+}
+
 /* Top accent strip */
 .top-strip {
   background: var(--accent);
@@ -786,11 +819,24 @@ body.over-photos .site-nav-home:hover {
 }
 
 .gallery-slide {
+  position: relative;
   width: 100vw;
   height: 100vh;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+/* The slides are <img> rather than CSS backgrounds so the browser can lazy-load
+   the offscreen ones natively — a full-bleed gallery is many megabytes, and as
+   backgrounds every one of them downloaded up front, ahead of the page itself.
+   object-fit reproduces what background-size: cover was doing. */
+.gallery-slide img,
+.footer-slide img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .site-footer {
@@ -834,9 +880,7 @@ body.over-photos .site-nav-home:hover {
   position: sticky;
   top: 0;
   height: 100vh;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  overflow: hidden;
   /* Sharp and unscaled as it scrolls in (matching the gallery slides), zooming
      a touch only as it blurs so the blur's soft edge never shows a gap. */
   transform: scale(calc(1 + var(--footer-blur, 0) * 0.06));

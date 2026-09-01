@@ -13,6 +13,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon/android-chrome-192x192.png">
   <link rel="manifest" href="../assets/favicon/site.webmanifest">
+  <!-- Holds the page until the webfont settles, then fades it in. -->
+  <script src="../page-load.js"></script>
 </head>
 <body>
   <div data-site-nav></div>
@@ -92,16 +94,16 @@
   </main>
 
   <section class="gallery">
-    <div class="gallery-slide" style="background-image: url('../assets/slides/01.jpg')"></div>
-    <div class="gallery-slide" style="background-image: url('../assets/slides/02.jpg')"></div>
-    <div class="gallery-slide" style="background-image: url('../assets/slides/02b.jpg')"></div>
-    <div class="gallery-slide" style="background-image: url('../assets/slides/03.jpg')"></div>
-    <div class="gallery-slide" style="background-image: url('../assets/slides/05.jpg')"></div>
+    <div class="gallery-slide"><img src="../assets/slides/01.jpg" alt="" aria-hidden="true" loading="eager" decoding="async"></div>
+    <div class="gallery-slide"><img src="../assets/slides/02.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
+    <div class="gallery-slide"><img src="../assets/slides/02b.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
+    <div class="gallery-slide"><img src="../assets/slides/03.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
+    <div class="gallery-slide"><img src="../assets/slides/05.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
   </section>
 
   <!-- Last slide, pulled out of the gallery so it can pin (sticky) through the
        footer: it arrives sharp, then blurs as the footer info scrolls up over it. -->
-  <div class="footer-slide" style="background-image: url('../assets/slides/06.jpg')" aria-hidden="true"></div>
+  <div class="footer-slide" aria-hidden="true"><img src="../assets/slides/06.jpg" alt="" loading="lazy" decoding="async"></div>
 
   <div data-site-footer></div>
   <script src="../footer.js" data-root=".."></script>
