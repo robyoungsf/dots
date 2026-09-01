@@ -692,6 +692,20 @@ body.over-photos .site-nav-home:hover {
   flex-shrink: 0;
 }
 
+/* Housemade Syrups closes the menu with a bold label over one run of wrapped
+   text, rather than the priced rows above it. */
+.menu-section-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  padding: 0.3rem 0;
+}
+
+.menu-note {
+  margin: 0;
+  max-width: 24rem;
+}
+
 /* Artist Series — installments reuse the homepage card grid (.locations /
    .location-card). These rules only reset the <ol> list chrome and tune the
    card's inner text. */
