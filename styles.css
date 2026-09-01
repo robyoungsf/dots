@@ -1271,3 +1271,220 @@ body.over-photos .site-nav-home:hover {
     padding: 1.5rem 2.25rem 2.25rem;
   }
 }
+
+/* ---- Press kit (/press) ---------------------------------------------------
+   Restored from the page that was dropped in 41e3d86. Its styles were inline
+   in the page's own <style> block; they live here now, alongside the other
+   per-page sections. Self-contained — nothing above this point targets the
+   .press-* classes — including its own 720px breakpoint, since the press
+   layout stacks at a different width than the location pages do. */
+.press-page {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 4rem 2rem 6rem;
+  width: 100%;
+}
+
+.press-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+  margin-top: 110px;
+  margin-bottom: 5rem;
+}
+
+.press-header .logo {
+  max-width: 162px;
+}
+
+.press-eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  opacity: 0.6;
+  margin: 0 0 1rem;
+}
+
+.press-intro {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin: 0 0 1.5rem;
+  max-width: 32rem;
+}
+
+.press-section {
+  margin-bottom: 4rem;
+}
+
+.press-section-title {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin: 0 0 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(36, 45, 29, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.press-section-meta {
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: none;
+  opacity: 0.6;
+}
+
+.download-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  padding: 0.9rem 1.4rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.download-all:hover { opacity: 0.85; }
+.download-all:disabled { opacity: 0.5; cursor: progress; }
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.photo-item {
+  display: block;
+  position: relative;
+  background: rgba(36, 45, 29, 0.05);
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+}
+
+.photo-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.photo-item:hover img {
+  transform: scale(1.03);
+}
+
+.photo-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 0.75rem;
+  background: linear-gradient(to top, rgba(36, 45, 29, 0.6), transparent 50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.photo-item:hover .photo-overlay,
+.photo-item:focus .photo-overlay {
+  opacity: 1;
+}
+
+.photo-overlay-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bg);
+}
+
+.asset-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgba(36, 45, 29, 0.12);
+}
+
+.asset-preview {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+}
+
+.asset-preview svg {
+  width: 100%;
+  height: auto;
+  max-height: 48px;
+  color: var(--accent);
+}
+
+.asset-name {
+  font-size: 0.85rem;
+}
+
+.asset-meta {
+  font-size: 0.7rem;
+  opacity: 0.6;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+}
+
+.asset-download {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-style: dashed;
+  text-underline-offset: 3px;
+}
+
+.press-contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+.press-contact-grid h3 {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 400;
+  opacity: 0.6;
+  margin: 0 0 0.5rem;
+}
+
+@media (max-width: 720px) {
+  .press-page { padding: 2rem 1.5rem 4rem; }
+  .press-header {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 0;
+    margin-bottom: 3rem;
+  }
+  .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+  .press-contact-grid { grid-template-columns: 1fr; }
+  .press-section-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+}
