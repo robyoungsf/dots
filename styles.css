@@ -639,17 +639,13 @@ body.over-photos .top-scrim {
   opacity: 1;
 }
 
+/* Same cream as the hero's drink titles, at full strength — pure white at 0.9
+   read as a different, greyer colour sitting right beside them. */
 body.over-photos .site-nav-link,
 body.over-photos .site-nav-burger,
 body.over-photos .location-back,
 body.over-photos .site-nav-home-logo {
-  color: #fff;
-  opacity: 0.9;
-}
-
-body.over-photos .site-nav-link:hover,
-body.over-photos .location-back:hover,
-body.over-photos .site-nav-home:hover {
+  color: var(--bg);
   opacity: 1;
 }
 
@@ -1178,6 +1174,7 @@ body.over-photos .site-nav-home:hover {
     background: var(--bg);
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
     transform: scale(1.04);
     transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
   }
@@ -1185,6 +1182,7 @@ body.over-photos .site-nav-home:hover {
   .site-nav.open .site-nav-links {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
     transform: scale(1);
   }
 
@@ -1244,7 +1242,15 @@ body.over-photos .site-nav-home:hover {
     border-radius: 0;
     box-shadow: none;
     opacity: 1;
-    visibility: visible;
+    /* inherit, NOT visible. The base rule hides this dropdown because on
+       desktop it opens on hover; here it is always part of the overlay, so it
+       has to follow the overlay's own visibility. Asserting `visible` broke out
+       of the closed overlay's `hidden` — visibility is inherited — leaving the
+       location links hit-testable across the whole screen. The overlay is
+       fixed, inset: 0 and only opacity: 0 when closed, and opacity does not
+       stop pointer events, so a tap anywhere on the home page's hero photo
+       landed on "Roscoe Village" or "Fulton Market" and navigated away. */
+    visibility: inherit;
     transform: none;
   }
 
