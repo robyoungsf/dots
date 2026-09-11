@@ -9,6 +9,31 @@
   /* Inset used to float the flower off the bottom-right corner; the logo
      mirrors it off the top-left so the two balance diagonally. */
   --edge-inset: 7.32421875rem;
+
+  /* Where the top band — wordmark and nav — sits. Pinned by default; the home
+     page overrides it below to open lower and ride up. */
+  --nav-pinned-top: 1.5rem;
+  --nav-top: var(--nav-pinned-top);
+
+  /* How long the selected dot takes to stretch from circle to track. Shared by
+     that transition and the progress sweep's delay so the two cannot drift. */
+  --hero-dot-stretch: 0.4s;
+}
+
+/* On the home page the band opens level with the page's bottom margin, so the
+   full-bleed hero is framed evenly top and bottom, then rides up with the
+   scroll until it reaches --nav-pinned-top and stays there for the rest of the
+   page. nav.js publishes --scroll-y; the max() is what does the pinning.
+
+   Scoped to pages that actually have a hero: elsewhere the content starts at
+   --edge-inset itself, and dropping the nav to meet it buys nothing. The
+   property is inherited, so .site-nav, .site-nav-home and .top-scrim all pick
+   it up from body. */
+body:has(.home-hero) {
+  --nav-top: max(
+    var(--nav-pinned-top),
+    calc(var(--edge-inset) - var(--scroll-y, 0px))
+  );
 }
 
 *,
@@ -55,6 +80,7 @@ html.js-fade.is-ready body {
 /* Photos fade in as they decode instead of slamming into place. Slower than
    the page fade so a big JPEG landing late reads as arriving, not blinking. */
 html.js-fade .location-image,
+html.js-fade .location-panel-image,
 html.js-fade .installment-button,
 html.js-fade .gallery-slide img,
 html.js-fade .footer-slide img {
@@ -62,6 +88,7 @@ html.js-fade .footer-slide img {
 }
 
 html.js-fade .location-image.is-loaded,
+html.js-fade .location-panel-image.is-loaded,
 html.js-fade .installment-button.is-loaded,
 html.js-fade .gallery-slide img.is-loaded,
 html.js-fade .footer-slide img.is-loaded {
@@ -183,7 +210,7 @@ body.logo-hidden .logo-wrap > :not(.logo-link) {
   padding-top:0.3rem;
   border-radius: 4px;
   background: #EC9EC0;
-  color: var(--accent);
+  color: var(--bg);
   font-size: 0.8rem;
   font-weight: 400;
   letter-spacing: 0.04em;
@@ -406,7 +433,7 @@ a:has(> img) {
 /* Global nav — fixed to the top-right, mirroring the top-left back link */
 .site-nav {
   position: fixed;
-  top: 1.5rem;
+  top: var(--nav-top);
   right: var(--edge-inset);
   z-index: 3;
   display: flex;
@@ -465,7 +492,7 @@ a:has(> img) {
 /* Mini home logo — fades into the top-left once the big logo scrolls away */
 .site-nav-home {
   position: fixed;
-  top: 1.5rem;
+  top: var(--nav-top);
   left: var(--edge-inset);
   z-index: 3;
   display: block;
@@ -482,6 +509,16 @@ body.logo-hidden .site-nav-home {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
+}
+
+/* The home page's wordmark is pinned rather than revealed: there is no in-flow
+   logo scrolling out of view to trigger body.logo-hidden, so it is simply
+   always on. Position, size and the over-photos white all come from
+   .site-nav-home above. */
+.site-nav-home--pinned {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
 }
 
 .site-nav-home:hover { opacity: 0.7; }
@@ -584,7 +621,9 @@ body.logo-hidden .site-nav-home {
   top: 0;
   left: 0;
   right: 0;
-  height: 9rem;
+  /* Tracks the band: 9rem when pinned, taller while the nav sits lower, so the
+     gradient never runs out above the nav text. */
+  height: calc(var(--nav-top) + 7.5rem);
   z-index: 1;
   pointer-events: none;
   background: linear-gradient(
@@ -1109,8 +1148,11 @@ body.over-photos .site-nav-home:hover {
   }
 
   .site-nav {
-    top: 1.25rem;
     right: 1.25rem;
+  }
+
+  :root {
+    --nav-pinned-top: 1.25rem;
   }
 
   /* Menu column takes the full width once the layout stacks. */
@@ -1220,6 +1262,14 @@ body.over-photos .site-nav-home:hover {
     justify-self: center;
     display: block;
     margin: 2rem auto 3rem;
+  }
+
+  /* ...but not on the home page. The rule above drops the flower into the flow
+     as an end-of-page flourish, which works under a page of content. Here it
+     lands beneath two full-bleed photo sections as a band of bare background,
+     so it goes. The other pages keep theirs. */
+  body:has(.home-hero) .flower {
+    display: none;
   }
 
   /* Stack to photo-on-top on small screens, mirroring the installment card. */
@@ -1486,5 +1536,351 @@ body.over-photos .site-nav-home:hover {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.75rem;
+  }
+}
+
+/* ---- Home hero: featured drinks -------------------------------------------
+   Full-bleed, full-height slideshow that opens the home page; the location
+   picker sits below it. Markup is built by featured.js from its FEATURED
+   array, so the rules here can't assume a slide count. */
+.home-hero {
+  position: relative;
+  width: 100%;
+  /* svh, so mobile browser chrome collapsing doesn't crop the caption; vh is
+     the fallback for anything without small-viewport units. */
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--bg-dark);
+}
+
+/* Slides are stacked and cross-faded, so all of them occupy the same box and
+   only the active one is painted. */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  transition: opacity 1s ease;
+  /* The inactive slides sit under the active one and must not swallow the
+     hover that pauses the timer, or the dots' clicks. */
+  pointer-events: none;
+}
+
+.hero-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hero-slide img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Scrim under the caption only — a wash over the whole photo would flatten
+   it, and the top half has the fixed nav's own scrim already. */
+.hero-slide::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(36, 45, 29, 0.72),
+    rgba(36, 45, 29, 0.35) 28%,
+    transparent 55%
+  );
+}
+
+.hero-caption {
+  position: absolute;
+  left: var(--edge-inset);
+  right: var(--edge-inset);
+  /* Clears the row of dots below it (0.6rem tall plus breathing room). */
+  bottom: calc(var(--edge-inset) + 2rem);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  max-width: 34rem;
+  color: var(--bg);
+}
+
+.hero-name {
+  margin: 0;
+  font-family: "Courier Prime", "Courier New", Courier, monospace;
+  font-size: 2rem;
+  /* Stated, not omitted: it is an <h2>, so the browser default is bold. */
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+}
+
+.hero-blurb {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  /* The photo behind the scrim is still busy; hold the line short. */
+  max-width: 28rem;
+}
+
+/* Dots tuck under the caption on the same left margin. They can't sit in the
+   opposite corner: .flower is fixed to bottom-right at the same --edge-inset
+   and would land on top of them. */
+.hero-dots {
+  position: absolute;
+  left: var(--edge-inset);
+  bottom: var(--edge-inset);
+  z-index: 2;
+  display: flex;
+  gap: 0.6rem;
+}
+
+/* Whole pixels, not rem. At 0.6rem the dot is 9.6px, so with 1px borders the
+   fill is clipped to a 7.6px box whose bottom edge lands mid-pixel and
+   antialiases into a hairline gap along the bottom of the bar. 10px leaves an
+   8px inner box, so every edge is on a pixel boundary. */
+.hero-dot {
+  position: relative;
+  overflow: hidden;
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 1px solid var(--bg);
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
+  transition: width var(--hero-dot-stretch) ease;
+}
+
+/* The selected dot stretches into a track; .hero-dot-fill sweeps across it to
+   show how much of the slide's turn is left. */
+.hero-dot.is-active {
+  width: 56px;
+}
+
+.hero-dot-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--bg);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* Only the selected dot's fill runs. Moving .is-active to another dot cancels
+   this animation and starts the next one from zero, which is what makes a
+   manual jump grant a full turn — featured.js advances on its end. */
+.hero-dot.is-active .hero-dot-fill {
+  /* Delayed by the stretch above: the fill is scaled relative to the track's
+     current width, so sweeping while the track is still growing makes the
+     leading edge lurch. Waiting for the track to settle costs --hero-dot-stretch
+     on each slide and keeps the sweep linear. */
+  animation: hero-dot-progress var(--hero-interval, 6000ms) linear
+    var(--hero-dot-stretch) forwards;
+}
+
+/* Defect: the sweep used to begin at parse time, while page-load.js still
+   holds the body at opacity 0 waiting on the webfont — so the bar was already
+   part-filled the moment the page became visible, and the first slide got a
+   short turn. Hold it until the reveal. */
+html.js-fade:not(.is-ready) .hero-dot.is-active .hero-dot-fill {
+  animation-play-state: paused;
+}
+
+/* Freezes the sweep in place; resuming carries on from the same point rather
+   than restarting, so the remaining time survives a hover. */
+.home-hero.is-paused .hero-dot.is-active .hero-dot-fill {
+  animation-play-state: paused;
+}
+
+@keyframes hero-dot-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.hero-dot:focus-visible {
+  outline: 2px solid var(--bg);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide {
+    transition: none;
+  }
+
+  /* No sweep means nothing advances — the hero holds its first slide and the
+     dots become the way through. They stay plain circles, since an elongated
+     bar would imply a countdown that is not running. */
+  .hero-dot {
+    transition: none;
+  }
+
+  .hero-dot.is-active {
+    width: 10px;
+  }
+
+  .hero-dot.is-active .hero-dot-fill {
+    animation: none;
+    transform: scaleX(1);
+  }
+}
+
+@media (max-width: 720px) {
+  .hero-caption {
+    left: 1.5rem;
+    right: 1.5rem;
+    bottom: 4.5rem;
+    max-width: none;
+  }
+
+  .hero-name {
+    font-size: 1.5rem;
+  }
+
+  .hero-blurb {
+    font-size: 0.9rem;
+  }
+
+  .hero-dots {
+    left: 1.5rem;
+    bottom: 2rem;
+  }
+}
+
+/* ---- Home location picker: two full-bleed halves ---------------------------
+   Roscoe on the left, Fulton Market on the right, each a full-height photo with
+   its text laid over the bottom. Replaces the stacked .location-card pair that
+   used to sit inside the page grid; the .location-card rules are still live for
+   the artist-series installments. */
+.locations-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  background: var(--bg-dark);
+}
+
+.location-panel {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  /* --edge-inset all round, so the left panel's text lines up under the pinned
+     wordmark and the pair share the rest of the site's margin. It steps down
+     with the variable at the narrower breakpoints. */
+  padding: var(--edge-inset);
+  color: var(--bg);
+  text-decoration: none;
+  /* The base link rule paints a dashed underline; a whole panel is not a word. */
+  background-image: none;
+}
+
+.location-panel-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Landscape photos in a tall half-screen crop hard. Center is the safe
+     default; nudge a single panel with object-position if its subject sits
+     off-centre. */
+  object-position: center;
+  transition: transform 0.6s ease;
+}
+
+.location-panel:hover .location-panel-image,
+.location-panel:focus-visible .location-panel-image {
+  transform: scale(1.03);
+}
+
+/* The load fade and the hover zoom both act on this image, and `transition` is
+   a shorthand — the fade rule above would otherwise drop the transform and the
+   zoom would snap. Restated here, after it, carrying both. */
+html.js-fade .location-panel-image.is-loaded {
+  transition: opacity 0.7s ease, transform 0.6s ease;
+}
+
+/* Scrim weighted to the bottom, where the text sits — a flat wash over the
+   whole photo would kill the image. */
+.location-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(36, 45, 29, 0.78),
+    rgba(36, 45, 29, 0.4) 30%,
+    transparent 62%
+  );
+}
+
+.location-panel-text {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 24rem;
+}
+
+/* .tagline carries the dark body colour for its use on parchment; over a photo
+   the whole block is inverted. */
+.location-panel-text .tagline,
+.location-panel-text .location-neighborhood {
+  color: var(--bg);
+}
+
+.location-panel .location-neighborhood {
+  font-size: 1.6rem;
+}
+
+.location-panel:focus-visible {
+  outline: 2px solid var(--bg);
+  outline-offset: -6px;
+}
+
+.location-panel:hover .go-arrow {
+  transform: scaleX(-1) translateX(-2px);
+  transition: transform 0.15s ease;
+}
+
+/* The home page is two full-bleed sections and nothing else, so main just
+   stacks them; there is no page grid here to inherit padding from. */
+.home-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 900px) {
+  /* Two half-screen photos stacked, rather than two slivers side by side. */
+  .locations-split {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .location-panel {
+    min-height: 60svh;
+    padding: 2.5rem 1.5rem;
+  }
+
+  .location-panel .location-neighborhood {
+    font-size: 1.3rem;
+  }
+
+  /* .tagline centres at this breakpoint for the location pages; the overlay
+     text here stays ranged left with the rest of the block. */
+  .location-panel-text .tagline {
+    text-align: left;
   }
 }

@@ -95,7 +95,7 @@
 
   function watchAll() {
     var photos = document.querySelectorAll(
-      ".location-image, .installment-button, .gallery-slide img, .footer-slide img"
+      ".location-image, .location-panel-image, .installment-button, .gallery-slide img, .footer-slide img"
     );
     for (var i = 0; i < photos.length; i++) watch(photos[i]);
   }

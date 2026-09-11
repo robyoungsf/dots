@@ -186,22 +186,59 @@
   scrim.className = "top-scrim";
   document.body.appendChild(scrim);
 
+  /* The band starts level with the page's bottom margin and rides up with the
+     scroll until it pins. styles.css owns both positions and does the clamping
+     in a max(); all this has to publish is how far the page has scrolled, which
+     keeps the breakpoints' differing insets working without repeating them
+     here. */
+  function publishScroll() {
+    var docEl = document.documentElement;
+    var y = window.pageYOffset || docEl.scrollTop || 0;
+    docEl.style.setProperty("--scroll-y", y + "px");
+  }
+
   function update() {
-    var gallery = document.querySelector(".gallery");
+    // Full-bleed photo regions: the location pages' gallery, and the home
+    // page's featured-drink hero and location split.
+    var regions = document.querySelectorAll(
+      ".gallery, .home-hero, .locations-split"
+    );
+    /* Measure the nav rather than assuming a fixed offset — it no longer sits
+       at a constant height, so the line being tested has to follow it. */
+    var band = nav.getBoundingClientRect();
+    var navY = band.height ? band.top + band.height / 2 : 40;
     var over = false;
-    if (gallery) {
-      var r = gallery.getBoundingClientRect();
-      // The nav text sits ~40px down the viewport. Only go "over photos" when
-      // a photo actually covers that line — not when the gallery merely ends
-      // there (which happens as the beige footer scrolls into view).
-      var NAV_Y = 40;
-      over = r.top <= NAV_Y && r.bottom > NAV_Y;
+    for (var i = 0; i < regions.length; i++) {
+      var r = regions[i].getBoundingClientRect();
+      // Only go "over photos" when a photo actually covers the nav's line —
+      // not when the region merely ends there (which happens as the beige
+      // footer scrolls into view).
+      if (r.top <= navY && r.bottom > navY) {
+        over = true;
+        break;
+      }
     }
     document.body.classList.toggle("over-photos", over);
   }
 
-  window.addEventListener("scroll", update, { passive: true });
-  window.addEventListener("resize", update);
+  /* One rAF-batched pass per frame: the scroll offset has to land before the
+     nav's position is measured, or navY lags a frame behind the band. */
+  var queued = false;
+  function onScroll() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(function () {
+      queued = false;
+      publishScroll();
+      update();
+    });
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  /* Straight away, not just on first scroll: a reload can restore a scroll
+     position, and the band would otherwise open at full offset and jump. */
+  publishScroll();
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", update);
   } else {
