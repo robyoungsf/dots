@@ -39,17 +39,6 @@
 
   var FEATURED = [
     {
-      photo: "assets/featured/cherry-coke-float.jpg",
-      name: "Cherry Coke Float with Espresso Whipped Cream",
-      blurb:
-        "Mexican Coke or Coke Zero over ice with cherry syrup, topped off " +
-        "with espresso-infused vanilla whipped cream and a maraschino cherry.",
-      alt:
-        "A cherry Coke float in a glass, topped with espresso whipped cream " +
-        "and a maraschino cherry, on a marble ledge in sunlight",
-      special: true,
-    },
-    {
       photo: "assets/featured/caramel-apple-cold-brew-matcha.jpg",
       name: "Caramel Apple Cold Brew or Matcha",
       blurb:
