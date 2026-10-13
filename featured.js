@@ -39,6 +39,28 @@
 
   var FEATURED = [
     {
+      photo: "assets/featured/pumpkin-miso-latte.jpg",
+      name: "Pumpkin Miso Latte",
+      blurb:
+        "Housemade pumpkin miso sauce in a hot or iced latte, " +
+        "topped with vanilla whipped cream and cinnamon.",
+      alt:
+        "A pumpkin miso latte in a red cup and saucer, topped with whipped " +
+        "cream and cinnamon, beside a small pumpkin on a pink marble counter",
+      special: true,
+    },
+    {
+      photo: "assets/featured/chocolate-peanut-butter-cold-brew.jpg",
+      name: "Chocolate Peanut Butter Cold Brew",
+      blurb:
+        "House cold brew with salty peanut cold foam " +
+        "and housemade dark chocolate drizzle.",
+      alt:
+        "A hand holding a chocolate peanut butter cold brew, piled with " +
+        "peanut cold foam and dark chocolate drizzle, outside by pink cafe chairs",
+      special: true,
+    },
+    {
       photo: "assets/featured/caramel-apple-cold-brew-matcha.jpg",
       name: "Caramel Apple Cold Brew or Matcha",
       blurb:
