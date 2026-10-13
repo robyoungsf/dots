@@ -50,6 +50,17 @@
       special: true,
     },
     {
+      photo: "assets/featured/chocolate-peanut-butter-cold-brew.jpg",
+      name: "Chocolate Peanut Butter Cold Brew",
+      blurb:
+        "House cold brew with salty peanut cold foam " +
+        "and housemade dark chocolate drizzle.",
+      alt:
+        "A hand holding a chocolate peanut butter cold brew, piled with " +
+        "peanut cold foam and dark chocolate drizzle, outside by pink cafe chairs",
+      special: true,
+    },
+    {
       photo: "assets/featured/caramel-apple-cold-brew-matcha.jpg",
       name: "Caramel Apple Cold Brew or Matcha",
       blurb:
