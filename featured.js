@@ -39,6 +39,17 @@
 
   var FEATURED = [
     {
+      photo: "assets/featured/pumpkin-miso-latte.jpg",
+      name: "Pumpkin Miso Latte",
+      blurb:
+        "Housemade pumpkin miso sauce in a hot or iced latte, " +
+        "topped with vanilla whipped cream and cinnamon.",
+      alt:
+        "A pumpkin miso latte in a red cup and saucer, topped with whipped " +
+        "cream and cinnamon, beside a small pumpkin on a pink marble counter",
+      special: true,
+    },
+    {
       photo: "assets/featured/caramel-apple-cold-brew-matcha.jpg",
       name: "Caramel Apple Cold Brew or Matcha",
       blurb:
