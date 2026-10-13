@@ -16,14 +16,14 @@
     '<div class="footer-cols">' +
     '<div class="footer-col">' +
     '<p class="tagline"><b class="footer-col-title">Say hello</b>' +
-    '<a href="mailto:hello@dots-cafe.com">hello@dots-cafe.com</a></p>' +
+    '<a href="mailto:hello@dots-cafe.com">hello@dots-cafe.com</a><br>We&rsquo;re hiring &mdash; send a resume</p>' +
     "</div>" +
     '<div class="footer-col">' +
     '<p class="tagline"><b class="footer-col-title">Roscoe Village</b>2000 Addison St<br>Chicago, IL 60618<br>7a&ndash;7p every day</p>' +
     "</div>" +
     '<div class="footer-col">' +
     '<p class="tagline"><b class="footer-col-title">Dot\'s Fulton Market at Estereo</b>' +
-    '1001 W Fulton Market<br>Chicago, IL 60607<br>7a&ndash;1p Mon&ndash;Fri</p>' +
+    '1001 W Fulton Market<br>Chicago, IL 60607<br>Closed until November</p>' +
     "</div>" +
     "</div>" +
     "</div>" +
