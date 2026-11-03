@@ -226,10 +226,10 @@
   }
 
   function update() {
-    // Full-bleed photo regions: the location pages' gallery, and the home
-    // page's featured-drink hero and location split.
+    // Full-bleed photo regions: the location pages' backdrop and gallery, and
+    // the home page's featured-drink hero and location split.
     var regions = document.querySelectorAll(
-      ".gallery, .home-hero, .locations-split"
+      ".page--backdrop, .gallery, .home-hero, .locations-split"
     );
     /* Measure the nav rather than assuming a fixed offset — it no longer sits
        at a constant height, so the line being tested has to follow it. */

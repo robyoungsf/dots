@@ -39,6 +39,15 @@
 
   var FEATURED = [
     {
+      photo: "assets/featured/cranberry-espresso-tonic.jpg",
+      name: "Cranberry Espresso Tonic",
+      blurb: "Espresso, tonic, and house-made cranberry syrup over ice.",
+      alt:
+        "A cranberry espresso tonic over ice, red at the bottom fading to " +
+        "amber, on a pink table against a brick wall",
+      special: true,
+    },
+    {
       photo: "assets/featured/pumpkin-miso-latte.jpg",
       name: "Pumpkin Miso Latte",
       blurb:
@@ -50,25 +59,12 @@
       special: true,
     },
     {
-      photo: "assets/featured/chocolate-peanut-butter-cold-brew.jpg",
-      name: "Chocolate Peanut Butter Cold Brew",
-      blurb:
-        "House cold brew with salty peanut cold foam " +
-        "and housemade dark chocolate drizzle.",
+      photo: "assets/featured/crunchy-peanut-butter-cold-brew.jpg",
+      name: "Crunchy Peanut Butter Cold Brew",
+      blurb: "House cold brew under peanut butter cold foam and crushed peanuts.",
       alt:
-        "A hand holding a chocolate peanut butter cold brew, piled with " +
-        "peanut cold foam and dark chocolate drizzle, outside by pink cafe chairs",
-      special: true,
-    },
-    {
-      photo: "assets/featured/caramel-apple-cold-brew-matcha.jpg",
-      name: "Caramel Apple Cold Brew or Matcha",
-      blurb:
-        "Housemade apple basil caramel syrup in a cold brew or matcha latte, " +
-        "with cardamom vanilla cold foam, an apple chip and nutmeg.",
-      alt:
-        "A caramel apple matcha and a caramel apple cold brew seen from above " +
-        "on a green table, each capped with cold foam, an apple chip and nutmeg",
+        "A crunchy peanut butter cold brew in a clear cup, topped with " +
+        "cold foam and crushed peanuts, on a light wood counter",
       special: true,
     },
     {

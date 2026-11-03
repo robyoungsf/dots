@@ -125,6 +125,9 @@ html.js-fade .footer-slide img.is-loaded {
   max-width: none;
   margin: 0;
   padding: var(--edge-inset) var(--edge-inset) 2rem;
+  /* Never tighter than the pinned wordmark's band, which sits above the page
+     title now there is no in-flow logo to push it down. */
+  padding-top: max(var(--edge-inset), 7rem);
   width: 100%;
   min-height: 100vh;
 }
@@ -864,6 +867,52 @@ body.over-photos .site-nav-home-logo {
   letter-spacing: 0.04em;
 }
 
+/* ---- Location pages: the location's photo as a full-bleed backdrop ----------
+   The same photo the home page's location panel uses, behind the info column,
+   with the home page's treatment for legibility: a dark green scrim weighted
+   to where the text sits (the left here, the bottom there) and cream text. */
+.page--backdrop {
+  position: relative;
+  isolation: isolate;
+  min-height: 100vh;
+  min-height: 100svh;
+  /* Info column takes a third of the content area; the rest is photo. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+}
+
+.page-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Holds the info column at 4.5:1 or better (WCAG AA) over the brightest parts
+   of both photos, then clears so the right of the photo stays untouched. */
+.page-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(36, 45, 29, 0.8),
+    rgba(36, 45, 29, 0.66) 32%,
+    rgba(36, 45, 29, 0.3) 55%,
+    transparent 80%
+  );
+}
+
+.page--backdrop .location-title,
+.page--backdrop .tagline {
+  color: var(--bg);
+}
+
+.page--backdrop .footer-credits {
+  border-top-color: color-mix(in srgb, var(--bg) 40%, transparent);
+}
+
 .gallery {
   width: 100%;
 }
@@ -1097,8 +1146,18 @@ body.over-photos .site-nav-home-logo {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     gap: 3rem;
-    padding: 2.5rem 1.5rem;
+    padding: 6rem 1.5rem 2.5rem;
     min-height: unset;
+  }
+
+  /* Stacked and centred, the text spans the photo's full width, so the scrim
+     can't fade off to one side; an even wash keeps it at 4.5:1. */
+  .page-bg::after {
+    background: rgba(36, 45, 29, 0.7);
+  }
+
+  .page--backdrop {
+    min-height: 100svh;
   }
 
   .col-info {
@@ -1342,17 +1401,14 @@ body.over-photos .site-nav-home-logo {
   width: 100%;
 }
 
+/* One column now the big logo is gone — the pinned wordmark carries it. */
 .press-header {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 36rem);
   gap: 4rem;
   align-items: start;
   margin-top: 110px;
   margin-bottom: 5rem;
-}
-
-.press-header .logo {
-  max-width: 162px;
 }
 
 .press-eyebrow {
@@ -1534,7 +1590,8 @@ body.over-photos .site-nav-home-logo {
   .press-header {
     grid-template-columns: 1fr;
     gap: 2rem;
-    margin-top: 0;
+    /* Clears the pinned wordmark and burger band. */
+    margin-top: 4rem;
     margin-bottom: 3rem;
   }
   .photo-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
