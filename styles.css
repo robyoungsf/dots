@@ -210,7 +210,8 @@ body.logo-hidden .logo-wrap > :not(.logo-link) {
   padding-top:0.3rem;
   border-radius: 4px;
   background: #EC9EC0;
-  color: var(--bg);
+  /* Dark text: cream on this pink is 1.8:1, dark green is 6.5:1. */
+  color: var(--text);
   font-size: 0.8rem;
   font-weight: 400;
   letter-spacing: 0.04em;
@@ -846,7 +847,7 @@ body.over-photos .site-nav-home-logo {
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  opacity: 0.55;
+  opacity: 0.7;
 }
 
 .installment-bio {
@@ -1359,7 +1360,7 @@ body.over-photos .site-nav-home-logo {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 400;
-  opacity: 0.6;
+  opacity: 0.7;
   margin: 0 0 1rem;
 }
 
@@ -1392,7 +1393,7 @@ body.over-photos .site-nav-home-logo {
   font-size: 0.7rem;
   letter-spacing: 0.05em;
   text-transform: none;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .download-all {
@@ -1497,7 +1498,7 @@ body.over-photos .site-nav-home-logo {
 
 .asset-meta {
   font-size: 0.7rem;
-  opacity: 0.6;
+  opacity: 0.7;
   letter-spacing: 0.05em;
   margin-top: 0.25rem;
 }
@@ -1524,7 +1525,7 @@ body.over-photos .site-nav-home-logo {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   font-weight: 400;
-  opacity: 0.6;
+  opacity: 0.7;
   margin: 0 0 0.5rem;
 }
 
@@ -1588,16 +1589,21 @@ body.over-photos .site-nav-home-logo {
 }
 
 /* Scrim under the caption only — a wash over the whole photo would flatten
-   it, and the top half has the fixed nav's own scrim already. */
+   it, and the top half has the fixed nav's own scrim already. The caption sits
+   15–30% up from the bottom, so the gradient has to stay dark through that
+   band: these stops hold the name at 3:1 and the blurb at 4.5:1 (WCAG AA)
+   over the brightest pixels of every current photo. Re-check when adding a
+   pale shot — white foam behind the name is the usual culprit. */
 .hero-slide::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(36, 45, 29, 0.72),
-    rgba(36, 45, 29, 0.35) 28%,
-    transparent 55%
+    rgba(36, 45, 29, 0.8),
+    rgba(36, 45, 29, 0.62) 30%,
+    rgba(36, 45, 29, 0.4) 45%,
+    transparent 70%
   );
 }
 
@@ -1644,7 +1650,53 @@ body.over-photos .site-nav-home-logo {
   bottom: var(--edge-inset);
   z-index: 2;
   display: flex;
-  gap: 0.6rem;
+  align-items: center;
+  gap: 14px;
+}
+
+/* The dots are drawn at 10px, under WCAG 2.5.8's 24px minimum target. 14px
+   gaps put their centres 24px apart, which meets the rule's spacing
+   exception: a 24px circle around each dot touches no other. Don't tighten
+   the gap without enlarging the dots. */
+.hero-tabs {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* A full 24px target; the glyph inside matches the dots' 10px. */
+.hero-pause {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--bg);
+  cursor: pointer;
+}
+
+.hero-pause-icon {
+  fill: currentColor;
+}
+
+.hero-play-tri,
+.home-hero.is-user-paused .hero-pause-bars {
+  display: none;
+}
+
+.home-hero.is-user-paused .hero-play-tri {
+  display: inline;
+}
+
+.hero-pause:hover {
+  opacity: 0.7;
+}
+
+.hero-pause:focus-visible {
+  outline: 2px solid var(--bg);
+  outline-offset: 1px;
 }
 
 /* Whole pixels, not rem. At 0.6rem the dot is 9.6px, so with 1px borders the
@@ -1738,6 +1790,11 @@ html.js-fade:not(.is-ready) .hero-dot.is-active .hero-dot-fill {
     animation: none;
     transform: scaleX(1);
   }
+
+  /* Nothing advances on its own here, so there is nothing to pause. */
+  .hero-pause {
+    display: none;
+  }
 }
 
 @media (max-width: 720px) {
@@ -1817,16 +1874,18 @@ html.js-fade .location-panel-image.is-loaded {
 }
 
 /* Scrim weighted to the bottom, where the text sits — a flat wash over the
-   whole photo would kill the image. */
+   whole photo would kill the image. Dark enough through the text block to
+   keep it at 4.5:1 (WCAG AA) over the brightest parts of both photos. */
 .location-panel::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(36, 45, 29, 0.78),
-    rgba(36, 45, 29, 0.4) 30%,
-    transparent 62%
+    rgba(36, 45, 29, 0.8),
+    rgba(36, 45, 29, 0.6) 32%,
+    rgba(36, 45, 29, 0.3) 50%,
+    transparent 72%
   );
 }
 
@@ -1878,6 +1937,18 @@ html.js-fade .location-panel-image.is-loaded {
   .location-panel {
     min-height: 60svh;
     padding: 2.5rem 1.5rem;
+  }
+
+  /* The shorter panels put the text block up to half the photo's height, so
+     the scrim has to reach further up to keep it at 4.5:1. */
+  .location-panel::after {
+    background: linear-gradient(
+      to top,
+      rgba(36, 45, 29, 0.8),
+      rgba(36, 45, 29, 0.66) 50%,
+      rgba(36, 45, 29, 0.4) 62%,
+      transparent 85%
+    );
   }
 
   .location-panel .location-neighborhood {

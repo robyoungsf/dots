@@ -126,7 +126,8 @@
   var dots = "";
   if (FEATURED.length > 1) {
     dots =
-      '<div class="hero-dots" role="tablist" aria-label="Featured drinks">' +
+      '<div class="hero-dots">' +
+      '<div class="hero-tabs" role="tablist" aria-label="Featured drinks">' +
       FEATURED.map(function (d, i) {
         return (
           '<button type="button" role="tab" class="hero-dot' +
@@ -144,6 +145,17 @@
           "</button>"
         );
       }).join("") +
+      "</div>" +
+      /* WCAG 2.2.2: anything that moves on its own for more than five seconds
+         needs a control that stops it. Hover and focus pauses are not enough —
+         they let go the moment the pointer or focus moves on. It sits outside
+         the tablist, since a tablist may only hold tabs. */
+      '<button type="button" class="hero-pause" aria-label="Pause slideshow">' +
+      '<svg class="hero-pause-icon" viewBox="0 0 10 10" width="10" height="10" aria-hidden="true">' +
+      '<rect class="hero-pause-bars" x="1.5" y="1" width="2.25" height="8" />' +
+      '<rect class="hero-pause-bars" x="6.25" y="1" width="2.25" height="8" />' +
+      '<path class="hero-play-tri" d="M2 1 L9 5 L2 9 Z" />' +
+      "</svg></button>" +
       "</div>";
   }
 
@@ -192,8 +204,28 @@
     section.classList.add("is-paused");
   }
 
+  /* The pause button outranks every other resume: hover, focus and tab
+     visibility only hold the slideshow for a moment, and must not restart it
+     once the reader has asked it to stop. */
+  var userPaused = false;
+
   function start() {
+    if (userPaused) return;
     section.classList.remove("is-paused");
+  }
+
+  var pauseButton = section.querySelector(".hero-pause");
+  if (pauseButton) {
+    pauseButton.addEventListener("click", function () {
+      userPaused = !userPaused;
+      section.classList.toggle("is-user-paused", userPaused);
+      pauseButton.setAttribute(
+        "aria-label",
+        userPaused ? "Play slideshow" : "Pause slideshow"
+      );
+      if (userPaused) stop();
+      else start();
+    });
   }
 
   /* Each slide change moves .is-active to another dot, which cancels the old
@@ -267,7 +299,9 @@
   if (hoverable) {
     var zones = [];
     var captions = section.querySelectorAll(".hero-caption");
-    var dotWrap = section.querySelectorAll(".hero-dots");
+    /* The tabs, not the whole row: hovering the pause button has to leave
+       Play free to restart the sweep under the pointer. */
+    var dotWrap = section.querySelectorAll(".hero-tabs");
     var z;
     for (z = 0; z < captions.length; z++) zones.push(captions[z]);
     for (z = 0; z < dotWrap.length; z++) zones.push(dotWrap[z]);
@@ -276,8 +310,13 @@
       zones[z].addEventListener("mouseleave", start);
     }
   }
-  section.addEventListener("focusin", stop);
-  section.addEventListener("focusout", start);
+  /* Likewise, only focus on the dots holds the sweep — focus on the pause
+     button would otherwise swallow a press of Play. */
+  var tabs = section.querySelector(".hero-tabs");
+  if (tabs) {
+    tabs.addEventListener("focusin", stop);
+    tabs.addEventListener("focusout", start);
+  }
 
   /* Nothing to animate in a background tab. Browsers throttle animations there
      anyway; pausing outright means the bar reflects real elapsed time rather

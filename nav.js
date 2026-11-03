@@ -111,7 +111,35 @@
       if (!nav.contains(e.target)) closeNav();
     });
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") closeNav();
+      /* A hidden burger means desktop width, where .open does nothing. */
+      if (!nav.classList.contains("open") || !burger.getClientRects().length) return;
+      if (e.key === "Escape") {
+        closeNav();
+        burger.focus();
+        return;
+      }
+      /* The open panel covers the whole screen, so Tab has to stay inside it:
+         letting focus wander onto the page underneath puts the focus ring on
+         things nobody can see. Wrap from the last link back to the burger
+         (now the close button) and the other way on Shift+Tab. */
+      if (e.key !== "Tab") return;
+      var links = nav.querySelectorAll(".site-nav-links a, .site-nav-links button");
+      var stops = [burger];
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getClientRects().length) stops.push(links[i]);
+      }
+      var first = stops[0];
+      var last = stops[stops.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      } else if (!nav.contains(document.activeElement)) {
+        e.preventDefault();
+        first.focus();
+      }
     });
   }
 
