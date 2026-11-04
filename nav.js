@@ -7,7 +7,7 @@
  *   <script src="../nav.js" data-root=".."></script>   (location pages)
  *
  * `data-root` is the path back to the site root; it's used for the
- * Locations dropdown and Artist Series links. Gift Cards is an absolute
+ * Menu link and Locations dropdown. Gift Cards is an absolute
  * URL, so it works from any depth.
  */
 (function () {
@@ -38,16 +38,18 @@
     );
   }).join("");
 
+  /* Artist Series is off the nav for now; its page stays up at
+     root + "/artist-series/index.html" for anyone with the link. */
   var linksHtml =
+    '<a class="site-nav-link" href="' +
+    root +
+    '/menu/index.html">Menu</a>' +
     '<div class="site-nav-item">' +
     '<button type="button" class="site-nav-link site-nav-toggle" aria-expanded="false" aria-haspopup="true">Locations</button>' +
     '<div class="site-nav-menu">' +
     locationItems +
     "</div>" +
     "</div>" +
-    '<a class="site-nav-link" href="' +
-    root +
-    '/artist-series/index.html">Artist Series</a>' +
     '<a class="site-nav-link" href="' +
     GIFT_CARDS +
     '" target="_blank" rel="noopener noreferrer">Gift Cards</a>' +
@@ -226,10 +228,11 @@
   }
 
   function update() {
-    // Full-bleed photo regions: the location pages' backdrop and gallery, and
-    // the home page's featured-drink hero and location split.
+    // Dark regions that need the cream nav: the location pages' backdrop,
+    // gallery and dark green footer, and the home page's featured-drink hero
+    // and location split.
     var regions = document.querySelectorAll(
-      ".page--backdrop, .gallery, .home-hero, .locations-split"
+      ".page--backdrop, .page--backdrop ~ .site-footer, .gallery, .home-hero, .locations-split"
     );
     /* Measure the nav rather than assuming a fixed offset — it no longer sits
        at a constant height, so the line being tested has to follow it. */

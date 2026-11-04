@@ -69,7 +69,6 @@
       </div>
     </div>
 
-    <img src="../assets/flower.svg" class="flower" alt="" aria-hidden="true">
   </main>
 
   <section class="gallery">
@@ -77,15 +76,15 @@
     <div class="gallery-slide"><img src="../assets/slides/02b.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
     <div class="gallery-slide"><img src="../assets/slides/03.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
     <div class="gallery-slide"><img src="../assets/slides/05.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
+    <div class="gallery-slide"><img src="../assets/slides/06.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
   </section>
-
-  <!-- Last slide, pulled out of the gallery so it can pin (sticky) through the
-       footer: it arrives sharp, then blurs as the footer info scrolls up over it. -->
-  <div class="footer-slide" aria-hidden="true"><img src="../assets/slides/06.jpg" alt="" loading="lazy" decoding="async"></div>
 
   <div data-site-footer></div>
   <script src="../footer.js" data-root=".."></script>
-  <script src="../bg-blur.js"></script>
+
+  <!-- Pinned bottom-right for the whole page. Last in the body so it paints
+       over the gallery and footer that scroll beneath it. -->
+  <img src="../assets/flower.svg" class="flower flower--pinned" alt="" aria-hidden="true">
 
   <!-- Cloudflare Web Analytics — cookieless, so no consent banner needed. -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "e5f288179732448685ad16682bf4dd3d"}'></script>

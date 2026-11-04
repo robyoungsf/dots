@@ -694,14 +694,6 @@ body.over-photos .site-nav-home-logo {
   gap: 2.5rem;
 }
 
-/* Drop the menu's first line onto the same baseline as the location title,
-   which sits below the logo in the left column. Offset by the logo's rendered
-   height (162px wide at the SVG's 203:114 ratio) plus the logo-wrap gap. */
-.menu:has(.menu-section) {
-  margin-top: calc(162px * 114 / 203 + 1.5rem);
-}
-
-
 .menu-item {
   display: flex;
   justify-content: space-between;
@@ -734,6 +726,7 @@ body.over-photos .site-nav-home-logo {
 /* Housemade Syrups closes the menu with a bold label over one run of wrapped
    text, rather than the priced rows above it. */
 .menu-section-title {
+  margin: 0;
   font-weight: 700;
   font-size: 0.9rem;
   letter-spacing: 0.02em;
@@ -878,6 +871,11 @@ body.over-photos .site-nav-home-logo {
   min-height: 100svh;
   /* Info column takes a third of the content area; the rest is photo. */
   grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  /* Text block centred top to bottom: a content-height row, centred, with
+     the bottom padding matching the top so the centre is the screen's. */
+  grid-template-rows: auto;
+  align-content: center;
+  padding-bottom: max(var(--edge-inset), 7rem);
 }
 
 .page-bg {
@@ -1005,6 +1003,19 @@ body.over-photos .site-nav-home-logo {
   overflow: visible;
 }
 
+/* Location pages close on solid dark green with cream text, rather than the
+   frosted copy of the backdrop photo. */
+body:has(.page--backdrop) .site-footer {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+body:has(.page--backdrop) .site-footer .tagline {
+  color: var(--bg);
+}
+
+body:has(.page--backdrop) .site-footer::before,
+body:has(.page--backdrop) .site-footer::after,
 .site-footer.has-footer-slide::before,
 .site-footer.has-footer-slide::after {
   content: none;
@@ -1094,6 +1105,11 @@ body.over-photos .site-nav-home-logo {
   bottom: var(--edge-inset);
 }
 
+/* Above the gallery and footer, below the nav (and its mobile overlay). */
+.flower--pinned {
+  z-index: 2;
+}
+
 /* Tablet / small laptop — the generous desktop edge inset (used for page
    padding, the pinned logo, the corner flower and the nav) eats too much room
    at narrower widths, so ease it down before the layout stacks. */
@@ -1158,6 +1174,7 @@ body.over-photos .site-nav-home-logo {
 
   .page--backdrop {
     min-height: 100svh;
+    padding-bottom: 6rem;
   }
 
   .col-info {
@@ -1182,11 +1199,6 @@ body.over-photos .site-nav-home-logo {
 
   .location-title {
     text-align: center;
-  }
-
-  /* Columns stack — drop the desktop baseline offset. */
-  .menu:has(.menu-section) {
-    margin-top: 0;
   }
 
   /* Intro text spans the full column width on mobile. */
@@ -1336,6 +1348,16 @@ body.over-photos .site-nav-home-logo {
      so it goes. The other pages keep theirs. */
   body:has(.home-hero) .flower {
     display: none;
+  }
+
+  /* Location pages keep theirs pinned to the corner instead, as on desktop —
+     smaller, so it sits clear of the centred text. */
+  .flower--pinned {
+    position: fixed;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    width: 64px;
+    margin: 0;
   }
 
   /* Stack to photo-on-top on small screens, mirroring the installment card. */

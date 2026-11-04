@@ -62,7 +62,6 @@
       </div>
     </div>
 
-    <img src="../assets/flower.svg" class="flower" alt="" aria-hidden="true">
   </main>
 
   <!-- Gallery intentionally omitted until West Loop photography is shot.
@@ -70,7 +69,10 @@
 
   <div data-site-footer></div>
   <script src="../footer.js" data-root=".."></script>
-  <script src="../bg-blur.js"></script>
+
+  <!-- Pinned bottom-right for the whole page. Last in the body so it paints
+       over the gallery and footer that scroll beneath it. -->
+  <img src="../assets/flower.svg" class="flower flower--pinned" alt="" aria-hidden="true">
 
   <!-- Cloudflare Web Analytics — cookieless, so no consent banner needed. -->
   <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "e5f288179732448685ad16682bf4dd3d"}'></script>
