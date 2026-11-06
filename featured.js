@@ -59,6 +59,14 @@
       special: true,
     },
     {
+      photo: "assets/featured/dots-all-purpose-hat.jpg",
+      name: "Dot’s All Purpose Hat",
+      blurb: "Available only at Dot’s.",
+      alt:
+        "A faded black cap embroidered with Dot’s pink flower, sitting in a " +
+        "bed of pink impatiens on a Roscoe Village street corner",
+    },
+    {
       photo: "assets/featured/crunchy-peanut-butter-cold-brew.jpg",
       name: "Crunchy Peanut Butter Cold Brew",
       blurb: "House cold brew under peanut butter cold foam and crushed peanuts.",
