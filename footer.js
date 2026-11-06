@@ -15,19 +15,18 @@
     '<div class="footer-info">' +
     '<div class="footer-cols">' +
     '<div class="footer-col">' +
-    '<p class="tagline"><b class="footer-col-title">Say hello</b>' +
-    '<a href="mailto:hello@dots-cafe.com">hello@dots-cafe.com</a><br>We&rsquo;re hiring &mdash; send a resume</p>' +
-    "</div>" +
-    '<div class="footer-col">' +
     '<p class="tagline"><b class="footer-col-title">Roscoe Village</b>2000 Addison St<br>Chicago, IL 60618<br>7a&ndash;7p every day</p>' +
     "</div>" +
     '<div class="footer-col">' +
-    '<p class="tagline"><b class="footer-col-title">Dot\'s Fulton Market at Estereo</b>' +
+    '<p class="tagline"><b class="footer-col-title">Fulton Market</b>' +
     '1001 W Fulton Market<br>Chicago, IL 60607<br>Reopens November 11</p>' +
     "</div>" +
     "</div>" +
     "</div>" +
-    "</div>";
+    "</div>" +
+    /* Bottom-left corner, on the wordmark's left margin and level with the
+       pinned flower in the opposite corner. */
+    '<p class="tagline footer-email"><a href="mailto:hello@dots-cafe.com">hello@dots-cafe.com</a></p>';
 
   var footer = document.createElement("footer");
   footer.className = "site-footer";

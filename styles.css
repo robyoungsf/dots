@@ -566,6 +566,7 @@ body.logo-hidden .site-nav-home {
   font-family: inherit;
   color: inherit;
   border: 0;
+  padding: 0;
   background: none;
   cursor: pointer;
 }
@@ -573,14 +574,18 @@ body.logo-hidden .site-nav-home {
 .site-nav-menu {
   position: absolute;
   top: calc(100% + 0.75rem);
-  right: 0;
+  /* Pulled left by the links' own padding, so the location names start on the
+     same left edge as the "Locations" label above them. */
+  left: -1.25rem;
   min-width: 12rem;
   display: flex;
   flex-direction: column;
   padding: 0.5rem 0;
-  background: var(--bg);
+  /* A step lighter than the page's parchment, at 70% so a hint of the page
+     shows through, with dark green text. */
+  background: color-mix(in srgb, color-mix(in srgb, var(--bg) 40%, #fff) 70%, transparent);
   border-radius: 0.5rem;
-  box-shadow: 0 8px 24px rgba(36, 45, 29, 0.18);
+  box-shadow: 0 4px 12px rgba(36, 45, 29, 0.08);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-4px);
@@ -602,12 +607,13 @@ body.logo-hidden .site-nav-home {
   letter-spacing: 0.02em;
   text-decoration: none;
   background-image: none;
-  color: var(--text);
-  opacity: 0.75;
+  color: var(--accent);
+  opacity: 1;
   transition: opacity 0.2s ease;
 }
 
-.site-nav-menu-link:hover { opacity: 1; }
+/* Dims on hover, like the nav links. */
+.site-nav-menu-link:hover { opacity: 0.7; }
 
 /* Inactive location — struck through, dimmed, not clickable */
 .site-nav-menu-link--inactive {
@@ -718,13 +724,18 @@ body.over-photos .site-nav-home-logo {
   line-height: 1.4;
 }
 
+/* Ingredient lines under a dish sit a step smaller than the dish name. */
+.menu-name .menu-desc {
+  font-size: 0.75rem;
+}
+
 .menu-price {
   font-weight: 700;
   flex-shrink: 0;
 }
 
-/* Housemade Syrups closes the menu with a bold label over one run of wrapped
-   text, rather than the priced rows above it. */
+/* Bold section labels: Housemade Syrups over one run of wrapped text, and
+   "Roscoe Village only" over the food. */
 .menu-section-title {
   margin: 0;
   font-weight: 700;
@@ -736,6 +747,17 @@ body.over-photos .site-nav-home-logo {
 .menu-note {
   margin: 0;
   max-width: 24rem;
+}
+
+/* Food is Roscoe Village only, set off from the drinks and syrups by the same
+   tan rule that sits above the location pages' credits. */
+.menu-section--divided {
+  border-top: 1px solid #bfba94;
+  padding-top: 1.5rem;
+}
+
+.menu-section--divided .menu-section-title {
+  margin-bottom: 0.75rem;
 }
 
 /* Artist Series — installments reuse the homepage card grid (.locations /
@@ -862,7 +884,7 @@ body.over-photos .site-nav-home-logo {
 
 /* ---- Location pages: the location's photo as a full-bleed backdrop ----------
    The same photo the home page's location panel uses, behind the info column,
-   with the home page's treatment for legibility: a dark green scrim weighted
+   with the home page's treatment for legibility: a black scrim weighted
    to where the text sits (the left here, the bottom there) and cream text. */
 .page--backdrop {
   position: relative;
@@ -895,9 +917,9 @@ body.over-photos .site-nav-home-logo {
   inset: 0;
   background: linear-gradient(
     to right,
-    rgba(36, 45, 29, 0.8),
-    rgba(36, 45, 29, 0.66) 32%,
-    rgba(36, 45, 29, 0.3) 55%,
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 0.66) 32%,
+    rgba(0, 0, 0, 0.3) 55%,
     transparent 80%
   );
 }
@@ -908,7 +930,7 @@ body.over-photos .site-nav-home-logo {
 }
 
 .page--backdrop .footer-credits {
-  border-top-color: color-mix(in srgb, var(--bg) 40%, transparent);
+  border-top-color: color-mix(in srgb, var(--bg) 50%, transparent);
 }
 
 .gallery {
@@ -943,6 +965,17 @@ body.over-photos .site-nav-home-logo {
   height: 100vh;
   display: flex;
   align-items: stretch;
+}
+
+/* The flower is 88px wide at a 671:643 ratio, so its centre sits half its
+   height above --edge-inset; the email's centre is set on the same line. */
+.footer-email {
+  position: absolute;
+  z-index: 2;
+  left: var(--edge-inset);
+  bottom: calc(var(--edge-inset) + 88px * 643 / 671 / 2);
+  transform: translateY(50%);
+  margin: 0;
 }
 
 /* Blurred copy of the location photo behind the footer. The image itself is
@@ -1003,32 +1036,38 @@ body.over-photos .site-nav-home-logo {
   overflow: visible;
 }
 
-/* Location pages close on solid dark green with cream text, rather than the
-   frosted copy of the backdrop photo. */
-body:has(.page--backdrop) .site-footer {
+/* Location pages, About (a backdrop page too) and the menu close on solid
+   dark green with cream text, rather than the frosted copy of the photo. */
+body:has(.page--backdrop) .site-footer,
+body:has(.menu-page) .site-footer {
   background: var(--accent);
   color: var(--bg);
 }
 
-body:has(.page--backdrop) .site-footer .tagline {
+body:has(.page--backdrop) .site-footer .tagline,
+body:has(.menu-page) .site-footer .tagline {
   color: var(--bg);
 }
 
 body:has(.page--backdrop) .site-footer::before,
 body:has(.page--backdrop) .site-footer::after,
+body:has(.menu-page) .site-footer::before,
+body:has(.menu-page) .site-footer::after,
 .site-footer.has-footer-slide::before,
 .site-footer.has-footer-slide::after {
   content: none;
 }
 
+/* Spans the same content area as the rest of the chrome: from the wordmark's
+   left margin to the nav's right one, so About Us lines up under the logo and
+   the email, and the three columns share the full width equally. */
 .footer-inner {
   position: relative;
   z-index: 2;
   display: flex;
   align-items: center;
-  max-width: 64rem;
-  margin: 0 auto;
-  padding: 4rem 2rem 0;
+  margin: 0;
+  padding: 4rem var(--edge-inset) 0;
   width: 100%;
 }
 
@@ -1036,6 +1075,7 @@ body:has(.page--backdrop) .site-footer::after,
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100%;
 }
 
 .footer-cols {
@@ -1136,26 +1176,20 @@ body:has(.page--backdrop) .site-footer::after,
 }
 
 @media (max-width: 640px) {
+  /* Stacked on phones, still ranged left on the wordmark's margin, out to the
+     burger's right margin. */
   .footer-inner {
-    grid-template-columns: 1fr;
     gap: 3rem;
-    padding: 3rem 1.5rem;
-  }
-
-  .footer-inner {
-    justify-content: center;
-  }
-
-  .footer-info {
-    align-items: center;
-    text-align: center;
-    width: 100%;
+    padding: 3rem 1.25rem 3rem var(--edge-inset);
   }
 
   .footer-cols {
     grid-template-columns: 1fr;
     gap: 3rem;
-    text-align: center;
+  }
+
+  .site-footer .tagline {
+    text-align: left;
   }
 
   .page {
@@ -1169,12 +1203,19 @@ body:has(.page--backdrop) .site-footer::after,
   /* Stacked and centred, the text spans the photo's full width, so the scrim
      can't fade off to one side; an even wash keeps it at 4.5:1. */
   .page-bg::after {
-    background: rgba(36, 45, 29, 0.7);
+    background: rgba(0, 0, 0, 0.7);
   }
 
   .page--backdrop {
     min-height: 100svh;
     padding-bottom: 6rem;
+  }
+
+  /* About: the text starts at the top, over the painting, rather than centred.
+     The letter runs most of the way down a phone screen, so it keeps the
+     even wash above rather than easing off below the text. */
+  .about-page {
+    align-content: start;
   }
 
   .col-info {
@@ -1360,6 +1401,12 @@ body:has(.page--backdrop) .site-footer::after,
     margin: 0;
   }
 
+  /* Level with the smaller phone flower; the left margin still follows the
+     wordmark's --edge-inset. */
+  .footer-email {
+    bottom: calc(1.25rem + 64px * 643 / 671 / 2);
+  }
+
   /* Stack to photo-on-top on small screens, mirroring the installment card. */
   .location-card:not(.installment-card) {
     flex-direction: column;
@@ -1528,7 +1575,7 @@ body:has(.page--backdrop) .site-footer::after,
   display: flex;
   align-items: flex-end;
   padding: 0.75rem;
-  background: linear-gradient(to top, rgba(36, 45, 29, 0.6), transparent 50%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 50%);
   opacity: 0;
   transition: opacity 0.2s ease;
 }
@@ -1672,17 +1719,18 @@ body:has(.page--backdrop) .site-footer::after,
    15–30% up from the bottom, so the gradient has to stay dark through that
    band: these stops hold the name at 3:1 and the blurb at 4.5:1 (WCAG AA)
    over the brightest pixels of every current photo. Re-check when adding a
-   pale shot — white foam behind the name is the usual culprit. */
+   pale shot — white foam behind the name is the usual culprit. Black, like the
+   nav's top scrim: the brand green cast the warm photos olive. */
 .hero-slide::after {
   content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(36, 45, 29, 0.8),
-    rgba(36, 45, 29, 0.62) 30%,
-    rgba(36, 45, 29, 0.4) 45%,
-    transparent 70%
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 0.62) 30%,
+    rgba(0, 0, 0, 0.4) 45%,
+    rgba(0, 0, 0, 0) 70%
   );
 }
 
@@ -1961,9 +2009,9 @@ html.js-fade .location-panel-image.is-loaded {
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(36, 45, 29, 0.8),
-    rgba(36, 45, 29, 0.6) 32%,
-    rgba(36, 45, 29, 0.3) 50%,
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 0.6) 32%,
+    rgba(0, 0, 0, 0.3) 50%,
     transparent 72%
   );
 }
@@ -2023,9 +2071,9 @@ html.js-fade .location-panel-image.is-loaded {
   .location-panel::after {
     background: linear-gradient(
       to top,
-      rgba(36, 45, 29, 0.8),
-      rgba(36, 45, 29, 0.66) 50%,
-      rgba(36, 45, 29, 0.4) 62%,
+      rgba(0, 0, 0, 0.8),
+      rgba(0, 0, 0, 0.66) 50%,
+      rgba(0, 0, 0, 0.4) 62%,
       transparent 85%
     );
   }

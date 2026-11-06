@@ -22,7 +22,7 @@
   /* One source of truth for the locations listed in the dropdown. */
   var LOCATIONS = [
     { name: "Roscoe Village", href: root + "/addison/index.html" },
-    { name: "Fulton Market at Estereo", href: root + "/fulton/index.html" },
+    { name: "Fulton Market", href: root + "/fulton/index.html" },
   ];
 
   var locationItems = LOCATIONS.map(function (loc) {
@@ -41,15 +41,18 @@
   /* Artist Series is off the nav for now; its page stays up at
      root + "/artist-series/index.html" for anyone with the link. */
   var linksHtml =
-    '<a class="site-nav-link" href="' +
-    root +
-    '/menu/index.html">Menu</a>' +
     '<div class="site-nav-item">' +
-    '<button type="button" class="site-nav-link site-nav-toggle" aria-expanded="false" aria-haspopup="true">Locations</button>' +
+    '<button type="button" class="site-nav-link site-nav-toggle" aria-expanded="false" aria-haspopup="true">Cafes</button>' +
     '<div class="site-nav-menu">' +
     locationItems +
     "</div>" +
     "</div>" +
+    '<a class="site-nav-link" href="' +
+    root +
+    '/menu/index.html">Menu</a>' +
+    '<a class="site-nav-link" href="' +
+    root +
+    '/about/index.html">About</a>' +
     '<a class="site-nav-link" href="' +
     GIFT_CARDS +
     '" target="_blank" rel="noopener noreferrer">Gift Cards</a>' +
@@ -229,10 +232,10 @@
 
   function update() {
     // Dark regions that need the cream nav: the location pages' backdrop,
-    // gallery and dark green footer, and the home page's featured-drink hero
-    // and location split.
+    // gallery and dark green footer, the menu's dark green footer, and the
+    // home page's featured-drink hero and location split.
     var regions = document.querySelectorAll(
-      ".page--backdrop, .page--backdrop ~ .site-footer, .gallery, .home-hero, .locations-split"
+      ".page--backdrop, .page--backdrop ~ .site-footer, .menu-page ~ .site-footer, .gallery, .home-hero, .locations-split"
     );
     /* Measure the nav rather than assuming a fixed offset — it no longer sits
        at a constant height, so the line being tested has to follow it. */
