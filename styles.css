@@ -924,6 +924,32 @@ body.over-photos .site-nav-home-logo {
   );
 }
 
+/* About: the photo is an <img> so it can fade up from black, slowly and only
+   once the page itself has been revealed — so it plays on every visit, not
+   just when the photo had to download. The scrim (::after) paints above the
+   photo from the start, so the cream text is legible on black throughout. */
+.page-bg--fade {
+  background-color: #000;
+}
+
+.page-bg-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+html.js-fade .page-bg-photo {
+  opacity: 0;
+}
+
+html.js-fade.is-ready .page-bg-photo.is-loaded {
+  opacity: 1;
+  transition: opacity 1.6s ease 0.3s;
+}
+
 .page--backdrop .location-title,
 .page--backdrop .tagline {
   color: var(--bg);

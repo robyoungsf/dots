@@ -35,7 +35,9 @@
     <!-- Grandma Dot, full-bleed behind the text, with the location pages'
          black scrim. Labelled since, unlike those photos, this one is the
          point of the page. -->
-    <div class="page-bg" style="background-image: url('../assets/slides/03.jpg')" role="img" aria-label="Grandma Dot, smiling on a stool at the window counter in Roscoe Village, with a coffee and a croissant beneath a large painting of a park"></div>
+    <!-- An <img> rather than a CSS background, so page-load.js can fade it
+         up once it has decoded. -->
+    <div class="page-bg page-bg--fade" role="img" aria-label="Grandma Dot, smiling on a stool at the window counter in Roscoe Village, with a coffee and a croissant beneath a large painting of a park"><img class="page-bg-photo" src="../assets/slides/03.jpg" alt="" decoding="async"></div>
     <div class="col-info">
       <div class="logo-wrap">
         <h1 class="location-title">About Dot’s</h1>
