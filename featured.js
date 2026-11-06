@@ -60,7 +60,7 @@
     },
     {
       photo: "assets/featured/dots-all-purpose-hat.jpg",
-      name: "Dot’s All Purpose Hat",
+      name: "The All Purpose Hat",
       blurb: "Available only at Dot’s.",
       alt:
         "A faded black cap embroidered with Dot’s pink flower, sitting in a " +
