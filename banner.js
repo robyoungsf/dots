@@ -13,11 +13,10 @@
  * Chicago time; past that it renders nothing, so a stale notice can't linger
  * if nobody remembers to remove it. Set BANNER to null to turn it off now.
  *
- * The nav, wordmark and scrim are position: fixed, so they can't be pushed
- * down by the strip the way the page content is. Instead this publishes the
- * strip's height as --banner-h, and styles.css adds it to --nav-top less the
- * scroll offset: the band sits just under the strip at the top of the page and
- * slides up into its usual pinned spot as the strip scrolls away.
+ * The strip is sticky, so it stays pinned to the top of the screen. The nav,
+ * wordmark and scrim are position: fixed and can't be pushed down by it the
+ * way the page content is, so this publishes the strip's height as --banner-h
+ * and styles.css adds it to --nav-top, keeping the band just under the strip.
  */
 (function () {
   var BANNER = {
