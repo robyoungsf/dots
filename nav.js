@@ -189,7 +189,7 @@
     var link = document.createElement("a");
     link.className = "site-nav-home";
     link.href = root + "/index.html";
-    link.setAttribute("aria-label", "Dot's Cafe — home");
+    link.setAttribute("aria-label", "Dot’s Cafe — home");
 
     var svg = mainLogo.cloneNode(true);
     svg.removeAttribute("width");

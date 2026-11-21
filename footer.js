@@ -19,7 +19,7 @@
     "</div>" +
     '<div class="footer-col">' +
     '<p class="tagline"><b class="footer-col-title">Fulton Market</b>' +
-    '1001 W Fulton Market<br>Chicago, IL 60607<br>Reopens November 11</p>' +
+    '1001 W Fulton Market<br>Chicago, IL 60607<br>7a&ndash;1p</p>' +
     "</div>" +
     "</div>" +
     "</div>" +

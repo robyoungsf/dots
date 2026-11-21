@@ -32,6 +32,10 @@
  *   alt     describes the photo for screen readers and when it fails to load
  *   special true adds the "Current special" chip; leave it off for a drink
  *           that is simply on the menu rather than limited
+ *   focus   optional [x, y], each 0–1: the point in the photo (usually the
+ *           drink) to keep at the centre of the screen as the hero crops to
+ *           fill it. Needed for portrait shots, which lose most of their
+ *           height on a wide screen; without it the crop is simply centred.
  */
 (function () {
   var script = document.currentScript;
@@ -39,9 +43,20 @@
 
   var FEATURED = [
     {
+      photo: "assets/featured/sweet-potato-latte-marshmallow-foam.jpg",
+      name: "Sweet Potato Latte with Marshmallow Foam",
+      // TODO: blurb — description to come
+      alt:
+        "An iced sweet potato latte with marshmallow foam in a clear glass, " +
+        "topped with a toasted marshmallow on a skewer, in late sun on a pink " +
+        "marble table beside a terracotta plant pot",
+      special: true,
+      focus: [0.525, 0.68],
+    },
+    {
       photo: "assets/featured/cranberry-espresso-tonic.jpg",
       name: "Cranberry Espresso Tonic",
-      blurb: "Espresso, tonic, and house-made cranberry syrup over ice.",
+      blurb: "Espresso, tonic, and housemade cranberry syrup over ice.",
       alt:
         "A cranberry espresso tonic over ice, red at the bottom fading to " +
         "amber, on a pink table against a brick wall",
@@ -79,7 +94,7 @@
       photo: "assets/featured/smoky-rose-cardamom-latte.jpg",
       name: "Smoky Rose Cardamom Latte",
       blurb: "Espresso and steamed milk with housemade cardamom syrup.",
-      alt: "A Smoky Rose Cardamom Latte on the counter at Dot's",
+      alt: "A Smoky Rose Cardamom Latte on the counter at Dot’s",
       special: true,
     },
     {
@@ -175,6 +190,38 @@
      from separate clocks would let them drift apart the moment the progress bar
      is paused mid-sweep. */
   section.style.setProperty("--hero-interval", INTERVAL + "ms");
+
+  /* object-fit: cover centres the crop, and a percentage object-position
+     cannot pin an arbitrary point to the middle of the box — it lines up the
+     photo's p% with the box's p%. So for slides with a focus, work out the
+     crop in pixels: scale as cover does, shift so the focus lands at the
+     centre, and clamp so the photo still covers the box at the edges. */
+  var focusImgs = [];
+  section.querySelectorAll(".hero-slide img").forEach(function (img, i) {
+    if (FEATURED[i].focus) focusImgs.push({ img: img, focus: FEATURED[i].focus });
+  });
+
+  function placeFocus(entry) {
+    var img = entry.img;
+    var w = img.naturalWidth, h = img.naturalHeight;
+    var W = img.clientWidth, H = img.clientHeight;
+    if (!w || !h || !W || !H) return;
+    var s = Math.max(W / w, H / h);
+    var sw = w * s, sh = h * s;
+    var x = Math.min(Math.max(entry.focus[0] * sw - W / 2, 0), sw - W);
+    var y = Math.min(Math.max(entry.focus[1] * sh - H / 2, 0), sh - H);
+    img.style.objectPosition = -x + "px " + -y + "px";
+  }
+
+  function placeAllFocus() {
+    focusImgs.forEach(placeFocus);
+  }
+
+  focusImgs.forEach(function (entry) {
+    if (entry.img.complete) placeFocus(entry);
+    else entry.img.addEventListener("load", function () { placeFocus(entry); });
+  });
+  window.addEventListener("resize", placeAllFocus);
 
   var figures = section.querySelectorAll(".hero-slide");
   var buttons = section.querySelectorAll(".hero-dot");

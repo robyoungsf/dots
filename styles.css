@@ -13,7 +13,13 @@
   /* Where the top band — wordmark and nav — sits. Pinned by default; the home
      page overrides it below to open lower and ride up. */
   --nav-pinned-top: 1.5rem;
-  --nav-top: var(--nav-pinned-top);
+  /* --banner-h is the announcement strip's height (banner.js; 0 when there is
+     none). The band starts that far lower and rides up as the strip scrolls
+     off, so the fixed nav never covers it. */
+  --nav-top: max(
+    var(--nav-pinned-top),
+    calc(var(--nav-pinned-top) + var(--banner-h, 0px) - var(--scroll-y, 0px))
+  );
 
   /* How long the selected dot takes to stretch from circle to track. Shared by
      that transition and the progress sweep's delay so the two cannot drift. */
@@ -32,8 +38,30 @@
 body:has(.home-hero) {
   --nav-top: max(
     var(--nav-pinned-top),
-    calc(var(--edge-inset) - var(--scroll-y, 0px))
+    calc(var(--edge-inset) + var(--banner-h, 0px) - var(--scroll-y, 0px))
   );
+}
+
+/* Announcement strip (banner.js) — in the normal flow at the very top, so it
+   pushes the page down rather than covering it, and scrolls away with it. The
+   pink is the "Current special" badge's, with the same dark text (6.5:1).
+   z-index 2: above the photo scrim (1), so the hero's gradient doesn't dim it,
+   but under the nav (3), whose full-screen mobile menu has to cover it. */
+.site-banner {
+  position: relative;
+  z-index: 2;
+  flex: none;
+  background: #EC9EC0;
+  color: var(--text);
+  text-align: center;
+  padding: 0.55rem 1.25rem 0.5rem;
+}
+
+.site-banner p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 *,
