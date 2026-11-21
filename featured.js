@@ -27,11 +27,9 @@
  *           and this is the first thing every visitor downloads. 2000px wide
  *           at quality ~68 lands under 500KB:
  *             sips -Z 2000 -s format jpeg -s formatOptions 68 SRC --out DST
- *   name    the drink, as it reads on the menu
- *   blurb   one line under the name
+ *   name    the drink, shown on one line over the photo
+ *   blurb   optional line under the name (none of the current slides use one)
  *   alt     describes the photo for screen readers and when it fails to load
- *   special true adds the "Current special" chip; leave it off for a drink
- *           that is simply on the menu rather than limited
  *   focus   optional [x, y], each 0–1: the point in the photo (usually the
  *           drink) to keep at the centre of the screen as the hero crops to
  *           fill it. Needed for portrait shots, which lose most of their
@@ -49,7 +47,6 @@
         "An iced sweet potato latte with marshmallow foam in a clear glass, " +
         "topped with a toasted marshmallow on a skewer, in late sun on a pink " +
         "marble table beside a terracotta plant pot",
-      special: true,
       focus: [0.525, 0.68],
     },
     {
@@ -58,7 +55,6 @@
       alt:
         "A cranberry espresso tonic over ice, red at the bottom fading to " +
         "amber, on a pink table against a brick wall",
-      special: true,
     },
     {
       photo: "assets/featured/pumpkin-miso-latte.jpg",
@@ -66,15 +62,6 @@
       alt:
         "A pumpkin miso latte in a red cup and saucer, topped with whipped " +
         "cream and cinnamon, beside a small pumpkin on a pink marble counter",
-      special: true,
-    },
-    {
-      photo: "assets/featured/dots-all-purpose-hat.jpg",
-      name: "The All Purpose Hat",
-      blurb: "Available only at Dot’s.",
-      alt:
-        "A faded black cap embroidered with Dot’s pink flower, sitting in a " +
-        "bed of pink impatiens on a Roscoe Village street corner",
     },
     {
       photo: "assets/featured/crunchy-peanut-butter-cold-brew.jpg",
@@ -82,19 +69,23 @@
       alt:
         "A crunchy peanut butter cold brew in a clear cup, topped with " +
         "cold foam and crushed peanuts, on a light wood counter",
-      special: true,
     },
     {
       photo: "assets/featured/smoky-rose-cardamom-latte.jpg",
       name: "Smoky Rose Cardamom Latte",
       alt: "A Smoky Rose Cardamom Latte on the counter at Dot’s",
-      special: true,
     },
     {
       photo: "assets/featured/iced-latte-raspberry-cold-foam.jpg",
       name: "Iced Latte with Raspberry Cold Foam",
       alt: "An iced latte topped with raspberry cold foam",
-      special: true,
+    },
+    {
+      photo: "assets/featured/dots-all-purpose-hat.jpg",
+      name: "The All Purpose Hat",
+      alt:
+        "A faded black cap embroidered with Dot’s pink flower, sitting in a " +
+        "bed of pink impatiens on a Roscoe Village street corner",
     },
   ];
 
@@ -123,9 +114,7 @@
       '<img src="' + root + "/" + esc(d.photo) + '" alt="' + esc(d.alt || "") +
       '" loading="' + (i === 0 ? "eager" : "lazy") + '" decoding="async">' +
       '<figcaption class="hero-caption">' +
-      (d.special ? '<span class="badge">Current special</span>' : "") +
-      '<h2 class="hero-name" style="--chars: ' + d.name.length + '">' +
-      esc(d.name) + "</h2>" +
+      '<h2 class="hero-name">' + esc(d.name) + "</h2>" +
       (d.blurb ? '<p class="hero-blurb">' + esc(d.blurb) + "</p>" : "") +
       "</figcaption>" +
       "</figure>"
@@ -215,6 +204,29 @@
     else entry.img.addEventListener("load", function () { placeFocus(entry); });
   });
   window.addEventListener("resize", placeAllFocus);
+
+  /* Names stay on one line (white-space: nowrap). Where one is wider than
+     the caption, scale it down to fit: measured, since the serif is
+     proportional and its width can't be worked out from the letter count.
+     The inactive slides are transparent but still laid out, so all of them
+     can be measured at once. */
+  var names = section.querySelectorAll(".hero-name");
+  function fitNames() {
+    for (var n = 0; n < names.length; n++) {
+      var el = names[n];
+      el.style.fontSize = "";
+      var room = el.parentNode.clientWidth;
+      var need = el.scrollWidth;
+      if (room && need > room) {
+        var full = parseFloat(window.getComputedStyle(el).fontSize);
+        el.style.fontSize = Math.floor(full * room / need * 10) / 10 + "px";
+      }
+    }
+  }
+  fitNames();
+  window.addEventListener("resize", fitNames);
+  /* The serif arrives after first paint; measure again once it has. */
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitNames);
 
   var figures = section.querySelectorAll(".hero-slide");
   var buttons = section.querySelectorAll(".hero-dot");

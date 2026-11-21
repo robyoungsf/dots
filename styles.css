@@ -1,4 +1,6 @@
-/* Dots coffee bar — minimal single-page site */
+/* Dot’s — site styles. Type: Instrument Serif for display titles (with a
+   hairline stroke for a semibold look), Instrument Sans, its companion from
+   the same foundry, for everything else. */
 
 :root {
   --bg: #f8ecd4;
@@ -42,7 +44,7 @@ body:has(.home-hero) {
 /* Announcement strip (banner.js) — pinned to the top of the screen. Sticky
    rather than fixed, so it still takes up its own space at the top of the page
    and pushes the content down instead of covering it. The site's dark green
-   with the page beige (--bg) on it, 12:1.
+   with the flower's peach (#EC9D9D) on it, 6.7:1.
    z-index 2: above the photo scrim (1), so the hero's gradient doesn't dim it,
    but under the nav (3), whose full-screen mobile menu has to cover it. */
 .site-banner {
@@ -51,16 +53,17 @@ body:has(.home-hero) {
   z-index: 2;
   flex: none;
   background: var(--accent);
-  color: var(--bg);
+  color: #EC9D9D;
   text-align: center;
   padding: 0.55rem 1.25rem 0.5rem;
 }
 
+/* Set in the display serif (see .hero-name below for the shared face, weight
+   and spacing); sized up since the serif reads small. */
 .site-banner p {
   margin: 0;
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  font-size: 1.15rem;
+  line-height: 1.3;
 }
 
 *,
@@ -83,7 +86,7 @@ body {
   flex-direction: column;
   background: var(--bg);
   color: var(--text);
-  font-family: "Courier Prime", "Courier New", Courier, monospace;
+  font-family: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
   font-weight: 400;
   line-height: 1.3;
 }
@@ -91,7 +94,7 @@ body {
 /* ---- Page load choreography ----------------------------------------------
    page-load.js adds .js-fade to <html> before first paint and .is-ready once
    the webfont has settled, so the page arrives as one gentle fade instead of
-   painting in Courier New, jumping when Courier Prime swaps in, and then
+   painting in a fallback font, jumping when the webfont swaps in, and then
    popping the injected nav and footer on top. The script caps the wait, so a
    slow font delays the reveal but never blocks it. Neither class is set when
    JS is off or under prefers-reduced-motion — the page just renders. */
@@ -223,7 +226,7 @@ body.logo-hidden .logo-wrap > :not(.logo-link) {
 
 .location-title {
   margin: 0 0 0rem;
-  font-family: "Courier Prime", "Courier New", Courier, monospace;
+  font-family: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 1.2rem;
   font-weight: 400;
   line-height: 1.1;
@@ -239,8 +242,8 @@ body.logo-hidden .logo-wrap > :not(.logo-link) {
   padding: 0.2rem 0.6rem;
   padding-top:0.3rem;
   border-radius: 4px;
-  background: #EC9EC0;
-  /* Dark text: cream on this pink is 1.8:1, dark green is 6.5:1. */
+  background: #EC9D9D;
+  /* The flower's peach. Dark text: cream on it is under 2:1, dark green 6.7:1. */
   color: var(--text);
   font-size: 0.8rem;
   font-weight: 400;
@@ -422,7 +425,7 @@ a:has(> img) {
 /* ---- shared card text ---- */
 
 .location-neighborhood {
-  font-family: "Courier Prime", "Courier New", Courier, monospace;
+  font-family: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 1.2rem;
   font-weight: 400;
   letter-spacing: 0.01em;
@@ -561,10 +564,10 @@ body.logo-hidden .site-nav-home {
   color: var(--accent);
 }
 
+/* Display serif, shared rule under .hero-name; sized up from the old bold
+   0.9rem since the serif reads small. */
 .site-nav-link {
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-size: 1.15rem;
   text-decoration: none;
   background-image: none;
   padding-bottom: 0;
@@ -629,9 +632,7 @@ body.logo-hidden .site-nav-home {
 
 .site-nav-menu-link {
   padding: 0.5rem 1.25rem;
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-size: 1.15rem;
   text-decoration: none;
   background-image: none;
   color: var(--accent);
@@ -672,8 +673,15 @@ body.logo-hidden .site-nav-home {
   transition: opacity 0.3s ease;
 }
 
-body.over-photos .top-scrim {
+/* nav.js sets scrim-on only over photos: on Our Story the green half reads
+   the cream nav fine and the gradient would just muddy it. */
+body.scrim-on .top-scrim {
   opacity: 1;
+}
+
+/* Our Story, side by side: the scrim covers the photo half only. */
+body:has(.about-split) .top-scrim {
+  left: 50%;
 }
 
 /* Same cream as the hero's drink titles, at full strength — pure white at 0.9
@@ -977,6 +985,71 @@ html.js-fade.is-ready .page-bg-photo.is-loaded {
   transition: opacity 1.6s ease 0.3s;
 }
 
+/* ---- About: 50/50 full bleed --------------------------------------------
+   The letter on dark green at left, its block centred in its half; Grandma Dot at right,
+   filling hers. Each half is a screen tall (less the pinned banner) and the
+   text half grows past that if the letter needs the room. */
+.about-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  min-height: calc(100vh - var(--banner-h, 0px));
+  min-height: calc(100svh - var(--banner-h, 0px));
+}
+
+.about-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  /* Top clears the pinned wordmark; the bottom matches it so the letter's
+     centre is the panel's. */
+  padding: max(var(--edge-inset), 7rem) var(--edge-inset);
+}
+
+.about-text-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  max-width: 30rem;
+  text-align: left;
+}
+
+/* The block sits centred in the panel; the letter inside it reads ranged
+   left, on phones too, where .tagline would otherwise centre. */
+.about-text .location-title,
+.about-text .tagline {
+  color: var(--bg);
+  text-align: left;
+}
+
+/* The letter reads larger than the site's other taglines: it is the page. */
+.about-text .tagline {
+  font-size: 1.025rem;
+  line-height: 1.55;
+  letter-spacing: 0.03em;
+  /* Instrument Sans bottoms out at 400, so lighten it the other ways. macOS
+     renders light-on-dark text heavier than it is; greyscale antialiasing
+     undoes that. And the beige is eased a touch toward the green, which
+     reads as a lighter stroke without losing contrast (still ~10:1). */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: color-mix(in srgb, var(--bg) 88%, var(--accent));
+}
+
+/* Black behind the photo, so it fades up from black (page-load.js). */
+.about-photo {
+  position: relative;
+  overflow: hidden;
+  background: #000;
+}
+
+/* Dot sits a little right of the photo's middle, at 55% across; at this
+   panel's portrait-ish shape, 62% is what lands her in the centre. */
+.about-photo .page-bg-photo {
+  object-position: 62% center;
+}
+
 .page--backdrop .location-title,
 .page--backdrop .tagline {
   color: var(--bg);
@@ -1145,9 +1218,13 @@ body:has(.menu-page) .site-footer::after,
 }
 
 /* A little breathing room between each column's title and its info. */
+/* Location names in the footer: the display serif (shared rule under
+   .hero-name), sized up from the tagline beneath them. */
 .footer-col-title {
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.6rem;
+  line-height: 1.1;
 }
 
 .footer-credits {
@@ -1229,6 +1306,26 @@ body:has(.menu-page) .site-footer::after,
 }
 
 @media (max-width: 640px) {
+  /* About stacks: Dot first, at most of a screen, then the letter. */
+  .about-split {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .about-photo {
+    order: -1;
+    height: 70svh;
+  }
+
+  /* Stacked, the photo is full width, so its scrim is too. */
+  body:has(.about-split) .top-scrim {
+    left: 0;
+  }
+
+  .about-text {
+    padding: 3.5rem 1.5rem;
+  }
+
   /* Stacked on phones, still ranged left on the wordmark's margin, out to the
      burger's right margin. */
   .footer-inner {
@@ -1264,13 +1361,6 @@ body:has(.menu-page) .site-footer::after,
     padding-bottom: 6rem;
   }
 
-  /* About: the text starts at the top, over the painting, rather than centred.
-     The letter runs most of the way down a phone screen, so it keeps the
-     even wash above rather than easing off below the text. */
-  .about-page {
-    align-content: start;
-  }
-
   .col-info {
     position: static;
   }
@@ -1293,6 +1383,12 @@ body:has(.menu-page) .site-footer::after,
 
   .location-title {
     text-align: center;
+  }
+
+  /* Doubled class: the base .display-title comes later in the file and
+     would otherwise win. */
+  .display-title.display-title {
+    font-size: 2rem;
   }
 
   /* Intro text spans the full column width on mobile. */
@@ -1730,12 +1826,24 @@ body:has(.menu-page) .site-footer::after,
    picker sits below it. Markup is built by featured.js from its FEATURED
    array, so the rules here can't assume a slide count. */
 .home-hero {
+  /* The caption and the dots under it are centred, as one block, on the
+     corner flower's middle: the flower is 88px wide at 671:643 and sits
+     --edge-inset off the bottom. The block is the dot row (24px, the pause
+     button's height), a 0.5rem gap, and one line of the name at full size. */
+  --hero-flower-mid: calc(var(--edge-inset) + 88px * 643 / 671 / 2);
+  --hero-block-h: calc(24px + 0.5rem + var(--hero-name-max) * 1.1);
+  --hero-dots-bottom: calc(var(--hero-flower-mid) - var(--hero-block-h) / 2);
+  --hero-name-max: 2.5rem;
   position: relative;
   width: 100%;
   /* svh, so mobile browser chrome collapsing doesn't crop the caption; vh is
      the fallback for anything without small-viewport units. */
-  height: 100vh;
-  height: 100svh;
+  /* Less the pinned banner (banner.js), which sits above the hero in the
+     flow: otherwise it pushes the hero's bottom off the screen by its own
+     height, and the caption no longer lines up with the flower, which is
+     fixed to the screen's bottom. */
+  height: calc(100vh - var(--banner-h, 0px));
+  height: calc(100svh - var(--banner-h, 0px));
   overflow: hidden;
   background: var(--bg-dark);
 }
@@ -1791,8 +1899,8 @@ body:has(.menu-page) .site-footer::after,
   position: absolute;
   left: var(--edge-inset);
   right: var(--edge-inset);
-  /* Clears the row of dots below it (0.6rem tall plus breathing room). */
-  bottom: calc(var(--edge-inset) + 2rem);
+  /* Sits just above the row of dots: the row's 24px plus a 0.5rem gap. */
+  bottom: calc(var(--hero-dots-bottom) + 24px + 0.5rem);
   z-index: 1;
   display: flex;
   flex-direction: column;
@@ -1803,21 +1911,37 @@ body:has(.menu-page) .site-footer::after,
 
 .hero-name {
   margin: 0;
-  font-family: "Courier Prime", "Courier New", Courier, monospace;
-  /* Always one line. The name keeps its full size where it fits, and shrinks
-     to fit the caption's width where it doesn't. featured.js sets --chars to
-     the name's length; Courier Prime is monospaced, so each character takes
-     0.6em, plus the letter-spacing, rounded up to 0.62em for safety. */
-  --hero-name-max: 2rem;
-  font-size: min(
-    var(--hero-name-max),
-    calc((100vw - 2 * var(--edge-inset)) / (var(--chars, 20) * 0.62))
-  );
+  /* Always one line. The name keeps its full size where it fits; where it
+     doesn't, featured.js measures it and shrinks it to the caption's width. */
+  font-size: var(--hero-name-max);
   white-space: nowrap;
-  /* Stated, not omitted: it is an <h2>, so the browser default is bold. */
+  line-height: 1.1;
+}
+
+/* The display serif, shared by the slideshow's drink names, the page titles
+   on Our Story and the location pages, the home page's location names, the
+   footer's location names, the nav links, and the announcement banner. Pages that use it load
+   Instrument Serif alongside Instrument Sans. */
+.hero-name,
+.display-title,
+.location-panel .location-neighborhood,
+.site-banner p,
+.footer-col-title,
+.site-nav-link,
+.site-nav-menu-link {
+  font-family: "Instrument Serif", "Times New Roman", serif;
   font-weight: 400;
-  line-height: 1.15;
-  letter-spacing: 0.01em;
+  /* Instrument Serif has no bolder weight, and the browser's synthesised bold
+     smears it. A hairline stroke in the text's own colour thickens every
+     stroke evenly instead — about a semibold. */
+  -webkit-text-stroke: 0.025em currentColor;
+  font-synthesis: none;
+  letter-spacing: 0.04em;
+}
+
+.display-title {
+  font-size: 2.5rem;
+  line-height: 1.1;
 }
 
 .hero-blurb {
@@ -1835,7 +1959,7 @@ body:has(.menu-page) .site-footer::after,
 .hero-dots {
   position: absolute;
   left: var(--edge-inset);
-  bottom: var(--edge-inset);
+  bottom: var(--hero-dots-bottom);
   z-index: 2;
   display: flex;
   align-items: center;
@@ -1994,11 +2118,7 @@ html.js-fade:not(.is-ready) .hero-dot.is-active .hero-dot-fill {
   }
 
   .hero-name {
-    --hero-name-max: 1.5rem;
-    font-size: min(
-      var(--hero-name-max),
-      calc((100vw - 3rem) / (var(--chars, 20) * 0.62))
-    );
+    --hero-name-max: 1.9rem;
   }
 
   .hero-blurb {
@@ -2097,8 +2217,9 @@ html.js-fade .location-panel-image.is-loaded {
   color: var(--bg);
 }
 
+/* Same serif and size as the location pages' own titles. */
 .location-panel .location-neighborhood {
-  font-size: 1.6rem;
+  font-size: 2.5rem;
 }
 
 .location-panel:focus-visible {
@@ -2144,7 +2265,7 @@ html.js-fade .location-panel-image.is-loaded {
   }
 
   .location-panel .location-neighborhood {
-    font-size: 1.3rem;
+    font-size: 2rem;
   }
 
   /* .tagline centres at this breakpoint for the location pages; the overlay

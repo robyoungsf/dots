@@ -9,7 +9,7 @@
  *
  *   1. Hold the page at opacity 0 (via .js-fade on <html>, which styles.css
  *      acts on) until the webfont has settled, then fade it in as one piece.
- *      Otherwise the text paints in Courier New, then jumps as Courier Prime
+ *      Otherwise the text paints in a fallback font, then jumps as the webfont
  *      swaps over it, and the JS-injected nav and footer pop in after that.
  *   2. Fade each photo in as it decodes, rather than letting a multi-megabyte
  *      JPEG slam into place the instant it lands.

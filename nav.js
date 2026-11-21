@@ -52,7 +52,7 @@
     '/menu/index.html">Menu</a>' +
     '<a class="site-nav-link" href="' +
     root +
-    '/about/index.html">About</a>' +
+    '/about/index.html">Our Story</a>' +
     '<a class="site-nav-link" href="' +
     GIFT_CARDS +
     '" target="_blank" rel="noopener noreferrer">Gift Cards</a>' +
@@ -233,26 +233,33 @@
   function update() {
     // Dark regions that need the cream nav: the location pages' backdrop,
     // gallery and dark green footer, the menu's dark green footer, and the
-    // home page's featured-drink hero and location split.
-    var regions = document.querySelectorAll(
-      ".page--backdrop, .page--backdrop ~ .site-footer, .menu-page ~ .site-footer, .gallery, .home-hero, .locations-split"
-    );
+    // home page's featured-drink hero and location split, and the About
+    // page's green-and-photo split.
+    var DARK =
+      ".page--backdrop, .page--backdrop ~ .site-footer, .menu-page ~ .site-footer, .gallery, .home-hero, .locations-split, .about-split";
+    /* The scrim is for legibility over photos only, not over flat colour. So
+       it follows the same regions except the About split, where only the photo
+       half gets it: the green half is dark enough already, and the gradient
+       just muddies it. */
+    var PHOTO =
+      ".page--backdrop, .page--backdrop ~ .site-footer, .menu-page ~ .site-footer, .gallery, .home-hero, .locations-split, .about-photo";
     /* Measure the nav rather than assuming a fixed offset — it no longer sits
        at a constant height, so the line being tested has to follow it. */
     var band = nav.getBoundingClientRect();
     var navY = band.height ? band.top + band.height / 2 : 40;
-    var over = false;
+    document.body.classList.toggle("over-photos", covers(DARK, navY));
+    document.body.classList.toggle("scrim-on", covers(PHOTO, navY));
+  }
+
+  // Only count a region when it actually covers the nav's line — not when it
+  // merely ends there (which happens as the beige footer scrolls into view).
+  function covers(selector, y) {
+    var regions = document.querySelectorAll(selector);
     for (var i = 0; i < regions.length; i++) {
       var r = regions[i].getBoundingClientRect();
-      // Only go "over photos" when a photo actually covers the nav's line —
-      // not when the region merely ends there (which happens as the beige
-      // footer scrolls into view).
-      if (r.top <= navY && r.bottom > navY) {
-        over = true;
-        break;
-      }
+      if (r.top <= y && r.bottom > y) return true;
     }
-    document.body.classList.toggle("over-photos", over);
+    return false;
   }
 
   /* One rAF-batched pass per frame: the scroll offset has to land before the
