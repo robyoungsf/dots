@@ -1944,6 +1944,30 @@ body:has(.menu-page) .site-footer::after,
   line-height: 1.1;
 }
 
+/* The menu's heading sits beside the list rather than over a photo, so it
+   runs smaller than the other page titles. Doubled class so it beats the
+   phone size above as well. */
+.menu-page .display-title.display-title {
+  font-size: 1.9rem;
+}
+
+/* The heading sits over the list, on the item names' left edge, and the list
+   keeps the middle column it had beside the old left-hand heading. */
+.menu-page .col-menu {
+  grid-column: 2;
+}
+
+.menu-title.menu-title {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+@media (max-width: 640px) {
+  .menu-page .col-menu {
+    grid-column: auto;
+  }
+}
+
 .hero-blurb {
   margin: 0;
   font-size: 1rem;
