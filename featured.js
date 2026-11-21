@@ -45,7 +45,6 @@
     {
       photo: "assets/featured/sweet-potato-latte-marshmallow-foam.jpg",
       name: "Sweet Potato Latte with Marshmallow Foam",
-      // TODO: blurb — description to come
       alt:
         "An iced sweet potato latte with marshmallow foam in a clear glass, " +
         "topped with a toasted marshmallow on a skewer, in late sun on a pink " +
@@ -56,7 +55,6 @@
     {
       photo: "assets/featured/cranberry-espresso-tonic.jpg",
       name: "Cranberry Espresso Tonic",
-      blurb: "Espresso, tonic, and housemade cranberry syrup over ice.",
       alt:
         "A cranberry espresso tonic over ice, red at the bottom fading to " +
         "amber, on a pink table against a brick wall",
@@ -65,9 +63,6 @@
     {
       photo: "assets/featured/pumpkin-miso-latte.jpg",
       name: "Pumpkin Miso Latte",
-      blurb:
-        "Housemade pumpkin miso sauce in a hot or iced latte, " +
-        "topped with vanilla whipped cream and cinnamon.",
       alt:
         "A pumpkin miso latte in a red cup and saucer, topped with whipped " +
         "cream and cinnamon, beside a small pumpkin on a pink marble counter",
@@ -84,7 +79,6 @@
     {
       photo: "assets/featured/crunchy-peanut-butter-cold-brew.jpg",
       name: "Crunchy Peanut Butter Cold Brew",
-      blurb: "House cold brew under peanut butter cold foam and crushed peanuts.",
       alt:
         "A crunchy peanut butter cold brew in a clear cup, topped with " +
         "cold foam and crushed peanuts, on a light wood counter",
@@ -93,14 +87,12 @@
     {
       photo: "assets/featured/smoky-rose-cardamom-latte.jpg",
       name: "Smoky Rose Cardamom Latte",
-      blurb: "Espresso and steamed milk with housemade cardamom syrup.",
       alt: "A Smoky Rose Cardamom Latte on the counter at Dot’s",
       special: true,
     },
     {
       photo: "assets/featured/iced-latte-raspberry-cold-foam.jpg",
       name: "Iced Latte with Raspberry Cold Foam",
-      blurb: "Iced espresso under a cap of raspberry cold foam.",
       alt: "An iced latte topped with raspberry cold foam",
       special: true,
     },
@@ -132,7 +124,8 @@
       '" loading="' + (i === 0 ? "eager" : "lazy") + '" decoding="async">' +
       '<figcaption class="hero-caption">' +
       (d.special ? '<span class="badge">Current special</span>' : "") +
-      '<h2 class="hero-name">' + esc(d.name) + "</h2>" +
+      '<h2 class="hero-name" style="--chars: ' + d.name.length + '">' +
+      esc(d.name) + "</h2>" +
       (d.blurb ? '<p class="hero-blurb">' + esc(d.blurb) + "</p>" : "") +
       "</figcaption>" +
       "</figure>"

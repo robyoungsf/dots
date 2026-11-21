@@ -1798,14 +1798,22 @@ body:has(.menu-page) .site-footer::after,
   flex-direction: column;
   align-items: flex-start;
   gap: 0.75rem;
-  max-width: 34rem;
   color: var(--bg);
 }
 
 .hero-name {
   margin: 0;
   font-family: "Courier Prime", "Courier New", Courier, monospace;
-  font-size: 2rem;
+  /* Always one line. The name keeps its full size where it fits, and shrinks
+     to fit the caption's width where it doesn't. featured.js sets --chars to
+     the name's length; Courier Prime is monospaced, so each character takes
+     0.6em, plus the letter-spacing, rounded up to 0.62em for safety. */
+  --hero-name-max: 2rem;
+  font-size: min(
+    var(--hero-name-max),
+    calc((100vw - 2 * var(--edge-inset)) / (var(--chars, 20) * 0.62))
+  );
+  white-space: nowrap;
   /* Stated, not omitted: it is an <h2>, so the browser default is bold. */
   font-weight: 400;
   line-height: 1.15;
@@ -1986,7 +1994,11 @@ html.js-fade:not(.is-ready) .hero-dot.is-active .hero-dot-fill {
   }
 
   .hero-name {
-    font-size: 1.5rem;
+    --hero-name-max: 1.5rem;
+    font-size: min(
+      var(--hero-name-max),
+      calc((100vw - 3rem) / (var(--chars, 20) * 0.62))
+    );
   }
 
   .hero-blurb {
