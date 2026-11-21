@@ -1966,6 +1966,13 @@ body:has(.menu-page) .site-footer::after,
   .menu-page .col-menu {
     grid-column: auto;
   }
+
+  /* The menu list runs the full width of a phone, so the flower pinned to the
+     corner would sit on the prices the whole way down. It goes here; the
+     location pages, with room beside their text, keep theirs. */
+  body:has(.menu-page) .flower--pinned {
+    display: none;
+  }
 }
 
 .hero-blurb {
