@@ -165,6 +165,32 @@
       opacity: .6;
     }
 
+    /* ---- Photos of drinks ---- */
+    .shot-grid { display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem 1.5rem; align-items: start; margin-top: 1.5rem; }
+    .shot-grid .axis { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .8rem; letter-spacing: .04em; opacity: .7; align-self: center; writing-mode: vertical-rl; transform: rotate(180deg); }
+    .shot-grid .col-head { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .8rem; letter-spacing: .04em; opacity: .7; }
+    .frame { position: relative; background: var(--paper); border: 1px dashed var(--green); border-radius: .375rem; overflow: hidden; display: grid; place-items: center; }
+    .frame.land { aspect-ratio: 16 / 10; }
+    .frame.port { aspect-ratio: 3 / 4; }
+    .frame::before, .frame::after { content: ""; position: absolute; background: var(--green); opacity: .18; }
+    .frame::before { left: 50%; top: 0; bottom: 0; width: 1px; }
+    .frame::after { top: 50%; left: 0; right: 0; height: 1px; }
+    .frame .drink { position: relative; z-index: 1; border-radius: 50%; background: var(--peach); border: 1px solid var(--green); aspect-ratio: 1; width: 26%; }
+    .frame.close .drink { width: 58%; }
+    .frame.port .drink { width: 40%; }
+    .frame.port.close .drink { width: 80%; }
+    .rule-list { margin: 0; padding: 0; list-style: none; }
+    .rule-list li { padding: .75rem 0; border-top: 1px solid var(--olive); }
+    .rule-list li:last-child { border-bottom: 1px solid var(--olive); }
+    .angle-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+    .angle { background: var(--paper); border-radius: .375rem; padding: 1.25rem; }
+    .angle svg { width: 100%; height: auto; display: block; margin-bottom: 1rem; }
+    .angle svg .ground { stroke: var(--green); stroke-width: 1; }
+    .angle svg .cup { fill: var(--peach); stroke: var(--green); stroke-width: 1.2; }
+    .angle svg .cam { fill: var(--green); }
+    .angle svg .sight { stroke: var(--green); stroke-width: 1; stroke-dasharray: 3 3; fill: none; }
+    .angle strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.4rem; margin-bottom: .3rem; }
+
     /* ---- Colour ---- */
     .swatch { border-radius: .375rem; overflow: hidden; background: var(--paper); }
     .swatch .chip { height: 170px; display: flex; align-items: flex-end; padding: 1rem; font-family: var(--serif); font-size: 1.6rem; -webkit-text-stroke: .025em currentColor; letter-spacing: .03em; }
@@ -595,6 +621,73 @@ font-synthesis: none;</pre>
       <div><strong>Do</strong><br>Shoot in daylight near a window. Use warm white balance and shallow depth. Hands and people are welcome. Leave the drink-in-progress moments in.</div>
       <div><strong>Don’t</strong><br>No harsh flash, cool or blue casts, heavy filters, or stocky flat-lays on white seamless. Don’t over-style.</div>
       <div><strong>Credit</strong><br>House photography by Kristen Mendiola. Always credit it as “Photo: Kristen Mendiola”.</div>
+    </div>
+
+    <h3 style="margin-top:4rem">Photos of Drinks</h3>
+    <p class="note">Drinks get their own rules. Every drink is shot at a wide and a close crop, so one photo can work in a full-width hero and on a phone.</p>
+
+    <h3 style="margin-top:3rem">Website</h3>
+    <p class="note">The site shows drinks from desktop widths down to mobile, and everything in between. Shoot both crops, each in landscape and portrait.</p>
+    <div class="shot-grid">
+      <div></div>
+      <div class="col-head">Landscape · desktop</div>
+      <div class="col-head">Portrait · mobile</div>
+      <div class="axis">Wide</div>
+      <div><div class="frame land"><span class="drink" style="width:20%"></span></div><div class="label">Wide, landscape: drink centered, room on all sides</div></div>
+      <div><div class="frame port"><span class="drink" style="width:30%"></span></div><div class="label">Wide, portrait: drink centered, room on all sides</div></div>
+      <div class="axis">Close</div>
+      <div><div class="frame land close"><span class="drink"></span></div><div class="label">Close, landscape: drink fills about half the frame</div></div>
+      <div><div class="frame port close"><span class="drink"></span></div><div class="label">Close, portrait: drink fills most of the width</div></div>
+    </div>
+    <ul class="rule-list" style="margin-top:2rem">
+      <li><strong>Center the drink.</strong> Roughly centered in every frame, so it holds up when the site crops the photo to a different shape.</li>
+      <li><strong>Both orientations.</strong> Every angle is taken in landscape and portrait.</li>
+      <li><strong>Between sizes.</strong> For tablets and in-between widths, crop from the nearest wide or close shot and keep the drink centered.</li>
+    </ul>
+    <span class="todo">Confirm the close crop ratio with the web team.</span>
+
+    <h3 style="margin-top:4rem">Props</h3>
+    <p class="note">Props support the drink and never compete with it.</p>
+    <ul class="rule-list" style="margin-top:1.5rem">
+      <li><strong>Tableware in the palette.</strong> Cream, Dot’s Green or Flower Peach cups, plates and saucers.</li>
+      <li><strong>One supporting prop at most.</strong> A napkin, spoon or pastry is enough. Keep the drink as the subject.</li>
+      <li><strong>Real and used.</strong> Show a worn table, a folded napkin, a spoon left on the saucer. No styled sets.</li>
+    </ul>
+    <span class="todo">Are plants, flowers or the Dot’s flower allowed as props?</span>
+
+    <h3 style="margin-top:4rem">Camera angle</h3>
+    <p class="note">The angle changes what the drink shows. Pick one per shot and keep the camera level with the drink, not tilted.</p>
+    <div class="angle-grid">
+      <div class="angle">
+        <svg viewBox="-10 -14 140 104" role="img" aria-label="Camera at 0 degrees to the drink">
+          <line class="ground" x1="0" x2="120" y1="80" y2="80"/>
+          <path class="cup" d="M40 40 H80 L76 78 H44 Z"/>
+          <line class="sight" x1="-2.0" y1="60.0" x2="60" y2="60"/>
+          <rect class="cam" x="-9.0" y="55.0" width="14" height="10" rx="2" transform="rotate(0 -2.0 60.0)"/>
+        </svg>
+        <strong>Eye level · 0°</strong>
+        <p class="note" style="margin:0">Shows the drink’s height, layers and glass. Use for iced drinks and foam.</p>
+      </div>
+      <div class="angle">
+        <svg viewBox="-10 -14 140 104" role="img" aria-label="Camera at 45 degrees to the drink">
+          <line class="ground" x1="0" x2="120" y1="80" y2="80"/>
+          <path class="cup" d="M40 40 H80 L76 78 H44 Z"/>
+          <line class="sight" x1="16.2" y1="16.2" x2="60" y2="60"/>
+          <rect class="cam" x="9.2" y="11.2" width="14" height="10" rx="2" transform="rotate(-45 16.2 16.2)"/>
+        </svg>
+        <strong>Three-quarter · 45°</strong>
+        <p class="note" style="margin:0">The default. Shows the top and the side together.</p>
+      </div>
+      <div class="angle">
+        <svg viewBox="-10 -14 140 104" role="img" aria-label="Camera at 90 degrees to the drink">
+          <line class="ground" x1="0" x2="120" y1="80" y2="80"/>
+          <path class="cup" d="M40 40 H80 L76 78 H44 Z"/>
+          <line class="sight" x1="60.0" y1="0.0" x2="60" y2="60"/>
+          <rect class="cam" x="53.0" y="-5.0" width="14" height="10" rx="2" transform="rotate(0 60.0 0.0)"/>
+        </svg>
+        <strong>Overhead · 90°</strong>
+        <p class="note" style="margin:0">Flat lay for latte art and pastry boards. Use sparingly.</p>
+      </div>
     </div>
   </section>
 
