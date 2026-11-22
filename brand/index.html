@@ -656,6 +656,31 @@ font-synthesis: none;</pre>
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
     document.querySelectorAll('main section[id]').forEach(s => io.observe(s));
+
+    // Nav jumps: stop with the hairline above the section title just off the
+    // top of the screen (below the sticky nav strip on phones).
+    const phone = matchMedia('(max-width: 760px)');
+    function sectionY(id) {
+      const h2 = document.querySelector('#' + id + ' .section-head h2');
+      if (!h2) return null;
+      const navH = phone.matches ? document.querySelector('.toc').offsetHeight : 0;
+      // Distance from a hairline to its title, so every title lands in the same spot
+      // (Our Story has no hairline but lines up with the rest).
+      const ref = document.querySelector('section + section > .section-head');
+      const gap = ref.querySelector('h2').getBoundingClientRect().top - ref.getBoundingClientRect().top - 2;
+      return h2.getBoundingClientRect().top + scrollY - navH - gap;
+    }
+    links.forEach((a, id) => a.addEventListener('click', e => {
+      const y = sectionY(id);
+      if (y == null) return;
+      e.preventDefault();
+      history.pushState(null, '', '#' + id);
+      scrollTo({ top: y, behavior: 'smooth' });
+    }));
+    addEventListener('load', () => {
+      const y = location.hash && sectionY(location.hash.slice(1));
+      if (y != null && y !== '') scrollTo({ top: y, behavior: 'instant' });
+    });
   </script>
 
 
