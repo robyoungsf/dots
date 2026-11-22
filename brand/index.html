@@ -74,7 +74,7 @@
     .toc a { display: flex; gap: .7rem; padding: .45rem .65rem; margin-left: -.65rem; border-radius: .5rem; text-decoration: none; opacity: .6; transition: opacity .15s, background-color .15s; }
     .toc a span { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .8em; letter-spacing: .02em; opacity: .7; min-width: 1.6em; align-self: center; }
     .toc a:hover, .toc a.is-active, .toc a:first-child { opacity: 1; }
-    .toc a.is-active { font-weight: 500; background: var(--card); }
+    .toc a.is-active { font-weight: 500; background: var(--sand); }
 
     section {
       min-height: 100vh; min-height: 100svh;
@@ -85,7 +85,7 @@
     }
     section > .todo { align-self: flex-start; }
     .section-head { margin-bottom: 3.5rem; }
-    .section-num { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .8rem; letter-spacing: .04em; opacity: .7; }
+    .section-num { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 1.2rem; letter-spacing: .04em; opacity: .7; }
     .section-head h2 { margin: .4rem 0 0; white-space: nowrap; font-size: clamp(2.6rem, 6vw, 4.5rem); }
     .section-head p { margin: 1.25rem 0 0; font-size: 1.15rem; max-width: 38em; }
     h3 { font-family: var(--serif); font-weight: 400; -webkit-text-stroke: .025em currentColor; font-synthesis: none; letter-spacing: .03em; font-size: 1.6rem; line-height: 1.15; margin: 0 0 1rem; }
@@ -120,8 +120,9 @@
     }
 
     /* ---- Story ---- */
-    .story { max-width: 52rem; }
-    .story blockquote { margin: 0; font-size: clamp(1.8rem, 3.4vw, 2.8rem); }
+    .story { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+    .story-text p { font-size: 1.1rem; line-height: 1.6; max-width: 32em; margin: 0 0 1.1em; }
+    .story-photo { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: .375rem; }
     .pillars { display: grid; gap: 1.25rem; }
     .pillar { background: var(--paper); border-radius: .375rem; padding: 1.5rem 1.75rem; }
     .pillar strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.6rem; -webkit-text-stroke: .025em currentColor; letter-spacing: .03em; margin-bottom: .3rem; }
@@ -298,6 +299,8 @@
       .section-head h2 { white-space: normal; }
       .cover-foot { align-items: flex-end; }
       .fact { grid-template-columns: 1fr; gap: .75rem; }
+      .story { grid-template-columns: 1fr; }
+      .story-photo { order: -1; }
       .cs-wrap { grid-template-columns: 1fr; gap: 1rem; }
     }
   </style>
@@ -316,36 +319,40 @@
   <div class="layout">
   <nav class="toc" aria-label="Sections">
     <a href="#top" aria-label="Back to top"><span class="wordmark toc-logo"></span></a>
-    <a href="#story"><span>01</span>Story</a>
-    <a href="#logo"><span>02</span>Wordmark</a>
-    <a href="#flower"><span>03</span>Flower</a>
-    <a href="#color"><span>04</span>Color</a>
-    <a href="#type"><span>05</span>Type</a>
-    <a href="#voice"><span>06</span>Voice</a>
-    <a href="#photo"><span>07</span>Photography</a>
-    <a href="#details"><span>08</span>Details</a>
-    <a href="#apps"><span>09</span>In use</a>
-    <a href="#basics"><span>10</span>Basics</a>
-    <a href="#downloads"><span>11</span>Downloads</a>
+    <a href="#story">Our Story</a>
+    <a href="#logo">Wordmark</a>
+    <a href="#flower">Flower</a>
+    <a href="#color">Color</a>
+    <a href="#type">Typography</a>
+    <a href="#voice">Voice</a>
+    <a href="#photo">Photography</a>
+    <a href="#details">Details</a>
+    <a href="#apps">In Use</a>
+    <a href="#basics">Basics</a>
+    <a href="#downloads">Downloads</a>
   </nav>
   <main>
 
   <!-- ================= 01 STORY ================= -->
   <section id="story">
-    <div class="section-head">
-      <div><div class="section-num">01</div><h2 class="display">Who we are</h2></div>
-    </div>
     <div class="story">
-      <blockquote class="display">A space where friends and family can gather to enjoy a cup of coffee, to be together, to enjoy the simple pleasures that add up to a life well lived.</blockquote>
+      <div class="story-text">
+        <div class="section-head" style="margin-bottom:1.75rem">
+          <div><h2 class="display">Our Story</h2></div>
+        </div>
+        <p>This is Dot. She’s our grandma, and she turned 100 in 2025. There isn’t enough space or time here to explain all the reasons we named a cafe after her, but we think this photo says a&nbsp;lot.</p>
+        <p>Dot loves coffee and good company, and we’ve spent countless hours enjoying coffee and conversation with&nbsp;her.</p>
+        <p>With Dot’s, we wanted to create a space where friends and family can gather to enjoy a cup of coffee, to be together, to enjoy the simple pleasures that add up to a life well&nbsp;lived.</p>
+        <p>Cheers,<br>Michael and Rob</p>
+      </div>
+      <img class="story-photo" src="../assets/slides/03.jpg" alt="Grandma Dot, smiling on a stool at the window counter in Roscoe Village, with a coffee and a croissant beneath a large painting of a park" loading="lazy">
     </div>
-    <p class="note" style="margin-top:2.5rem"><strong>Positioning line (current site):</strong> Coffee and light fare in Chicago.</p>
-    <span class="todo">Do we want a one-line tagline beyond “Coffee and light fare”?</span>
   </section>
 
   <!-- ================= 02 LOGO ================= -->
   <section id="logo">
     <div class="section-head">
-      <div><div class="section-num">02</div><h2 class="display">The wordmark</h2></div>
+      <div><h2 class="display">Wordmark</h2></div>
       <p>The Dot’s wordmark is hand-lettered: loose, looping and personal, like a signature on a birthday card. It’s our main identifier and appears on every page, cup and sign.</p>
     </div>
 
@@ -392,7 +399,7 @@
   <!-- ================= 03 FLOWER ================= -->
   <section id="flower">
     <div class="section-head">
-      <div><div class="section-num">03</div><h2 class="display">The flower</h2></div>
+      <div><h2 class="display">Flower</h2></div>
       <p>The flower is our secondary mark: a hand-drawn bloom in Flower Peach. It adds warmth and a bit of play, and it never replaces the wordmark.</p>
     </div>
     <div class="grid g3">
@@ -416,7 +423,7 @@
   <!-- ================= 04 COLOR ================= -->
   <section id="color">
     <div class="section-head">
-      <div><div class="section-num">04</div><h2 class="display">Color</h2></div>
+      <div><h2 class="display">Color</h2></div>
       <p>A warm, sun-faded palette. Deep green and cream do most of the work, and peach brings the joy. These are the exact values used on dots-cafe.com.</p>
     </div>
 
@@ -454,7 +461,7 @@
   <!-- ================= 05 TYPE ================= -->
   <section id="type">
     <div class="section-head">
-      <div><div class="section-num">05</div><h2 class="display">Typography</h2></div>
+      <div><h2 class="display">Typography</h2></div>
       <p>Two faces from the same foundry. Instrument Serif brings the personality, and Instrument Sans does the everyday work. Both are free on Google Fonts.</p>
     </div>
 
@@ -506,7 +513,7 @@ font-synthesis: none;</pre>
   <!-- ================= 06 VOICE ================= -->
   <section id="voice">
     <div class="section-head">
-      <div><div class="section-num">06</div><h2 class="display">Voice</h2></div>
+      <div><h2 class="display">Voice</h2></div>
       <p>We sound like the grandkid behind the counter: friendly, a little wry, and never trying too hard. We write short and plain, and we let the coffee and pastries speak for themselves.</p>
     </div>
     <div class="grid g4 voice-traits">
@@ -536,7 +543,7 @@ font-synthesis: none;</pre>
   <!-- ================= 07 PHOTOGRAPHY ================= -->
   <section id="photo">
     <div class="section-head">
-      <div><div class="section-num">07</div><h2 class="display">Photography</h2></div>
+      <div><h2 class="display">Photography</h2></div>
       <p>Natural light, warm tones, real texture. The space and the food are shot up close and honestly, with crumbs and foam and fingerprints. It should look like a sunny morning at Dot’s, not a studio.</p>
     </div>
     <div class="photo-grid">
@@ -558,7 +565,7 @@ font-synthesis: none;</pre>
   <!-- ================= 08 DETAILS ================= -->
   <section id="details">
     <div class="section-head">
-      <div><div class="section-num">08</div><h2 class="display">Graphic details</h2></div>
+      <div><h2 class="display">Details</h2></div>
       <p>Small, consistent pieces that make things feel like Dot’s. Everything is soft-cornered (6px radius), flat, and hand-touched. There are no gradients or drop shadows.</p>
     </div>
     <div class="grid g2">
@@ -595,7 +602,7 @@ font-synthesis: none;</pre>
   <!-- ================= 09 IN USE ================= -->
   <section id="apps">
     <div class="section-head">
-      <div><div class="section-num">09</div><h2 class="display">In use</h2></div>
+      <div><h2 class="display">In Use</h2></div>
       <p>Quick sketches of how the system comes together. These are starting points, not final designs.</p>
     </div>
     <div>
@@ -627,7 +634,7 @@ font-synthesis: none;</pre>
   <!-- ================= 10 BASICS ================= -->
   <section id="basics">
     <div class="section-head">
-      <div><div class="section-num">10</div><h2 class="display">The basics</h2></div>
+      <div><h2 class="display">Basics</h2></div>
       <p>The facts to keep consistent everywhere.</p>
     </div>
     <dl class="facts">
@@ -664,7 +671,7 @@ font-synthesis: none;</pre>
   <!-- ================= 11 DOWNLOADS ================= -->
   <section id="downloads">
     <div class="section-head">
-      <div><div class="section-num">11</div><h2 class="display">Downloads</h2></div>
+      <div><h2 class="display">Downloads</h2></div>
       <p>Everything from the press kit in one place: the marks and the house photography. Follow the rules above when you use them.</p>
     </div>
 
