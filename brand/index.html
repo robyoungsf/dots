@@ -179,10 +179,9 @@
     .frame::before, .frame::after { content: ""; position: absolute; background: var(--green); opacity: .18; }
     .frame::before { left: 50%; top: 0; bottom: 0; width: 1px; }
     .frame::after { top: 50%; left: 0; right: 0; height: 1px; }
-    .frame .drink { position: relative; z-index: 1; border-radius: 50%; background: var(--peach); border: 1px solid var(--green); aspect-ratio: 1; width: 26%; }
-    .frame.close .drink { width: 58%; }
-    .frame.port .drink { width: 40%; }
-    .frame.port.close .drink { width: 80%; }
+    .frame .drink { position: relative; z-index: 1; display: block; height: auto; width: 26%; overflow: visible; }
+    .frame .drink .cup { fill: var(--peach); stroke: var(--green); stroke-width: 1.5; stroke-linejoin: round; }
+    .frame .drink .handle { fill: none; stroke: var(--green); stroke-width: 1.5; }
     .rule-list { margin: 0; padding: 0; list-style: none; }
     .rule-list li { padding: .75rem 0; border-top: 1px solid var(--olive); }
     .rule-list li:last-child { border-bottom: 1px solid var(--olive); }
@@ -637,11 +636,8 @@ font-synthesis: none;</pre>
       <div class="col-head">Landscape · desktop</div>
       <div class="col-head">Portrait · mobile</div>
       <div class="axis">Wide</div>
-      <div><div class="frame land"><span class="drink" style="width:20%"></span></div><div class="label">Wide, landscape: drink centered, room on all sides</div></div>
-      <div><div class="frame port"><span class="drink" style="width:30%"></span></div><div class="label">Wide, portrait: drink centered, room on all sides</div></div>
-      <div class="axis">Close</div>
-      <div><div class="frame land close"><span class="drink"></span></div><div class="label">Close, landscape: drink fills about half the frame</div></div>
-      <div><div class="frame port close"><span class="drink"></span></div><div class="label">Close, portrait: drink fills most of the width</div></div>
+      <div><div class="frame land"><svg class="drink" viewBox="26 30 68 56" role="img" aria-label="Drink placeholder" style="width:22%"><path class="handle" d="M80 45 Q93 45 92 58 Q91 66 79 65"/><path class="cup" d="M40 40 H80 L76 78 H44 Z"/></svg></div><div class="label">Wide, landscape: drink centered, room on all sides</div></div>
+      <div><div class="frame port"><svg class="drink" viewBox="26 30 68 56" role="img" aria-label="Drink placeholder" style="width:36%"><path class="handle" d="M80 45 Q93 45 92 58 Q91 66 79 65"/><path class="cup" d="M40 40 H80 L76 78 H44 Z"/></svg></div><div class="label">Wide, portrait: drink centered, room on all sides</div></div>
     </div>
     <ul class="rule-list" style="margin-top:2rem">
       <li><strong>Center the drink.</strong> Roughly centered in every frame, so it holds up when the site crops the photo to a different shape.</li>
