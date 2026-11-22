@@ -123,15 +123,19 @@
       margin: var(--cover-margin); border-radius: .75rem;
       min-height: calc(100vh - 2 * var(--cover-margin)); min-height: calc(100svh - 2 * var(--cover-margin));
       display: flex; flex-direction: column; justify-content: space-between;
-      padding: var(--inset);
+      /* Clear space: x = 0.23 × wordmark width, 0.49 × flower width (flower x = its radius). */
+      --wordmark-w: min(96px, 26vw);
+      --flower-w: min(18vw, 76px);
+      --flower-x: calc(var(--flower-w) * 0.49);
+      padding: max(var(--inset), var(--flower-x));
       background: var(--green); color: var(--cream);
       border: 0;
     }
     .cover .wordmark { width: min(96px, 26vw); color: var(--cream); }
-    .cover-foot { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .cover-foot { display: flex; align-items: center; justify-content: space-between; gap: max(2rem, var(--flower-x)); }
     .cover h1 { font-size: clamp(1.6rem, 3.2vw, 2.6rem); margin: 0; color: var(--cream); }
     .cover .flower-mark {
-      flex: none; width: min(18vw, 76px);
+      flex: none; width: var(--flower-w);
       color: var(--peach); opacity: .95; pointer-events: none;
     }
 
@@ -320,7 +324,7 @@
       .layout { grid-template-columns: 1fr; }
       .toc {
         height: auto; z-index: 5; flex-direction: row; justify-content: flex-start; gap: 1.1rem; overflow-x: auto; white-space: nowrap;
-        padding: .6rem var(--gap); background: var(--cream);
+        padding: .6rem 0 .6rem var(--gap); background: var(--cream);
         scrollbar-width: none; box-shadow: 0 1px 0 color-mix(in srgb, var(--green) 8%, transparent);
       }
       .toc::-webkit-scrollbar { display: none; }
