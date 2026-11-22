@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dot’s — Brand Guide (Draft)</title>
   <meta name="robots" content="noindex">
+  <meta name="description" content="How Dot’s looks, sounds and shows up: wordmark, flower, color, type, voice, photography and downloads.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Dot’s">
+  <meta property="og:title" content="Dot’s — Brand Guide">
+  <meta property="og:description" content="How Dot’s looks, sounds and shows up: wordmark, flower, color, type, voice, photography and downloads.">
+  <meta property="og:url" content="https://dots-cafe.com/brand/">
+  <meta property="og:image" content="https://dots-cafe.com/brand/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Dot’s Brand Guide: the cream wordmark and a peach flower on dark green">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://dots-cafe.com/brand/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Instrument+Serif&display=swap" rel="stylesheet">
@@ -106,16 +118,20 @@
     /* ---- Cover ---- */
     .cover {
       position: relative; overflow: hidden;
-      min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: space-between;
+      /* A card inset from the screen edge, filling the rest of the first screen. */
+      --cover-margin: 1.5rem;
+      margin: var(--cover-margin); border-radius: .75rem;
+      min-height: calc(100vh - 2 * var(--cover-margin)); min-height: calc(100svh - 2 * var(--cover-margin));
+      display: flex; flex-direction: column; justify-content: space-between;
       padding: var(--inset);
       background: var(--green); color: var(--cream);
       border: 0;
     }
-    .cover .wordmark { width: min(130px, 32vw); color: var(--cream); }
+    .cover .wordmark { width: min(96px, 26vw); color: var(--cream); }
     .cover-foot { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
     .cover h1 { font-size: clamp(1.6rem, 3.2vw, 2.6rem); margin: 0; color: var(--cream); }
     .cover .flower-mark {
-      flex: none; width: min(16vw, 150px);
+      flex: none; width: min(18vw, 76px);
       color: var(--peach); opacity: .95; pointer-events: none;
     }
 
