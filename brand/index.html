@@ -97,6 +97,8 @@
     }
     section > .todo { align-self: flex-start; }
     .section-head { margin-bottom: 3.5rem; }
+    /* A hairline between sections, sitting just above each title. */
+    section + section > .section-head { border-top: 1px solid var(--olive); padding-top: 2rem; }
     .section-num { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 1.2rem; letter-spacing: .04em; opacity: .7; }
     .section-head h2 { margin: .4rem 0 0; white-space: nowrap; font-size: clamp(2.6rem, 6vw, 4.5rem); }
     .section-head p { margin: 1.25rem 0 0; font-size: 1.15rem; max-width: 38em; }
@@ -170,30 +172,32 @@
     }
 
     /* ---- Photos of drinks ---- */
-    .shot-grid { display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem 1.5rem; align-items: start; margin-top: 1.5rem; }
-    .shot-grid .axis { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .8rem; letter-spacing: .04em; opacity: .7; align-self: center; writing-mode: vertical-rl; transform: rotate(180deg); }
-    .shot-grid .col-head { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .8rem; letter-spacing: .04em; opacity: .7; }
-    .frame { position: relative; background: var(--paper); border: 1px dashed var(--green); border-radius: .375rem; overflow: hidden; display: grid; place-items: center; }
+    .shot-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem 1.5rem; align-items: start; margin-top: 1.5rem; }
+    .shot-grid .col-head { font-weight: 600; font-size: 1.05rem; }
+    .shot-grid .col-head .note { font-weight: 400; margin: .3rem 0 0; }
+    .frame { position: relative; background: var(--paper); border: 1px dashed color-mix(in srgb, var(--green) 30%, transparent); border-radius: 0; overflow: hidden; display: grid; place-items: center; }
     .frame.land { aspect-ratio: 16 / 10; }
     .frame.port { aspect-ratio: 3 / 4; }
     .frame::before, .frame::after { content: ""; position: absolute; background: var(--green); opacity: .18; }
     .frame::before { left: 50%; top: 0; bottom: 0; width: 1px; }
     .frame::after { top: 50%; left: 0; right: 0; height: 1px; }
     .frame .drink { position: relative; z-index: 1; display: block; height: auto; width: 26%; overflow: visible; }
-    .frame .drink .cup { fill: var(--peach); stroke: var(--green); stroke-width: 1.5; stroke-linejoin: round; }
-    .frame .drink .handle { fill: none; stroke: var(--green); stroke-width: 1.5; }
+    .frame .drink .cup { fill: #B5452F; stroke: var(--green); stroke-width: 1.5; stroke-linejoin: round; }
+    .frame .drink .handle { fill: #B5452F; stroke: var(--green); stroke-width: 1.5; stroke-linejoin: round; }
+    .frame .drink .glass { fill: color-mix(in srgb, var(--paper) 60%, white); stroke: color-mix(in srgb, var(--green) 45%, transparent); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+    .frame .drink .latte { fill: #D6BC96; }
+    .frame .drink .foam-band { fill: #F4E8D2; }
+    .frame .drink .foam-top { fill: #FBF3E4; stroke: color-mix(in srgb, var(--green) 35%, transparent); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+    .frame .drink .glass-line { stroke: var(--green); stroke-width: 1px; vector-effect: non-scaling-stroke; opacity: .35; }
+    .frame .drink .saucer { fill: #B5452F; stroke: var(--green); stroke-width: 1.5; stroke-linejoin: round; }
+    .frame .drink .foam { fill: var(--cream); stroke: var(--green); stroke-width: 1.5; }
     .rule-list { margin: 0; padding: 0; list-style: none; }
     .rule-list li { padding: .75rem 0; border-top: 1px solid var(--olive); }
     .rule-list li:last-child { border-bottom: 1px solid var(--olive); }
     .angle-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
     .angle { background: var(--paper); border-radius: .375rem; padding: 1.25rem; }
-    .angle svg { width: 100%; height: auto; display: block; margin-bottom: 1rem; }
-    .angle svg .ground { stroke: var(--green); stroke-width: 1; }
-    .angle svg .cup { fill: var(--peach); stroke: var(--green); stroke-width: 1.2; }
-    .angle svg .eye { fill: var(--cream); stroke: var(--green); stroke-width: 1.2; }
-    .angle svg .iris { fill: var(--green); }
-    .angle svg .sight { stroke: var(--green); stroke-width: 1; stroke-dasharray: 3 3; fill: none; }
-    .angle strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.4rem; margin-bottom: .3rem; }
+    .angle img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; margin-bottom: 1rem; border-radius: .25rem; }
+    .angle strong { display: block; font-weight: 600; font-size: 1.05rem; margin-bottom: .3rem; }
 
     /* ---- Colour ---- */
     .swatch { border-radius: .375rem; overflow: hidden; background: var(--paper); }
@@ -236,51 +240,6 @@
     .photo-grid img { width: 100%; grid-column: span 2; aspect-ratio: 1; object-fit: cover; border-radius: .375rem; }
     .photo-grid .wide { grid-column: span 5; aspect-ratio: 16 / 9; }
 
-    /* ---- Graphic details ---- */
-    .banner-demo { background: var(--green); color: var(--peach); text-align: center; padding: .6rem 1rem .55rem; border-radius: .375rem; }
-    .banner-demo p { margin: 0; font-size: 1.15rem; }
-    .badge { display: inline-block; padding: .3rem .6rem .2rem; border-radius: 4px; background: var(--peach); color: var(--green); font-size: .8rem; letter-spacing: .04em; }
-    .link-go { display: inline-flex; gap: .5rem; align-items: center; font-size: 1.1rem; }
-    .link-go svg { transform: scaleX(-1); }
-    .hairline { border: 0; border-top: 1px solid var(--olive); margin: 1.25rem 0; }
-    .card-demo { background: var(--paper); border-radius: .375rem; padding: 2rem; }
-
-    /* ---- Applications ---- */
-    /* A letter-size page (8.5 × 11). Everything inside is sized in cqi (1% of
-       the page's width), so the whole sheet scales as one, like a print preview. */
-    .menu-board {
-      position: relative; container-type: inline-size; overflow: hidden;
-      aspect-ratio: 8.5 / 11; width: 100%; max-width: 34rem;
-      background: var(--cream); color: var(--green); border-radius: .375rem;
-      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-    }
-    .menu-page { position: absolute; inset: 0; padding: 7.5cqi; font-size: 2.6cqi; }
-    .menu-board .wordmark { width: 18cqi; margin-bottom: 6.5cqi; }
-    .menu-line { display: flex; justify-content: space-between; align-items: baseline; gap: 4cqi; padding: 1.1cqi 0; }
-    .menu-line > span:first-child { font-weight: 700; }
-    .menu-line > span:last-child { font-weight: 400; }
-    .menu-line small { display: block; font-weight: 400; font-size: .85em; opacity: .75; margin-top: .4cqi; line-height: 1.4; }
-    .menu-gap { height: 3.5cqi; }
-    /* Flower pinned bottom-right, inset to match the wordmark top-left; never cropped. */
-    .menu-board .flower-mark { position: absolute; right: 7.5cqi; bottom: 7.5cqi; width: 16cqi; color: var(--peach); }
-    .ig-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr)); gap: 1.5rem; align-items: start; margin-top: 1.5rem; }
-    .ig-photo { display: block; border-radius: .375rem; overflow: hidden; }
-    .ig-photo img { width: 100%; height: auto; display: block; transition: transform .3s ease; }
-    .ig-photo:hover img { transform: scale(1.02); }
-
-    /* ---- Basics ---- */
-    .facts { margin: 0; max-width: 56rem; }
-    .fact { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 2rem; padding: 2rem 0; border-top: 1px solid color-mix(in srgb, var(--green) 10%, transparent); }
-    .fact:last-child { border-bottom: 1px solid color-mix(in srgb, var(--green) 10%, transparent); }
-    .fact dt { font-family: var(--serif); -webkit-text-stroke: .025em currentColor; font-synthesis: none; letter-spacing: .03em; font-size: 1.35rem; line-height: 1.2; padding-top: .15rem; }
-    .fact dd { margin: 0; font-size: 1.05rem; line-height: 1.55; }
-    .fact dd a { text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--green) 25%, transparent); }
-    .fact dd a:hover { border-color: currentColor; }
-    .fact-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr)); gap: 2rem 3rem; }
-    .fact-big { display: block; font-family: var(--serif); -webkit-text-stroke: .025em currentColor; letter-spacing: .03em; font-size: 1.7rem; line-height: 1.15; margin-bottom: .4rem; }
-    .fact-label { display: block; font-size: .8rem; opacity: .6; margin-bottom: .3rem; }
-    .fact-sub { display: block; margin-top: .5rem; font-size: .9rem; opacity: .7; }
-
     /* ---- Downloads ---- */
     .dl-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); gap: 1.5rem; }
     .dl-card { background: var(--paper); border-radius: .375rem; padding: 1.5rem; display: grid; grid-template-columns: 96px 1fr auto; gap: 1.25rem; align-items: center; }
@@ -312,7 +271,7 @@
     .dl-photo:hover img { transform: scale(1.03); }
 
     /* Sections sit straight on the beige, so cream tiles get Paper to stay visible. */
-    .menu-board, .logo-stage[style^="background:var(--cream)"], .tile[style^="background:var(--cream)"], .swatch .chip[style^="background:var(--cream)"] { background: var(--paper) !important; }
+    .logo-stage[style^="background:var(--cream)"], .tile[style^="background:var(--cream)"], .swatch .chip[style^="background:var(--cream)"] { background: var(--paper) !important; }
 
     /* Tablet: slimmer nav, tighter sections. */
     @media (min-width: 761px) and (max-width: 1100px) {
@@ -345,7 +304,6 @@
       .dl-name { font-size: 1.15rem; }
       .section-head h2 { white-space: normal; }
       .cover-foot { align-items: flex-end; }
-      .fact { grid-template-columns: 1fr; gap: .75rem; }
       .story { grid-template-columns: 1fr; }
       .story-photo { order: -1; }
       .cs-wrap { grid-template-columns: 1fr; gap: 1rem; }
@@ -373,9 +331,6 @@
     <a href="#type">Typography</a>
     <a href="#voice">Voice</a>
     <a href="#photo">Photography</a>
-    <a href="#details">Details</a>
-    <a href="#apps">In Use</a>
-    <a href="#basics">Basics</a>
     <a href="#downloads">Downloads</a>
   </nav>
   <main>
@@ -614,193 +569,54 @@ font-synthesis: none;</pre>
       <div><h2 class="display">Photos of Drinks</h2></div>
       <p>Shoot drinks at the cafe, with what’s already there: the marble, the brick, the wood and the colorful tables on the&nbsp;patio.</p>
     </div>
+    <h3>Art direction</h3>
     <ul class="rule-list" style="margin-top:0">
-      <li><strong>Plain backgrounds.</strong> Marble, brick and wood keep the focus on the drink.</li>
-      <li><strong>Color from the patio.</strong> The colorful tables outside look great behind a drink. Keep them in the background.</li>
-      <li><strong>Plants.</strong> Bring in plants from around the cafe.</li>
-    </ul>
-
-
-    <ul class="rule-list" style="margin-top:1.5rem">
       <li><strong>Center the drink.</strong> The website crops photos to different shapes, so a centered drink stays in the&nbsp;frame.</li>
-      <li><strong>Shoot both ways.</strong> Take every shot in landscape and&nbsp;portrait.</li>
-      <li><strong>One prop, from the drink.</strong> Use something that’s in it, like a pumpkin for the pumpkin miso latte or a roasted marshmallow for the sweet potato latte. Just one, so the drink is still the&nbsp;star.</li>
+      <li><strong>Keep it simple.</strong> Choose uncluttered backdrops and use the marble, brick, and wood from the cafe. The patio tables are good for a pop of&nbsp;color.</li>
+      <li><strong>Illustrate the drink.</strong> Use an ingredient from the drink to illustrate what it is, like a pumpkin for a pumpkin miso&nbsp;latte.</li>
+      <li><strong>Use the right cup.</strong> Glass for cold brews and the right size red cup for hot drinks. No plastic&nbsp;cups.</li>
+      <li><strong>Plants add life.</strong> Use plants and other natural items to add life and texture to your&nbsp;photos.</li>
+      <li><strong>Be playful.</strong> Have a little fun with it: a hand holding the glass, cold foam spilling over the&nbsp;rim.</li>
+      <li><strong>Natural light is best.</strong> Shoot by a window in daylight. Keep the color warm and the background a little soft. Hands and people are&nbsp;great.</li>
+      <li><strong>Skip the flash.</strong> No blue light, heavy filters or stock-photo flat lays on white. Don’t overstyle&nbsp;it.</li>
     </ul>
 
-    <h3 style="margin-top:3.5rem">Lighting</h3>
-    <div class="grid g2 note" style="margin-top:1.25rem">
-      <div><strong>Do</strong><br>Shoot by a window in daylight. Keep the color warm and the background a little soft. Hands and people are&nbsp;great.</div>
-      <div><strong>Don’t</strong><br>Skip the flash, blue light, heavy filters and stock-photo flat lays on white. Don’t overstyle&nbsp;it.</div>
-    </div>
 
-    <h3 style="margin-top:3.5rem">Crops</h3>
+    <h3 style="margin-top:3.5rem">Composition</h3>
     <div class="shot-grid">
-      <div></div>
-      <div class="col-head">Landscape · desktop</div>
-      <div class="col-head">Portrait · mobile</div>
-      <div class="axis">Wide</div>
-      <div><div class="frame land"><svg class="drink" viewBox="26 30 68 56" role="img" aria-label="Drink placeholder" style="width:26.4%"><path class="handle" d="M80 45 Q93 45 92 58 Q91 66 79 65"/><path class="cup" d="M40 40 H80 L76 78 H44 Z"/></svg></div><div class="label">Landscape: drink in the middle, space on every side</div></div>
-      <div><div class="frame port"><svg class="drink" viewBox="26 30 68 56" role="img" aria-label="Drink placeholder" style="width:43.2%"><path class="handle" d="M80 45 Q93 45 92 58 Q91 66 79 65"/><path class="cup" d="M40 40 H80 L76 78 H44 Z"/></svg></div><div class="label">Portrait: drink in the middle, space on every side</div></div>
+      <div class="col-head">Landscape · preferred<p class="note">It works best across the website and on&nbsp;phones.</p></div>
+      <div class="col-head">Portrait · sparingly<p class="note">Use it only when a shot really needs the&nbsp;height.</p></div>
+      <div><div class="frame land"><svg class="drink" viewBox="0 3 100 53" role="img" aria-label="Latte mug on a saucer placeholder" style="width:46%"><path class="saucer" d="M4 47 H96 Q91 54 50 54 Q9 54 4 47 Z"/><path class="handle" d="M80 16 C96 13 98 33 75 36 L76 31.5 C90 29 89 19.5 80.5 21 Z"/><path class="cup" d="M17 11 H83 C83 34 72 47 59 47 H41 C28 47 17 34 17 11 Z"/><ellipse class="foam" cx="50" cy="11" rx="33" ry="3.2"/></svg></div></div>
+      <div><div class="frame port"><svg class="drink" viewBox="0 0 60 66" role="img" aria-label="Cold brew glass placeholder" style="width:38%"><path class="glass" style="stroke:none" d="M8 4 A22 2.6 0 0 1 52 4 V60 Q30 65 8 60 Z"/><path class="latte" d="M8 15 Q30 18 52 15 V56 Q30 61 8 56 Z"/><path class="foam-band" d="M8 8 V15 Q30 18 52 15 V8 Z"/><ellipse class="foam-top" cx="30" cy="8" rx="22" ry="2.6"/><path class="glass-line" d="M8 56 Q30 61 52 56"/><path class="glass" style="fill:none" d="M8 4 V60 Q30 65 52 60 V4"/><ellipse class="glass" style="fill:none" cx="30" cy="4" rx="22" ry="2.6"/></svg></div></div>
     </div>
-
 
     <h3 style="margin-top:4rem">Camera angle</h3>
-    <p class="note">Each angle shows something different. Pick one for each shot and keep the camera&nbsp;straight.</p>
     <div class="angle-grid">
       <div class="angle">
-        <svg viewBox="-10 -14 140 104" role="img" aria-label="Camera at 0 degrees to the drink">
-          <line class="ground" x1="0" x2="120" y1="80" y2="80"/>
-          <path class="cup" d="M40 40 H80 L76 78 H44 Z"/>
-          <line class="sight" x1="-2.0" y1="60.0" x2="60" y2="60"/>
-          <g transform="translate(-2.0 60.0)"><path class="eye" d="M-9 0 Q0 -7 9 0 Q0 7 -9 0 Z"/><circle class="iris" cx="0" cy="0" r="2.8"/></g>
-          
-        </svg>
+        <img src="assets/zero-degrees.jpg" alt="An iced latte with a toasted marshmallow, shot at eye level on the marble counter" loading="lazy">
         <strong>Eye level · 0°</strong>
-        <p class="note" style="margin:0">Shows how tall the drink is and its layers. Good for iced drinks and&nbsp;foam.</p>
+        <p class="note" style="margin:0">Good for showing layers of drinks served in&nbsp;glasses.</p>
       </div>
       <div class="angle">
-        <svg viewBox="-10 -14 140 104" role="img" aria-label="Camera at 45 degrees to the drink">
-          <line class="ground" x1="0" x2="120" y1="80" y2="80"/>
-          <path class="cup" d="M40 40 H80 L76 78 H44 Z"/>
-          <line class="sight" x1="16.2" y1="16.2" x2="60" y2="60"/>
-          <g transform="translate(16.2 16.2)"><path class="eye" d="M-9 0 Q0 -7 9 0 Q0 7 -9 0 Z"/><circle class="iris" cx="0" cy="0" r="2.8"/></g>
-          
-        </svg>
+        <img src="assets/three-quarter.jpg" alt="A pumpkin latte in a red mug and saucer next to a small pumpkin, shot from three-quarter view" loading="lazy">
         <strong>Three-quarter · 45°</strong>
-        <p class="note" style="margin:0">Our go-to. You see the top and the side.</p>
+        <p class="note" style="margin:0">Good for showing textures and&nbsp;garnishes.</p>
       </div>
       <div class="angle">
-        <svg viewBox="-10 -14 140 104" role="img" aria-label="Camera at 90 degrees to the drink">
-          <line class="ground" x1="0" x2="120" y1="80" y2="80"/>
-          <path class="cup" d="M40 40 H80 L76 78 H44 Z"/>
-          <line class="sight" x1="60.0" y1="0.0" x2="60" y2="60"/>
-          <g transform="translate(60.0 0.0)"><path class="eye" d="M-9 0 Q0 -7 9 0 Q0 7 -9 0 Z"/><circle class="iris" cx="0" cy="0" r="2.8"/></g>
-          
-        </svg>
+        <img src="assets/ninety-degrees.jpg" alt="Two iced drinks topped with dried apple, shot from overhead on a green patio table" loading="lazy">
         <strong>Overhead · 90°</strong>
-        <p class="note" style="margin:0">Good for latte art and pastry boards. Don’t overdo&nbsp;it.</p>
+        <p class="note" style="margin:0">Use sparingly, best on really simple&nbsp;backgrounds.</p>
       </div>
     </div>
 
-    <h3 style="margin-top:4rem">Example photos</h3>
-    <p class="note">Photos to follow. We’ll pick them once these rules are&nbsp;final.</p>
-    <span class="todo">Pick the example photos.</span>
   </section>
-
-  <!-- ================= 08 DETAILS ================= -->
-  <section id="details">
-    <div class="section-head">
-      <div><h2 class="display">Details</h2></div>
-      <p>The small stuff. Corners are slightly rounded (6px), everything is flat, and we don’t use gradients or drop&nbsp;shadows.</p>
-    </div>
-    <div class="grid g2">
-      <div>
-        <h3>Announcement banner</h3>
-        <div class="banner-demo"><p class="display">We will be closed Thanksgiving Day</p></div>
-        <p class="note">A green bar with peach serif text. One short sentence. No exclamation&nbsp;points.</p>
-      </div>
-      <div>
-        <h3>Badge</h3>
-        <p><span class="badge">Roscoe Village only</span>&nbsp; <span class="badge">Coming soon</span>&nbsp; <span class="badge">New</span></p>
-        <p class="note">Peach background, green text, 4px corners. Only for short&nbsp;labels.</p>
-      </div>
-      <div>
-        <h3>Hand-drawn arrow</h3>
-        <p class="link-go">Visit
-          <svg width="18" height="16" viewBox="0 0 18 16" fill="none" aria-hidden="true"><path d="M17 8.4c-3.6-.6-7.3-.3-11 .1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10.5 2.5C8.2 4.3 5.5 6.2 3 8.3c2.4 1.7 4.9 3.2 7.2 5.1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
-        <p class="note">This is our one icon: a wobbly single line, like the wordmark. If we need new icons, we draw them the same way instead of using stock&nbsp;icons.</p>
-      </div>
-      <div>
-        <h3>Cards &amp; rules</h3>
-        <div class="card-demo">
-          <div class="display" style="font-size:1.8rem">Fulton Market</div>
-          <hr class="hairline">
-          <div style="font-size:.95rem">1001 W Fulton Market<br>Chicago, IL 60607<br>Open 7a–1p every day</div>
-        </div>
-        <p class="note">Light cards on cream, with thin olive lines between&nbsp;sections.</p>
-      </div>
-    </div>
-    <h3 style="margin-top:3rem">Wordmark top-left, flower bottom-right</h3>
-    <p class="note">Both are set in from the edge by the same margin (about 7.3rem on desktop), and everything else goes in between. Leave plenty of space, and let photos run edge to&nbsp;edge.</p>
-  </section>
-
-  <!-- ================= 09 IN USE ================= -->
-  <section id="apps">
-    <div class="section-head">
-      <div><h2 class="display">In Use</h2></div>
-      <p>Rough examples of how it all fits together. Not final&nbsp;designs.</p>
-    </div>
-    <div>
-      <div class="menu-board"><div class="menu-page">
-        <span class="wordmark" role="img" aria-label="Dot’s"></span>
-        <div class="menu-line"><span>Espresso</span><span>4</span></div>
-        <div class="menu-line"><span>Espresso + Milk</span><span>6</span></div>
-        <div class="menu-line"><span>Smoky Rose Cardamom Latte</span><span>7</span></div>
-        <div class="menu-line"><span>Iced Latte w/ Raspberry Cold Foam</span><span>7</span></div>
-        <div class="menu-line"><span>Cold Brew</span><span>6</span></div>
-        <div class="menu-line"><span>Pumpkin Miso Latte w/ Whipped Cream</span><span>7.5</span></div>
-        <div class="menu-gap"></div>
-        <div class="menu-line"><span>Plain Croissant</span><span>4</span></div>
-        <div class="menu-line"><span>Kouign-Amann</span><span>7</span></div>
-        <div class="menu-line"><span>Breakfast Sandwich<small>Capicola, smoked mozz, 7-minute egg, Calabrian aioli, pecorino</small></span><span>9</span></div>
-      </div><span class="flower-mark" aria-hidden="true"></span></div>
-    </div>
-
-    <h3 style="margin-top:3.5rem">On Instagram</h3>
-    <div class="ig-row">
-      <a class="ig-photo" href="https://www.instagram.com/p/DfiDM61D9OB/" target="_blank" rel="noopener"><img src="../assets/instagram/ig-DfiDM61D9OB.jpg" alt="Dot’s on Instagram" loading="lazy" style="aspect-ratio:3 / 4"></a>
-      <a class="ig-photo" href="https://www.instagram.com/p/Dfaw8J9Gb2M/" target="_blank" rel="noopener"><img src="../assets/instagram/ig-Dfaw8J9Gb2M.jpg" alt="Dot’s on Instagram" loading="lazy" style="aspect-ratio:1 / 1"></a>
-      <a class="ig-photo" href="https://www.instagram.com/p/DdW3Y1kTc5T/" target="_blank" rel="noopener"><img src="../assets/instagram/ig-DdW3Y1kTc5T.jpg" alt="Dot’s on Instagram" loading="lazy" style="aspect-ratio:3 / 4"></a>
-    </div>
-
-    <span class="todo">Signs, cup sleeves, bags, stickers, and merch like the All Purpose Hat.</span>
-  </section>
-
-  <!-- ================= 10 BASICS ================= -->
-  <section id="basics">
-    <div class="section-head">
-      <div><h2 class="display">Basics</h2></div>
-      <p>Names, places and people. Keep these the same&nbsp;everywhere.</p>
-    </div>
-    <dl class="facts">
-      <div class="fact">
-        <dt>Name</dt>
-        <dd><span class="fact-big">Dot’s</span><span class="fact-sub">or Dot’s Cafe when it needs more context. Never “Dots,” “DOTS” or “Dot’s&nbsp;Coffee.”</span></dd>
-      </div>
-      <div class="fact">
-        <dt>Locations</dt>
-        <dd class="fact-cols">
-          <div><span class="fact-big">Roscoe Village</span>2000 Addison St<br>Chicago, IL 60618<span class="fact-sub">7a–7p every day</span></div>
-          <div><span class="fact-big">Fulton Market</span>Inside Estereo<br>1001 W Fulton Market<br>Chicago, IL 60607<span class="fact-sub">7a–1p every day</span></div>
-        </dd>
-      </div>
-      <div class="fact">
-        <dt>Partners</dt>
-        <dd class="fact-cols">
-          <div><span class="fact-label">Coffee</span>Metric<br>Four Letter Word<br>Hexe</div>
-          <div><span class="fact-label">Baked goods</span>Publican Quality Breads</div>
-        </dd>
-      </div>
-      <div class="fact">
-        <dt>Art</dt>
-        <dd>Brian Lotti<br>Michael Kempen<br>Nancy Kalebich<span class="fact-sub">The Artist Series benefits Project Onward.</span></dd>
-      </div>
-      <div class="fact">
-        <dt>Contact</dt>
-        <dd><a href="mailto:hello@dots-cafe.com">hello@dots-cafe.com</a><br><a href="https://www.instagram.com/_dotscafe" target="_blank" rel="noopener">@_dotscafe</a><br><a href="https://dots-cafe.com" target="_blank" rel="noopener">dots-cafe.com</a></dd>
-      </div>
-    </dl>
-  </section>
-
 
   <!-- ================= 11 DOWNLOADS ================= -->
   <section id="downloads">
     <div class="section-head">
       <div><h2 class="display">Downloads</h2></div>
-      <p>The press kit: our wordmark, the flower and our photos. Please follow this guide when you use&nbsp;them.</p>
     </div>
 
-    <h3>Wordmark and flower</h3>
     <div class="dl-row">
       <a class="dl-card" href="../assets/dots-logo.svg" download="dots-wordmark.svg">
         <div class="preview"><span class="wordmark" style="color:var(--green)"></span></div>
