@@ -190,7 +190,8 @@
     .angle svg { width: 100%; height: auto; display: block; margin-bottom: 1rem; }
     .angle svg .ground { stroke: var(--green); stroke-width: 1; }
     .angle svg .cup { fill: var(--peach); stroke: var(--green); stroke-width: 1.2; }
-    .angle svg .cam { fill: var(--green); }
+    .angle svg .eye { fill: var(--cream); stroke: var(--green); stroke-width: 1.2; }
+    .angle svg .iris { fill: var(--green); }
     .angle svg .sight { stroke: var(--green); stroke-width: 1; stroke-dasharray: 3 3; fill: none; }
     .angle strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.4rem; margin-bottom: .3rem; }
 
@@ -629,15 +630,13 @@ font-synthesis: none;</pre>
     <h3 style="margin-top:4rem">Photos of Drinks</h3>
     <p class="note">Drinks get their own rules. Every drink is shot at a wide and a close crop, so one photo can work in a full-width hero and on a phone.</p>
 
-    <h3 style="margin-top:3rem">Website</h3>
-    <p class="note">The site shows drinks from desktop widths down to mobile, and everything in between. Shoot both crops, each in landscape and portrait.</p>
     <div class="shot-grid">
       <div></div>
       <div class="col-head">Landscape · desktop</div>
       <div class="col-head">Portrait · mobile</div>
       <div class="axis">Wide</div>
-      <div><div class="frame land"><svg class="drink" viewBox="26 30 68 56" role="img" aria-label="Drink placeholder" style="width:22%"><path class="handle" d="M80 45 Q93 45 92 58 Q91 66 79 65"/><path class="cup" d="M40 40 H80 L76 78 H44 Z"/></svg></div><div class="label">Wide, landscape: drink centered, room on all sides</div></div>
-      <div><div class="frame port"><svg class="drink" viewBox="26 30 68 56" role="img" aria-label="Drink placeholder" style="width:36%"><path class="handle" d="M80 45 Q93 45 92 58 Q91 66 79 65"/><path class="cup" d="M40 40 H80 L76 78 H44 Z"/></svg></div><div class="label">Wide, portrait: drink centered, room on all sides</div></div>
+      <div><div class="frame land"><svg class="drink" viewBox="26 30 68 56" role="img" aria-label="Drink placeholder" style="width:26.4%"><path class="handle" d="M80 45 Q93 45 92 58 Q91 66 79 65"/><path class="cup" d="M40 40 H80 L76 78 H44 Z"/></svg></div><div class="label">Wide, landscape: drink centered, room on all sides</div></div>
+      <div><div class="frame port"><svg class="drink" viewBox="26 30 68 56" role="img" aria-label="Drink placeholder" style="width:43.2%"><path class="handle" d="M80 45 Q93 45 92 58 Q91 66 79 65"/><path class="cup" d="M40 40 H80 L76 78 H44 Z"/></svg></div><div class="label">Wide, portrait: drink centered, room on all sides</div></div>
     </div>
     <ul class="rule-list" style="margin-top:2rem">
       <li><strong>Center the drink.</strong> Roughly centered in every frame, so it holds up when the site crops the photo to a different shape.</li>
@@ -647,11 +646,11 @@ font-synthesis: none;</pre>
     <span class="todo">Confirm the close crop ratio with the web team.</span>
 
     <h3 style="margin-top:4rem">Props</h3>
-    <p class="note">Props support the drink and never compete with it.</p>
+    <p class="note">Props help people understand what’s in the drink first. They never compete with it.</p>
     <ul class="rule-list" style="margin-top:1.5rem">
       <li><strong>Tableware in the palette.</strong> Cream, Dot’s Green or Flower Peach cups, plates and saucers.</li>
-      <li><strong>One supporting prop at most.</strong> A napkin, spoon or pastry is enough. Keep the drink as the subject.</li>
-      <li><strong>Real and used.</strong> Show a worn table, a folded napkin, a spoon left on the saucer. No styled sets.</li>
+      <li><strong>Props tell the drink’s story.</strong> Use an ingredient that is in the drink, so people see what’s inside first: a pumpkin for the pumpkin miso latte, a roasted marshmallow for the marshmallow sweet potato latte.</li>
+      <li><strong>One supporting prop at most.</strong> Keep the drink as the subject.</li>
     </ul>
     <span class="todo">Are plants, flowers or the Dot’s flower allowed as props?</span>
 
@@ -663,7 +662,8 @@ font-synthesis: none;</pre>
           <line class="ground" x1="0" x2="120" y1="80" y2="80"/>
           <path class="cup" d="M40 40 H80 L76 78 H44 Z"/>
           <line class="sight" x1="-2.0" y1="60.0" x2="60" y2="60"/>
-          <rect class="cam" x="-9.0" y="55.0" width="14" height="10" rx="2" transform="rotate(0 -2.0 60.0)"/>
+          <g transform="translate(-2.0 60.0)"><path class="eye" d="M-9 0 Q0 -7 9 0 Q0 7 -9 0 Z"/><circle class="iris" cx="0" cy="0" r="2.8"/></g>
+          
         </svg>
         <strong>Eye level · 0°</strong>
         <p class="note" style="margin:0">Shows the drink’s height, layers and glass. Use for iced drinks and foam.</p>
@@ -673,7 +673,8 @@ font-synthesis: none;</pre>
           <line class="ground" x1="0" x2="120" y1="80" y2="80"/>
           <path class="cup" d="M40 40 H80 L76 78 H44 Z"/>
           <line class="sight" x1="16.2" y1="16.2" x2="60" y2="60"/>
-          <rect class="cam" x="9.2" y="11.2" width="14" height="10" rx="2" transform="rotate(-45 16.2 16.2)"/>
+          <g transform="translate(16.2 16.2)"><path class="eye" d="M-9 0 Q0 -7 9 0 Q0 7 -9 0 Z"/><circle class="iris" cx="0" cy="0" r="2.8"/></g>
+          
         </svg>
         <strong>Three-quarter · 45°</strong>
         <p class="note" style="margin:0">The default. Shows the top and the side together.</p>
@@ -683,7 +684,8 @@ font-synthesis: none;</pre>
           <line class="ground" x1="0" x2="120" y1="80" y2="80"/>
           <path class="cup" d="M40 40 H80 L76 78 H44 Z"/>
           <line class="sight" x1="60.0" y1="0.0" x2="60" y2="60"/>
-          <rect class="cam" x="53.0" y="-5.0" width="14" height="10" rx="2" transform="rotate(0 60.0 0.0)"/>
+          <g transform="translate(60.0 0.0)"><path class="eye" d="M-9 0 Q0 -7 9 0 Q0 7 -9 0 Z"/><circle class="iris" cx="0" cy="0" r="2.8"/></g>
+          
         </svg>
         <strong>Overhead · 90°</strong>
         <p class="note" style="margin:0">Flat lay for latte art and pastry boards. Use sparingly.</p>
