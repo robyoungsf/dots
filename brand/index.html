@@ -14,7 +14,7 @@
   <meta property="og:image" content="https://dots-cafe.com/brand/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Dot’s Brand Guide: the cream wordmark and a peach flower on dark green">
+  <meta property="og:image:alt" content="Dot’s Brand Guide: the cream wordmark and the flower in rose on pine">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://dots-cafe.com/brand/og.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,11 +24,12 @@
   <style>
     /* Brand tokens — lifted directly from the site's styles.css. */
     :root {
-      --green: #242D1D;   /* Dot's Green — text, accent, banner */
+      --green: #242D1D;   /* Pine — text, accent, banner */
       --cream: #F8ECD4;   /* Cream — page background */
       --sand:  #EADFC9;   /* Sand — secondary background */
       --paper: #FFF3DE;   /* Paper — cards */
-      --peach: #EC9D9D;   /* Flower Peach — the flower, banner text, badges */
+      --burgundy: #7C2529; /* Burgundy — deep accent */
+      --peach: #EC9D9D;   /* Rose — the flower, banner text, badges */
       --pink:  #F7BCE2;   /* Strip Pink — accent strip */
       --olive: #BFBA94;   /* Olive — hairline rules */
 
@@ -137,7 +138,7 @@
     }
     .cover .wordmark { width: min(96px, 26vw); color: var(--cream); }
     .cover-foot { display: flex; align-items: center; justify-content: space-between; gap: max(2rem, var(--flower-x)); }
-    .cover h1 { font-size: clamp(1.6rem, 3.2vw, 2.6rem); margin: 0; color: var(--cream); }
+    .cover h1 { font-size: clamp(1.35rem, 2.7vw, 2.2rem); margin: 0; color: var(--cream); }
     .cover .flower-mark {
       flex: none; width: var(--flower-w);
       color: var(--peach); opacity: .95; pointer-events: none;
@@ -204,12 +205,12 @@
     /* ---- Colour ---- */
     .swatch { border-radius: .375rem; overflow: hidden; background: var(--paper); }
     .swatch .chip { height: 170px; display: flex; align-items: flex-end; padding: 1rem; font-family: var(--serif); font-size: 1.6rem; -webkit-text-stroke: .025em currentColor; letter-spacing: .03em; }
-    .swatch dl { margin: 0; padding: 1rem 1.1rem 1.2rem; font-size: .82rem; display: grid; grid-template-columns: auto 1fr; gap: .25rem .9rem; }
+    .swatch dl { margin: 0; border-top: 1px solid color-mix(in srgb, var(--green) 10%, transparent); padding: 1rem 1.1rem 1.2rem; font-size: .82rem; display: grid; grid-template-columns: auto 1fr; gap: .25rem .9rem; }
     .swatch dt { opacity: .6; }
     .swatch dd { margin: 0; font-variant-numeric: tabular-nums; }
     .swatch .use { grid-column: 1 / -1; margin-top: .5rem; opacity: .9; line-height: 1.4; }
     .ratio-bar { display: flex; height: 64px; border-radius: .375rem; overflow: hidden; margin-top: 1rem; }
-    .ratio-bar div { display: flex; align-items: center; padding-left: .8rem; font-size: .8rem; }
+    .ratio-bar div { display: flex; flex-direction: column; justify-content: center; padding-left: .6rem; font-size: .8rem; line-height: 1.3; white-space: nowrap; overflow: hidden; }
     table.pairs { width: 100%; border-collapse: collapse; font-size: .9rem; }
     table.pairs td, table.pairs th { padding: .7rem .5rem; border-bottom: 1px solid var(--olive); text-align: left; }
     table.pairs th { font-weight: 500; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; }
@@ -217,13 +218,10 @@
 
     /* ---- Type ---- */
     .type-specimen { background: var(--paper); border-radius: .375rem; padding: 2.5rem; }
-    .type-specimen .big { font-size: clamp(4rem, 10vw, 8rem); margin: 0; }
-    .type-specimen .alpha { font-size: 1.4rem; word-break: break-all; margin: .75rem 0 0; }
+    .type-specimen .big { font-size: clamp(4rem, 10vw, 8rem); line-height: 1.05; margin: 0; }
+    .type-specimen .alpha { font-size: 1.4rem; line-height: 1.35; word-break: break-all; margin: .75rem 0 0; }
     .scale-row { display: grid; grid-template-columns: 160px 1fr; gap: 1.5rem; align-items: baseline; padding: 1.1rem 0; border-bottom: 1px solid var(--olive); }
     .scale-row .meta { font-size: .78rem; opacity: .7; line-height: 1.4; }
-    .stroke-compare { display: flex; gap: 3rem; flex-wrap: wrap; font-size: 3rem; }
-    .stroke-compare span { display: block; }
-    .stroke-compare small { display: block; font-family: var(--sans); font-size: .8rem; opacity: .7; -webkit-text-stroke: 0; letter-spacing: 0; margin-top: .4rem; }
 
     /* ---- Voice ---- */
     .voice-traits .tile { background: var(--paper); }
@@ -336,9 +334,9 @@
     </div>
 
     <div class="grid g3">
-      <div><div class="logo-stage" style="background:var(--cream);color:var(--green)"><span class="wordmark"></span></div><div class="label">Green on cream, the main one</div></div>
-      <div><div class="logo-stage" style="background:var(--green);color:var(--cream)"><span class="wordmark"></span></div><div class="label">Cream on green</div></div>
-      <div><div class="logo-stage" style="background:linear-gradient(rgba(36,45,29,.45),rgba(36,45,29,.45)),url(../assets/gallery/Dots_interior_KristenMendiolaMedia-1.jpg) center/cover;color:var(--cream)"><span class="wordmark"></span></div><div class="label">Cream on a photo: over a quiet spot, or with a 45% green tint</div></div>
+      <div><div class="logo-stage" style="background:var(--cream);color:var(--green)"><span class="wordmark"></span></div><div class="label">Pine on cream, the main one</div></div>
+      <div><div class="logo-stage" style="background:var(--green);color:var(--cream)"><span class="wordmark"></span></div><div class="label">Cream on pine</div></div>
+      <div><div class="logo-stage" style="background:linear-gradient(rgba(36,45,29,.45),rgba(36,45,29,.45)),url(../assets/gallery/Dots_interior_KristenMendiolaMedia-1.jpg) center/cover;color:var(--cream)"><span class="wordmark"></span></div><div class="label">Cream on a photo: over a quiet spot, or with a 45% pine tint</div></div>
     </div>
 
     <div class="cs-wrap">
@@ -366,7 +364,7 @@
       <div><div class="dont"><span class="wordmark" style="color:var(--green);transform:scaleX(1.5)"></span></div><div class="label">Stretch or squash it</div></div>
       <div><div class="dont"><span class="wordmark" style="color:#3a6fd8"></span></div><div class="label">Use colors that aren’t ours</div></div>
       <div><div class="dont"><span class="wordmark" style="color:var(--green);transform:rotate(-14deg)"></span></div><div class="label">Tilt it</div></div>
-      <div><div class="dont" style="background:var(--sand)"><span class="wordmark" style="color:var(--peach)"></span></div><div class="label">Put peach on cream (it’s hard to read)</div></div>
+      <div><div class="dont" style="background:var(--sand)"><span class="wordmark" style="color:var(--peach)"></span></div><div class="label">Put rose on cream (it’s hard to read)</div></div>
       <div><div class="dont"><span style="width:50%;filter:drop-shadow(5px 5px 0 var(--peach))"><span class="wordmark" style="color:var(--green);width:100%"></span></span></div><div class="label">Add shadows, outlines or effects</div></div>
       <div><div class="dont"><span class="display" style="font-size:3rem">Dot’s</span></div><div class="label">Type it out in a font</div></div>
       <div><div class="dont" style="background:url(../assets/gallery/Dots_croissant_KristenMendiolaMedia-28.jpg) center/cover"><span class="wordmark" style="color:var(--green)"></span></div><div class="label">Put it over a busy photo</div></div>
@@ -378,12 +376,12 @@
   <section id="flower">
     <div class="section-head">
       <div class="head-row"><h2 class="display">Flower</h2><a class="dl-btn" href="../assets/flower.svg" download="dots-flower.svg">Download SVG ↓</a></div>
-      <p>The flower is our second mark. It’s drawn by hand and it’s peach. It goes with the wordmark, never in place of&nbsp;it.</p>
+      <p>The flower is our second mark. It’s drawn by hand, in rose. It goes with the wordmark, never in place of&nbsp;it.</p>
     </div>
     <div class="grid g3">
-      <div class="tile" style="background:var(--cream)"><span class="flower-mark" style="color:var(--green);width:70%;margin:auto"></span><div class="label">Green on cream, for one-color jobs like stickers and stamps</div></div>
-      <div class="tile" style="background:var(--cream)"><img src="../assets/flower.svg" alt="The Dot’s flower in peach" style="width:70%;margin:auto"><div class="label">Peach on cream, the way it was drawn</div></div>
-      <div class="tile" style="background:var(--green)"><span class="flower-mark" style="color:var(--peach);width:70%;margin:auto"></span><div class="label" style="color:var(--cream)">Peach on green</div></div>
+      <div class="tile" style="background:var(--cream)"><span class="flower-mark" style="color:var(--green);width:70%;margin:auto"></span><div class="label">Pine on cream, for one-color jobs like stickers and stamps</div></div>
+      <div class="tile" style="background:var(--cream)"><img src="../assets/flower.svg" alt="The Dot’s flower in rose" style="width:70%;margin:auto"><div class="label">Rose on cream, the way it was drawn</div></div>
+      <div class="tile" style="background:var(--green)"><span class="flower-mark" style="color:var(--peach);width:70%;margin:auto"></span><div class="label" style="color:var(--cream)">Rose on pine</div></div>
     </div>
     <div class="grid g2" style="margin-top:2.5rem">
       <div>
@@ -471,30 +469,34 @@
       <div><h2 class="display">Color</h2></div>
     </div>
 
-    <div class="grid g3">
-      <div class="swatch"><div class="chip" style="background:var(--green);color:var(--cream)">Dot’s Green</div>
+    <div class="grid g4">
+      <div class="swatch"><div class="chip" style="background:var(--green);color:var(--cream)">Pine</div>
         <dl><dt>HEX</dt><dd>#242D1D</dd><dt>RGB</dt><dd>36 45 29</dd><dt>Pantone</dt><dd>Black 3 C</dd><dt>Token</dt><dd>--text / --accent</dd><dd class="use">Text, the wordmark, banners and dark backgrounds. We use it instead of&nbsp;black.</dd></dl></div>
       <div class="swatch"><div class="chip" style="background:var(--cream);color:var(--green)">Cream</div>
         <dl><dt>HEX</dt><dd>#F8ECD4</dd><dt>RGB</dt><dd>248 236 212</dd><dt>Pantone</dt><dd>7506 C</dd><dt>Token</dt><dd>--bg</dd><dd class="use">Our background color. We use it instead of&nbsp;white.</dd></dl></div>
-      <div class="swatch"><div class="chip" style="background:var(--peach);color:var(--green)">Flower Peach</div>
-        <dl><dt>HEX</dt><dd>#EC9D9D</dd><dt>RGB</dt><dd>236 157 157</dd><dt>Pantone</dt><dd>7606 C</dd><dt>Token</dt><dd>—</dd><dd class="use">The flower, banner text on green, and&nbsp;badges.</dd></dl></div>
+      <div class="swatch"><div class="chip" style="background:var(--peach);color:var(--burgundy)">Rose</div>
+        <dl><dt>HEX</dt><dd>#EC9D9D</dd><dt>RGB</dt><dd>236 157 157</dd><dt>Pantone</dt><dd>7606 C</dd><dt>Token</dt><dd>—</dd><dd class="use">The flower, banner text on pine, and&nbsp;badges.</dd></dl></div>
+      <div class="swatch"><div class="chip" style="background:var(--burgundy);color:var(--cream)">Burgundy</div>
+        <dl><dt>HEX</dt><dd>#7C2529</dd><dt>RGB</dt><dd>124 37 41</dd><dt>Pantone</dt><dd>1815 C</dd><dt>Token</dt><dd>--burgundy</dd><dd class="use">A deep accent. Looks best with cream and&nbsp;rose.</dd></dl></div>
     </div>
 
     <h3 style="margin-top:3rem">Proportion</h3>
     <div class="ratio-bar" aria-label="Approximate color proportions">
-      <div style="flex:60;background:var(--paper)">Cream 60%</div>
-      <div style="flex:30;background:var(--green);color:var(--cream)">Green 30%</div>
-      <div style="flex:10;background:var(--peach)">Peach 10%</div>
+      <div style="flex:50;background:var(--paper)">Cream<br>50%</div>
+      <div style="flex:30;background:var(--green);color:var(--cream)">Pine<br>30%</div>
+      <div style="flex:10;background:var(--peach)">Rose<br>10%</div>
+      <div style="flex:10;background:var(--burgundy);color:var(--cream)">Burgundy<br>10%</div>
     </div>
 
     <h3 style="margin-top:3rem">Pairings that are easy to read</h3>
     <table class="pairs">
       <thead><tr><th>Pairing</th><th>Contrast</th><th>Use for</th></tr></thead>
       <tbody>
-        <tr><td><span class="pair-chip" style="background:var(--paper);color:var(--green)">Green on Cream</span></td><td>12.2 : 1</td><td>All text: body, headings, small print</td></tr>
-        <tr><td><span class="pair-chip" style="background:var(--green);color:var(--cream)">Cream on Green</span></td><td>12.2 : 1</td><td>All text</td></tr>
-        <tr><td><span class="pair-chip" style="background:var(--green);color:var(--peach)">Peach on Green</span></td><td>6.7 : 1</td><td>All text, including the banner</td></tr>
-        <tr><td><span class="pair-chip" style="background:var(--peach);color:var(--green)">Green on Peach</span></td><td>6.7 : 1</td><td>All text, badges</td></tr>
+        <tr><td><span class="pair-chip" style="background:var(--paper);color:var(--green)">Pine on Cream</span></td><td>12.2 : 1</td><td>All text: body, headings, small print</td></tr>
+        <tr><td><span class="pair-chip" style="background:var(--green);color:var(--cream)">Cream on Pine</span></td><td>12.2 : 1</td><td>All text</td></tr>
+        <tr><td><span class="pair-chip" style="background:var(--green);color:var(--peach)">Rose on Pine</span></td><td>6.7 : 1</td><td>All text, including the banner</td></tr>
+        <tr><td><span class="pair-chip" style="background:var(--peach);color:var(--green)">Pine on Rose</span></td><td>6.7 : 1</td><td>All text, badges</td></tr>
+        <tr><td><span class="pair-chip" style="background:var(--burgundy);color:var(--cream)">Cream on Burgundy</span></td><td>8.3 : 1</td><td>All text</td></tr>
       </tbody>
     </table>
   </section>
@@ -509,24 +511,17 @@
     <div class="grid g2">
       <div class="type-specimen">
         <h3>Display · Instrument Serif</h3>
-        <p class="big display">Aa Dot’s</p>
-        <p class="alpha display">abcdefghijklmnopqrstuvwxyz 0123456789 &amp; ’ —</p>
+        <p class="big display">Aa</p>
+        <p class="alpha display">abcdefghijklmnopqrstuvwxyz<br>0123456789<br>&amp; ’ “ ” – — · ! ? @ % / ( ) , . :</p>
         <p class="note" style="margin-top:1.25rem">For titles, drink names, location names, the nav and banners. Always add a <strong>0.025em text stroke</strong> in the text color and <strong>0.04em letter spacing</strong>.</p>
       </div>
       <div class="type-specimen">
         <h3>Text · Instrument Sans</h3>
-        <p class="big" style="font-weight:400">Aa 7a</p>
-        <p class="alpha">abcdefghijklmnopqrstuvwxyz 0123456789 &amp; ’ —</p>
+        <p class="big" style="font-weight:400">Aa</p>
+        <p class="alpha">abcdefghijklmnopqrstuvwxyz<br>0123456789<br>&amp; ’ “ ” – — · ! ? @ % / ( ) , . :</p>
         <p class="note" style="margin-top:1.25rem">For body copy, addresses, hours, menu descriptions, captions and buttons. Use regular (400), or 500 for small labels. Nothing&nbsp;heavier.</p>
       </div>
     </div>
-
-    <h3 style="margin-top:3.5rem">Making the serif a little heavier</h3>
-    <div class="stroke-compare">
-      <span style="font-family:var(--serif)">Smoky Rose<small>Instrument Serif as it comes, too thin when big</small></span>
-      <span class="display">Smoky Rose<small>With a 0.025em stroke, the way we use it</small></span>
-    </div>
-    <p class="note">Instrument Serif only comes in one weight, and fake bold makes it look smudged. A thin stroke thickens it&nbsp;instead.</p>
 
     <h3 style="margin-top:3.5rem">Scale</h3>
     <div class="scale-row"><div class="meta">Hero<br>Serif · 72–128px</div><div class="display" style="font-size:clamp(3rem,7vw,6rem)">Pumpkin Miso Latte</div></div>
