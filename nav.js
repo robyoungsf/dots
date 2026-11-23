@@ -237,12 +237,12 @@
     // page's green-and-photo split.
     var DARK =
       ".page--backdrop, .page--backdrop ~ .site-footer, .menu-page ~ .site-footer, .gallery, .home-hero, .locations-split, .about-split";
-    /* The scrim is for legibility over photos only, not over flat colour. So
-       it follows the same regions except the flat greens: the menu's footer,
-       and Our Story's split, where only the photo half gets it. Dark green
-       already reads the cream nav, and the gradient just muddies it. */
+    /* The scrim is for legibility over photos only, never over flat colour:
+       no footer (they're all solid green or beige), no menu, and on Our Story
+       only the photo half. Dark green already reads the cream nav, and the
+       gradient just muddies it. */
     var PHOTO =
-      ".page--backdrop, .page--backdrop ~ .site-footer, .gallery, .home-hero, .locations-split, .about-photo";
+      ".page--backdrop, .gallery, .home-hero, .locations-split, .about-photo";
     /* Measure the nav rather than assuming a fixed offset — it no longer sits
        at a constant height, so the line being tested has to follow it. */
     var band = nav.getBoundingClientRect();
