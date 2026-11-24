@@ -1846,6 +1846,9 @@ body:has(.menu-page) .site-footer::after,
   height: calc(100svh - var(--banner-h, 0px));
   overflow: hidden;
   background: var(--bg-dark);
+  /* Vertical drags still scroll the page; horizontal drags come through to
+     featured.js as a swipe between drinks. */
+  touch-action: pan-y;
 }
 
 /* Slides are stacked and cross-faded, so all of them occupy the same box and

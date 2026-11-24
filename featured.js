@@ -15,6 +15,9 @@
  * the hero is on screen). Focusing a dot also pauses the sweep, so arrowing
  * through at your own pace does not fight the timer.
  *
+ * Touch: a horizontal swipe on the hero steps to the next or previous drink,
+ * the same as the arrow keys.
+ *
  * Timing lives in the CSS: the active dot stretches into a progress bar whose
  * fill sweeps over INTERVAL, and the slide advances on that animation's end.
  * So there is no JS timer to keep in step with the bar, and under
@@ -300,6 +303,33 @@
   function step(delta) {
     show((current + delta + FEATURED.length) % FEATURED.length);
   }
+
+  /* Touch swipe: a horizontal flick steps to the next or previous drink. The
+     section is touch-action: pan-y, so the browser keeps vertical scrolling and
+     passes horizontal drags on to us (pointercancel then ends the gesture). A
+     press that barely moves is a tap and is left to the dots and pause button.
+     Mouse and pen are ignored, so a desktop click never reads as a swipe. */
+  var SWIPE_MIN = 40;
+  var swipe = null;
+  section.addEventListener("pointerdown", function (e) {
+    if (e.pointerType !== "touch" || !e.isPrimary) {
+      swipe = null;
+      return;
+    }
+    swipe = { id: e.pointerId, x: e.clientX, y: e.clientY };
+  });
+  section.addEventListener("pointerup", function (e) {
+    if (!swipe || e.pointerId !== swipe.id) return;
+    var dx = e.clientX - swipe.x;
+    var dy = e.clientY - swipe.y;
+    swipe = null;
+    if (FEATURED.length < 2) return;
+    if (Math.abs(dx) < SWIPE_MIN || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+    step(dx < 0 ? 1 : -1);
+  });
+  section.addEventListener("pointercancel", function () {
+    swipe = null;
+  });
 
   /* Left/Right step, Home/End jump to the ends — the tablist keys, since the
      dots are a tablist. Returns whether it consumed the key. */
