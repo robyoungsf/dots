@@ -248,6 +248,22 @@
     }
     .dl-btn:hover { opacity: .88; }
 
+
+    /* ---- Instagram ---- */
+    .ig-wrap { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+    .ig-frame { container-type: inline-size; }
+    .ig-post {
+      aspect-ratio: 3 / 4; border-radius: .375rem; overflow: hidden;
+      background: var(--green); color: var(--cream);
+      display: flex; flex-direction: column; padding: 11.111cqw;
+    }
+    .ig-post .wordmark { width: 20cqw; color: var(--cream); }
+    .ig-post .flower-mark { width: 13.333cqw; color: var(--peach); align-self: flex-end; }
+    .ig-post .ig-text { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 3.333cqw; }
+    .ig-post .ig-head { margin: 0; font-size: 10.093cqw; line-height: 1.02; }
+    .ig-post .ig-body { margin: 0; font-size: 3.704cqw; line-height: 1.35; }
+    @media (max-width: 760px) { .ig-wrap { grid-template-columns: 1fr; } .ig-frame { max-width: 360px; } }
+
     /* Sections sit straight on the beige, so cream tiles get Paper to stay visible. */
     .logo-stage[style^="background:var(--cream)"], .tile[style^="background:var(--cream)"], .swatch .chip[style^="background:var(--cream)"] { background: var(--paper) !important; }
 
@@ -307,6 +323,7 @@
     <a href="#color">Color</a>
     <a href="#type">Typography</a>
     <a href="#voice">Voice</a>
+    <a href="#instagram">Instagram</a>
   </nav>
   <main>
 
@@ -572,6 +589,40 @@
     <p class="note" style="margin-top:2rem">When it’s a note from us, sign it “Michael and Rob.” On Instagram (@_dotscafe), start with the drink, the pastry or the news. Tag the photographer and anyone we worked with. No&nbsp;hashtags.</p>
   </section>
 
+  <!-- ================= 08 INSTAGRAM ================= -->
+  <section id="instagram">
+    <div class="section-head">
+      <div><h2 class="display">Instagram</h2></div>
+      <p>Announcements, holidays and hours get one simple post: the wordmark, a headline, one line of text and the&nbsp;flower.</p>
+    </div>
+    <div class="ig-wrap">
+      <div>
+        <div class="ig-frame"><div class="ig-post" role="img" aria-label="Example post: the cream wordmark top left, “Happy Thanksgiving!” and “We are closed today.” centered on the left, the rose flower bottom right, on pine">
+          <span class="wordmark"></span>
+          <div class="ig-text">
+            <p class="display ig-head">Happy<br>Thanksgiving!</p>
+            <p class="ig-body">We are closed today.</p>
+          </div>
+          <span class="flower-mark"></span>
+        </div></div>
+        <div class="label">Thanksgiving 2026</div>
+      </div>
+      <div>
+        <h3>Size</h3>
+        <p class="note"><strong>1080 × 1440 px, 3:4.</strong> The profile grid crops every post to 3:4, so a square post loses its sides there. Keep everything 120&nbsp;px in from every edge. That also keeps it whole in the 4:5 feed&nbsp;crop.</p>
+        <h3 style="margin-top:2rem">Layout</h3>
+        <ul class="rule-list">
+          <li><strong>Background:</strong> pine. Wordmark and text in cream, flower in&nbsp;rose.</li>
+          <li><strong>Wordmark:</strong> top left, 216&nbsp;px wide (20% of the&nbsp;post).</li>
+          <li><strong>Flower:</strong> bottom right, 144&nbsp;px wide, two-thirds the width of the&nbsp;wordmark.</li>
+          <li><strong>Text:</strong> left-aligned with the wordmark, centered top to bottom in the space between the wordmark and the&nbsp;flower.</li>
+          <li><strong>Headline:</strong> Instrument Serif, 109&nbsp;px, line height 1.02, display treatment (0.025em stroke, 0.04em letter spacing). Two lines at&nbsp;most.</li>
+          <li><strong>Body:</strong> Instrument Sans regular, 40&nbsp;px, line height 1.35, 36&nbsp;px below the headline. One short&nbsp;sentence.</li>
+        </ul>
+        <p class="note" style="margin-top:1.5rem">Save as PNG. For anything that isn’t news, like drinks, pastries or the space, post a&nbsp;photo.</p>
+      </div>
+    </div>
+  </section>
 
   </main>
   </div>
